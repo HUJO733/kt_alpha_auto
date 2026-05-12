@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+
+    "strict": true,
+
+    "esModuleInterop": true,
+
+    "moduleResolution": "node",
+
+    "types": ["node", "@wdio/globals/types"],
+
+    "baseUrl": ".",
+
+    "paths": {
+      "@pages/*": ["pages/*"],
+      "@common/*": ["common/*"],
+      "@tests/*": ["tests/*"],
+      "@configs/*": ["configs/*"]
+    }
+  },
+
+  "include": ["./**/*.ts"],
+
+  "exclude": ["node_modules"]
+}
