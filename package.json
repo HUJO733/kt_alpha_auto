@@ -29,9 +29,12 @@
     "@playwright/test": "^1.60.0",
     "@types/node": "^25.7.0",
     "@wdio/globals": "^9.27.1",
+    "allure-playwright": "^3.8.0",
     "appium": "^3.4.2",
     "appium-uiautomator2-driver": "^7.2.3",
     "appium-xcuitest-driver": "^11.3.0",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.4.2",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3",
     "webdriverio": "^9.27.1"

@@ -1,19 +1,17 @@
-import { remote } from 'webdriverio';
-import { androidCaps } from '../../configs/appium/android.capabilities';
+import {
+  createAndroidDriver,
+  closeAndroidDriver,
+} from '../../drivers/mobile/android.driver'
 
-async function main() {
-  const driver = await remote({
-    hostname: '127.0.0.1',
-    port: 4723,
-    path: '/',
-    capabilities: androidCaps,
-  });
+(async () => {
+  const driver = await createAndroidDriver();
 
-  console.log('SESSION CREATED');
+  try {
+    console.log('SESSION CREATED');
 
-  await driver.pause(3000);
-
-  await driver.deleteSession();
-}
-
-main();
+    const source = await driver.getPageSource();
+    console.log(source);
+  } finally {
+    await closeAndroidDriver(driver);
+  }
+})();
