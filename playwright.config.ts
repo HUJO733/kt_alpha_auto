@@ -11,7 +11,11 @@ export default defineConfig({
   reporter: 'html',
 
   use: {
-    headless: false,   // 브라우저 눈에 보이게
+    headless: false,
+    viewport: null,
+    launchOptions: {
+      args: ['--start-maximized'],
+    },
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',

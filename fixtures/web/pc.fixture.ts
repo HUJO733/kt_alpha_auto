@@ -7,7 +7,7 @@ type PCFixtures = {
 export const test = base.extend<PCFixtures>({
   appPage: async ({ page }, use) => {
     // 공통 초기 세팅
-    await page.goto('https://www.google.com');
+    await page.goto('https://www.kshop.co.kr/');
 
     await use(page);
 
