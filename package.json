@@ -10,8 +10,8 @@
     "test:pc": "playwright test tests/pc",
     "test:mw": "playwright test tests/mw",
     "appium": "appium",
-    "test:android": "mocha -r ts-node/register tests/mobile/android/**/*.ts",
-    "test:ios": "mocha -r ts-node/register tests/mobile/ios/**/*.ts"
+    "test:android": "mocha -r ts-node/register tests/android/**/*.ts",
+    "test:ios": "mocha -r ts-node/register tests/ios/**/*.ts"
   },
   "repository": {
     "type": "git",
@@ -35,6 +35,8 @@
     "appium-xcuitest-driver": "^11.3.0",
     "cross-env": "^10.1.0",
     "dotenv": "^17.4.2",
+    "mocha": "^11.0.0",
+    "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3",
     "webdriverio": "^9.27.1"

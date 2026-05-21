@@ -1,26 +1,29 @@
+import { Page } from '@playwright/test';
+
 export class BasePage {
-  constructor(protected driver: WebdriverIO.Browser) {}
+  constructor(protected page: Page) {}
 
-  // 요소 클릭
+  async navigate(url: string) {
+    await this.page.goto(url);
+  }
+
   async click(selector: string) {
-    const element = await $(selector);
-
-    await element.waitForDisplayed();
-
-    await element.click();
+    await this.page.locator(selector).click();
   }
 
-  // input 요소에 text 삽입
-  async input(selector: string, text: string) {
-    const element = await $(selector);
-
-    await element.waitForDisplayed();
-
-    await element.setValue(text);
+  async fill(selector: string, text: string) {
+    await this.page.locator(selector).fill(text);
   }
 
-  // 암묵적 대기
-  async waitLoading() {
-    await driver.pause(2000);
+  async getText(selector: string): Promise<string> {
+    return await this.page.locator(selector).innerText();
+  }
+
+  async isVisible(selector: string): Promise<boolean> {
+    return await this.page.locator(selector).isVisible();
+  }
+
+  async waitForElement(selector: string) {
+    await this.page.locator(selector).waitFor({ state: 'visible' });
   }
 }
