@@ -12,10 +12,6 @@ export default defineConfig({
 
   use: {
     headless: false,
-    viewport: null,
-    launchOptions: {
-      args: ['--start-maximized'],
-    },
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -27,7 +23,10 @@ export default defineConfig({
       name: 'pc',
       testMatch: /tests\/pc\/.*\.test\.ts/,
       use: {
-        ...devices['Desktop Chrome'],
+        viewport: null,
+        launchOptions: {
+          args: ['--start-maximized'],
+        },
       },
     },
 

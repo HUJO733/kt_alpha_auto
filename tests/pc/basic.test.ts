@@ -1,6 +1,6 @@
 import { test, expect } from '../../fixtures/web/pc.fixture';
 
-test('KShop 메인 페이지 접속', async ({ appPage }) => {
+test('KT알파 쇼핑 메인 페이지 접속', async ({ appPage }) => {
   await appPage.waitForTimeout(5000);
 
   const title = await appPage.title();
