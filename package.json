@@ -10,8 +10,8 @@
     "test:pc": "playwright test tests/pc",
     "test:mw": "playwright test tests/mw",
     "appium": "appium",
-    "test:android": "mocha -r ts-node/register tests/android/**/*.ts",
-    "test:ios": "mocha -r ts-node/register tests/ios/**/*.ts"
+    "test:android": "TS_NODE_PROJECT=tsconfig.mobile.json mocha -r ts-node/register tests/android/**/*.ts",
+    "test:ios": "TS_NODE_PROJECT=tsconfig.mobile.json mocha -r ts-node/register tests/ios/**/*.ts"
   },
   "repository": {
     "type": "git",

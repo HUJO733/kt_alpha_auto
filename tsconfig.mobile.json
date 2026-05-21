@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "@wdio/globals/types"]
+  },
+  "include": [
+    "configs/appium/**/*.ts",
+    "drivers/**/*.ts",
+    "pages/mobile/**/*.ts",
+    "tests/android/**/*.ts",
+    "tests/ios/**/*.ts"
+  ]
+}
