@@ -5,17 +5,21 @@
 
     "strict": true,
 
+    "skipLibCheck": true,
+
     "esModuleInterop": true,
 
     "moduleResolution": "node",
 
-    "types": ["node", "@wdio/globals/types"],
+    "ignoreDeprecations": "6.0",
+
+    "types": ["node"],
 
     "baseUrl": ".",
 
     "paths": {
       "@pages/*": ["pages/*"],
-      "@common/*": ["common/*"],
+      "@fixtures/*": ["fixtures/*"],
       "@tests/*": ["tests/*"],
       "@configs/*": ["configs/*"]
     }
