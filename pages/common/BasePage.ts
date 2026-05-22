@@ -3,6 +3,10 @@ import { Page } from '@playwright/test';
 export class BasePage {
   constructor(protected page: Page) {}
 
+  getPage(): Page {
+    return this.page;
+  }
+
   // 지정한 URL로 이동
   async navigate(url: string) {
     await this.page.goto(url);
