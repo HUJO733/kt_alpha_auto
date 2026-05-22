@@ -1,6 +1,5 @@
 import { test, expect } from '../../fixtures/web/mw.fixture';
-import { BasePage } from '../../pages/common/BasePage';
-import { MwLocators } from '../../pages/web/mw/locators';
+import { LoginSteps } from '../../steps/mw/login.steps';
 
 // TODO: 실제 계정 정보로 교체
 const CREDENTIALS = {
@@ -8,28 +7,23 @@ const CREDENTIALS = {
   pw: '',
 };
 
-test('로그인', async ({ appPage }) => {
-  const page = new BasePage(appPage);
+test.describe('로그인', () => {
 
-  // 1. 모달창 닫기
-  await page.click(MwLocators.login.modalCloseBtn);
+  test('정상 로그인', async ({ basePage }) => {
+    const loginSteps = new LoginSteps(basePage);
 
-  // 2. 마이페이지 버튼 클릭
-  await page.click(MwLocators.login.myPageBtn);
+    await test.step('로그인 페이지 진입', async () => {
+      await loginSteps.goToLoginPage();
+    });
 
-  // 3. 로그인 버튼 클릭
-  await page.click(MwLocators.login.loginBtn);
+    await test.step('계정 정보 입력 및 제출', async () => {
+      await loginSteps.inputAndSubmit(CREDENTIALS.id, CREDENTIALS.pw);
+    });
 
-  // 4. 아이디 입력
-  await page.fill(MwLocators.login.idInput, CREDENTIALS.id);
+    await test.step('메인페이지 이동 확인', async () => {
+      await basePage.waitForURL(/m\.kshop\.co\.kr/);
+      expect(basePage.getCurrentURL()).toContain('m.kshop.co.kr');
+    });
+  });
 
-  // 5. 비밀번호 입력
-  await page.fill(MwLocators.login.pwInput, CREDENTIALS.pw);
-
-  // 6. 로그인 제출
-  await page.click(MwLocators.login.loginSubmitBtn);
-
-  // 7. 메인페이지로 이동 확인
-  await page.waitForURL(/m\.kshop\.co\.kr/);
-  expect(page.getCurrentURL()).toContain('m.kshop.co.kr');
 });
