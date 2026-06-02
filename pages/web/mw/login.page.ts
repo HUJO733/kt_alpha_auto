@@ -3,10 +3,6 @@ import { MwLocators } from './locators';
 
 export class LoginPage extends BasePage {
 
-  async closeModal() {
-    await this.click(MwLocators.login.modalCloseBtn);
-  }
-
   async clickMyPage() {
     await this.click(MwLocators.login.myPageBtn);
   }
