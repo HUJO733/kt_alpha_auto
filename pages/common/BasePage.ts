@@ -1,4 +1,5 @@
 import { Page } from '@playwright/test';
+import { CommonLocators } from './common.locators';
 
 export class BasePage {
   constructor(protected page: Page) {}
@@ -7,8 +8,18 @@ export class BasePage {
     return this.page;
   }
 
+  // 공통 팝업 모달 닫기
+  async closeModal() {
+    await this.page.locator(CommonLocators.modal.closeBtn).click();
+  }
+ 
+  // 홈페이지로 이동
+  async goToHome() {
+    await this.goToUrl(CommonLocators.urls.homePage);
+  }
+
   // 지정한 URL로 이동
-  async navigate(url: string) {
+  async goToUrl(url: string) {
     await this.page.goto(url);
   }
 
@@ -22,14 +33,19 @@ export class BasePage {
     await this.page.locator(selector).click();
   }
 
+  // index번째 요소 클릭
+  async nthClick(selector: string, index: number) {
+    await this.page.locator(selector).nth(index).click();
+  }
+
   // 요소 더블 클릭
   async doubleClick(selector: string) {
     await this.page.locator(selector).dblclick();
   }
 
-  // 요소 우클릭
-  async rightClick(selector: string) {
-    await this.page.locator(selector).click({ button: 'right' });
+  // 요소 개수 추출
+  async count(selector: string): Promise<number> {
+    return await this.page.locator(selector).count();
   }
 
   // input 요소에 텍스트 입력 (기존 값 초기화 후 입력)
@@ -115,6 +131,11 @@ export class BasePage {
   // 현재 페이지의 URL 반환
   getCurrentURL(): string {
     return this.page.url();
+  }
+
+  // 현재 URL이 특정 문자열을 포함하는지 여부 반환
+  urlContains(text: string): boolean {
+    return this.page.url().includes(text);
   }
 
   // 현재 페이지의 title 반환
