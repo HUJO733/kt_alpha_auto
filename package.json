@@ -11,7 +11,10 @@
     "test:mw": "playwright test tests/mw",
     "appium": "appium",
     "test:android": "TS_NODE_PROJECT=tsconfig.mobile.json mocha -r ts-node/register tests/android/**/*.ts",
-    "test:ios": "TS_NODE_PROJECT=tsconfig.mobile.json mocha -r ts-node/register tests/ios/**/*.ts"
+    "test:ios": "TS_NODE_PROJECT=tsconfig.mobile.json mocha -r ts-node/register tests/ios/**/*.ts",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report",
+    "allure:report": "npm run allure:generate && npm run allure:open"
   },
   "repository": {
     "type": "git",
@@ -29,6 +32,7 @@
     "@playwright/test": "^1.60.0",
     "@types/node": "^25.7.0",
     "@wdio/globals": "^9.27.1",
+    "allure-commandline": "^2.42.0",
     "allure-playwright": "^3.8.0",
     "appium": "^3.4.2",
     "appium-uiautomator2-driver": "^7.2.3",
