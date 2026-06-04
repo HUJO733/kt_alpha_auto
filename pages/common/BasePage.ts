@@ -8,10 +8,10 @@ export class BasePage {
     return this.page;
   }
 
-  // 공통 팝업 모달 닫기
+  // 공통 팝업 모달 닫기 (모달이 없으면 무시)
   async closeModal() {
-    await this.waitForElement(CommonLocators.modal.closeBtn);
-    await this.click(CommonLocators.modal.closeBtn);
+    const visible = await this.isVisible(CommonLocators.modal.closeBtn);
+    if (visible) await this.click(CommonLocators.modal.closeBtn);
   }
  
   // 홈페이지로 이동
@@ -80,6 +80,11 @@ export class BasePage {
     return await this.page.locator(selector).innerText();
   }
 
+  // 요소 여러개일 때 index번째 텍스트 내용 반환
+  async getIndexText(selector: string, index: number): Promise<string> {
+    return await this.page.locator(selector).nth(index).innerText();
+  }
+
   // 요소의 지정 attribute 값 반환
   async getAttribute(selector: string, attribute: string): Promise<string | null> {
     return await this.page.locator(selector).getAttribute(attribute);
@@ -138,17 +143,12 @@ export class BasePage {
   // 현재 URL이 특정 문자열을 포함하는지 여부 반환
   async urlContains(url: string, text: string): Promise<boolean> {
     await this.waitForURL(url)
-    return this.page.url().includes(text);
+    return this.getCurrentURL().includes(text);
   }
 
   // 0 ~ count-1 사이의 랜덤 정수 반환
   getRandomIndex(count: number): number {
     return Math.floor(Math.random() * count);
-  }
-
-  // 현재 페이지의 title 반환
-  async getTitle(): Promise<string> {
-    return await this.page.title();
   }
 
   // 스크린샷 저장 (path 미지정 시 Buffer 반환)

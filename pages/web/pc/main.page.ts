@@ -125,7 +125,7 @@ export class MainPage extends BasePage {
   // 카테고리 1depth 랜덤 인덱스 클릭
   async clickCategoryOneDepth(): Promise<number> {
     const count = await this.count(PcLocators.main.categoryOneDepthButton);
-    const randomNum = await this.getRandomIndex(count);
+    const randomNum = this.getRandomIndex(count);
     await this.nthClick(PcLocators.main.categoryOneDepthButton, randomNum);
     return randomNum;
   }
@@ -133,21 +133,21 @@ export class MainPage extends BasePage {
   // 카테고리 2depth 랜덤 인덱스 클릭
   async clickCategoryTwoDepth() {
     const count = await this.count(PcLocators.main.categoryTwoDepthButton);
-    const randomNum = await this.getRandomIndex(count);
+    const randomNum = this.getRandomIndex(count);
     await this.nthClick(PcLocators.main.categoryTwoDepthButton, randomNum);
   }
 
   // 홈쇼핑 3depth 랜덤 인덱스 클릭
   async clickHomeShoppingThreeDepth() {
     const count = await this.count(PcLocators.main.homeShoppingThreeDepthButton);
-    const randomNum = await this.getRandomIndex(count);
+    const randomNum = this.getRandomIndex(count);
     await this.nthClick(PcLocators.main.homeShoppingThreeDepthButton, randomNum);
   }
 
   // 기프트쇼 3depth 랜덤 인덱스 클릭
   async clickGiftShowThreeDepth() {
     const count = await this.count(PcLocators.main.giftShowThreeDepthButton);
-    const randomNum = await this.getRandomIndex(count - 1);
+    const randomNum = this.getRandomIndex(count - 1);
     await this.nthClick(PcLocators.main.giftShowThreeDepthButton, randomNum);
   }
 
@@ -159,8 +159,8 @@ export class MainPage extends BasePage {
   // 검색 > 인기 검색어 랜덤 클릭
   async clickPopularWord(): Promise<string> {
     const count = await this.count(PcLocators.main.popularWords);
-    const randomNum = await this.getRandomIndex(count);
-    const word = await this.getText(PcLocators.main.popularWords);
+    const randomNum = this.getRandomIndex(count);
+    const word = await this.getIndexText(PcLocators.main.popularWords, randomNum);
     await this.nthClick(PcLocators.main.popularWords, randomNum);
 
     return word;
