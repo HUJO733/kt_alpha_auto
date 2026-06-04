@@ -10,12 +10,14 @@ export class BasePage {
 
   // 공통 팝업 모달 닫기
   async closeModal() {
-    await this.page.locator(CommonLocators.modal.closeBtn).click();
+    await this.waitForElement(CommonLocators.modal.closeBtn);
+    await this.click(CommonLocators.modal.closeBtn);
   }
  
   // 홈페이지로 이동
   async goToHome() {
     await this.goToUrl(CommonLocators.urls.homePage);
+    await this.closeModal();
   }
 
   // 지정한 URL로 이동
@@ -134,8 +136,14 @@ export class BasePage {
   }
 
   // 현재 URL이 특정 문자열을 포함하는지 여부 반환
-  urlContains(text: string): boolean {
+  async urlContains(url: string, text: string): Promise<boolean> {
+    await this.waitForURL(url)
     return this.page.url().includes(text);
+  }
+
+  // 0 ~ count-1 사이의 랜덤 정수 반환
+  getRandomIndex(count: number): number {
+    return Math.floor(Math.random() * count);
   }
 
   // 현재 페이지의 title 반환
