@@ -29,10 +29,15 @@ export const PcLocators = {
     searchProduct: '(//div[contains(@class,"ProductItem_box")])[1]',
   },
   login: {
-    loginButton: '//a[text()="로그인"]',
+    loginButton: '//a[text()="로그인/회원 가입"]',
     idInput: '//input[@placeholder="아이디"]',
     pwInput: '//input[@placeholder="비밀번호"]',
     loginSubmitButton: '//span[text()="로그인"]',
     logoutButton: '//button[text()="로그아웃"]',
+    certificationRequestButton: '//span[text()="인증요청"]',
+    mdsPickProduct: '//div[contains(@class,"HeroBannerC_frame")]'
   },
+  my: {
+    myButton: '//a[text()="마이"]'
+  }
 };

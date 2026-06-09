@@ -3,11 +3,6 @@ import { PcLocators } from './locators';
 
 export class MainPage extends BasePage {
 
-  // GNB 개수 확인
-  async getNavItemCount(): Promise<number> {
-    return await this.count(PcLocators.main.navItems);
-  }
-
   // GNB 전체 순회 - 각 항목 클릭 후 main 영역 노출 여부 반환
   async isAllNavItemsVisible(): Promise<{ index: number; isVisible: boolean }[]> {
     const count = await this.count(PcLocators.main.navItems);
@@ -37,33 +32,12 @@ export class MainPage extends BasePage {
     await this.click(PcLocators.main.onAirDirectBuyButton);
   }
 
-  // ON AIR > 바로구매 버튼 클릭 > 옵션 개수 확인
-  async getOptionCount(): Promise<number> {
-    return await this.count(PcLocators.main.onAirDirectBuyOption);
-  }
-
-  // ON AIR > 바로구매 버튼 클릭 > 활성화된 옵션 클릭 (비활성화 건너뜀)
-  async clickFirstEnabledOption() {
-    const count = await this.count(PcLocators.main.onAirDirectBuyOption);
-
-    if (count === 0) return;
-
-    for (let i = 0; i < count; i++) {
-      const option = this.page.locator(PcLocators.main.onAirDirectBuyOption).nth(i);
-
-      if (await option.isEnabled()) {
-        await option.click();
-        return;
-      }
-    }
-  }
-
   // ON AIR > 바로구매 버튼 클릭 > 옵션 선택
   async selectOnAirOption() {
     await this.goToHome();
     await this.clickOnAirButton();
     await this.clickDirectBuyButton();
-    await this.clickFirstEnabledOption();
+    await this.clickFirstEnabled(PcLocators.main.onAirDirectBuyOption);
   }
 
   // ON AIR > 바로구매 버튼 클릭 > 옵션 선택 > 선물하기 클릭

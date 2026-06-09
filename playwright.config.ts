@@ -24,15 +24,35 @@ export default defineConfig({
   },
 
   projects: [
-    // PC WEB
+    // PC AUTH SETUP
     {
-      name: 'pc',
-      testMatch: /tests\/pc\/.*\.test\.ts/,
+      name: 'setup',
+      testMatch: /tests\/pc\/auth\.setup\.ts/,
       use: {
         viewport: null,
-        launchOptions: {
-          args: ['--start-maximized'],
-        },
+        launchOptions: { args: ['--start-maximized'] },
+      },
+    },
+
+    // PC WEB (auth 필요)
+    {
+      name: 'pc',
+      dependencies: ['setup'],
+      testMatch: /tests\/pc\/(?!auth\.setup|login|integrated).*\.test\.ts/,
+      use: {
+        viewport: null,
+        storageState: 'auth.json',
+        launchOptions: { args: ['--start-maximized'] },
+      },
+    },
+
+    // PC WEB (auth 불필요 - login, integrated)
+    {
+      name: 'pc-no-auth',
+      testMatch: /tests\/pc\/(login|integrated)\.test\.ts/,
+      use: {
+        viewport: null,
+        launchOptions: { args: ['--start-maximized'] },
       },
     },
 

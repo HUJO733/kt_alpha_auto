@@ -50,6 +50,11 @@ export class BasePage {
     await this.page.locator(selector).nth(index).click();
   }
 
+  // 마지막 요소 클릭
+  async lastClick(selector: string) {
+    await this.page.locator(selector).last().click();
+  }
+
   // 요소 더블 클릭
   async doubleClick(selector: string) {
     await this.page.locator(selector).dblclick();
@@ -152,8 +157,21 @@ export class BasePage {
 
   // 현재 URL이 특정 문자열을 포함하는지 여부 반환
   async urlContains(url: string, text: string): Promise<boolean> {
-    await this.waitForURL(url)
+    await this.waitForURL(new RegExp(url.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&')));
     return this.getCurrentURL().includes(text);
+  }
+
+  // 활성화된 첫 번째 요소 클릭 (비활성화 건너뜀)
+  async clickFirstEnabled(selector: string) {
+    const count = await this.count(selector);
+    if (count === 0) return;
+    for (let i = 0; i < count; i++) {
+      const option = this.page.locator(selector).nth(i);
+      if (await option.isEnabled()) {
+        await option.click();
+        return;
+      }
+    }
   }
 
   // 지정한 시간(초)만큼 대기

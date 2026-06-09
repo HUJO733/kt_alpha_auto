@@ -7,7 +7,11 @@
     "test": "tests"
   },
   "scripts": {
-    "test:pc": "playwright test tests/pc",
+    "test:pc": "playwright test --project=setup --project=pc",
+    "test:login": "playwright test tests/pc/login --project=pc-no-auth",
+    "test:main": "playwright test tests/pc/main --project=pc",
+    "test:integrated": "playwright test tests/pc/integrated --project=pc-no-auth",
+    "test:all": "playwright test --project=setup --project=pc --project=pc-no-auth",
     "test:mw": "playwright test tests/mw",
     "appium": "appium",
     "test:android": "TS_NODE_PROJECT=tsconfig.mobile.json mocha -r ts-node/register tests/android/**/*.ts",

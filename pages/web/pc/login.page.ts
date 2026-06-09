@@ -3,6 +3,11 @@ import { PcLocators } from './locators';
 
 export class LoginPage extends BasePage {
 
+  // 마이 버튼 클릭
+  async clickMyButton() {
+    await this.click(PcLocators.my.myButton);
+  }
+
   // 로그인 버튼 클릭
   async clickLoginButton() {
     await this.click(PcLocators.login.loginButton);
@@ -32,5 +37,25 @@ export class LoginPage extends BasePage {
   async isLogoutButtonVisible(): Promise<boolean> {
     await this.waitMainPage();
     return await this.isVisible(PcLocators.login.logoutButton);
+  }
+
+  // 임의 상품 클릭
+  async clickProduct() {
+    await this.click(PcLocators.login.mdsPickProduct);
+  }
+
+  // 구매하기 버튼 클릭
+  async clickBuyButtonBeforeOption() {
+    await this.click(PcLocators.main.onAirBuyButton);
+  }
+
+  // 구매하기 > 옵션 선택
+  async clickFirstEnabledOption() {
+    await this.clickFirstEnabled(PcLocators.main.onAirDirectBuyOption);
+  }
+
+  // 구매하기 > 옵션 선택 > 구매하기 버튼 클릭
+  async clickBuyButtonAfterOption() {
+    await this.lastClick(PcLocators.main.onAirBuyButton);
   }
 }
