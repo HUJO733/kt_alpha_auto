@@ -1,28 +1,23 @@
 import { test, expect } from '../../fixtures/web/pc.fixture';
 import { LoginSteps } from '../../steps/pc/login.steps';
 
-// TODO: 실제 계정 정보로 교체
 const CREDENTIALS = {
-  id: '',
-  pw: '',
+  id: process.env.LOGIN_ID ?? '',
+  pw: process.env.LOGIN_PW ?? '',
 };
 
 test.describe('로그인', () => {
 
-  test('정상 로그인', async ({ basePage }) => {
-    const loginSteps = new LoginSteps(basePage);
-
-    await test.step('로그인 페이지 진입', async () => {
-      await loginSteps.goToLoginPage();
+  let loginSteps: LoginSteps;
+  
+    test.beforeEach(async ({ basePage }) => {
+      loginSteps = new LoginSteps(basePage);
     });
 
-    await test.step('계정 정보 입력 및 제출', async () => {
-      await loginSteps.inputAndSubmit(CREDENTIALS.id, CREDENTIALS.pw);
-    });
-
-    await test.step('메인페이지 이동 확인', async () => {
-      await basePage.waitForURL(/kshop\.co\.kr/);
-      expect(basePage.getCurrentURL()).toContain('kshop.co.kr');
+  test('일반 계정 로그인 확인', async () => {
+    await test.step('일반 계정 로그인 확인', async () => {
+      const result = await loginSteps.verifyLocalLogin(CREDENTIALS.id, CREDENTIALS.pw);
+      expect.soft(result, '일반 계정 로그인 확인 실패').toBe(true);
     });
   });
 

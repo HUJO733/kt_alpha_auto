@@ -20,6 +20,16 @@ export class BasePage {
     await this.closeModal();
   }
 
+  // 메인페이지 전환 대기
+  async waitMainPage() {
+    await this.waitForURL(CommonLocators.urls.homePage);
+  }
+
+  // 메인페이지 이동 확인
+  async isMainPage(): Promise<boolean> {
+    return this.urlContains(CommonLocators.urls.homePage, CommonLocators.urls.homePage);
+  }
+
   // 지정한 URL로 이동
   async goToUrl(url: string) {
     await this.page.goto(url);
@@ -144,6 +154,11 @@ export class BasePage {
   async urlContains(url: string, text: string): Promise<boolean> {
     await this.waitForURL(url)
     return this.getCurrentURL().includes(text);
+  }
+
+  // 지정한 시간(초)만큼 대기
+  async wait(seconds: number) {
+    await this.page.waitForTimeout(seconds * 1000);
   }
 
   // 0 ~ count-1 사이의 랜덤 정수 반환

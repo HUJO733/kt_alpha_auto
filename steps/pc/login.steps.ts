@@ -8,15 +8,18 @@ export class LoginSteps {
     this.loginPage = new LoginPage(basePage.getPage());
   }
 
-  async goToLoginPage() {
-    await this.loginPage.closeModal();
-    await this.loginPage.clickMyPage();
-    await this.loginPage.clickLoginBtn();
-  }
-
-  async inputAndSubmit(id: string, pw: string) {
+  // 일반 계정 로그인 확인
+  async verifyLocalLogin(id: string, pw: string): Promise<boolean> {
+    await this.loginPage.goToHome();
+    await this.loginPage.clickLoginButton();
     await this.loginPage.fillId(id);
     await this.loginPage.fillPw(pw);
     await this.loginPage.submitLogin();
+    await this.loginPage.clickCertificationRequestButton();
+
+    // 휴대폰 인증
+    await this.loginPage.wait(30);
+
+    return this.loginPage.isLogoutButtonVisible();
   }
 }

@@ -75,7 +75,7 @@ export class MainSteps {
       await this.mainPage.clickGiftShowThreeDepth();
     }
 
-    // 필터 기능
+    // TODO: 필터 기능
   }
 
   // 검색

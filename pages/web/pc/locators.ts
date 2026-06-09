@@ -7,9 +7,9 @@ export const PcLocators = {
   main: {
     navItems: '//nav//li',  // 상단 네비게이션 항목 (9개)
     mainArea: '//main',     // 페이지 본문 영역
-    onAirBtn: '//button[contains(@class,"FloatingBannerActions_btnOnAirLottie")]',
+    onAirButton: '//button[contains(@class,"FloatingBannerActions_btnOnAirLottie")]',
     onAirModalImg: '//button[contains(@class,"ModalOnAir")]//img',
-    onAirDirectBuyBtn: '//div[contains(@class,"ModalOnAir_buyBox")]//button',
+    onAirDirectBuyButton: '//div[contains(@class,"ModalOnAir_buyBox")]//button',
     onAirDirectBuyOption: '//button[contains(@class,"SelectBox_option")]', // 옵션 항목(변동)
     onAirGiftButton: '//div[contains(@class,"ButtonPurchase")]//span[text()="선물하기"]',
     onAirProductName: '//div[contains(@class,"ModalOnAir_inner")]//em[contains(@class,"ProductItem_title")]',
@@ -29,10 +29,10 @@ export const PcLocators = {
     searchProduct: '(//div[contains(@class,"ProductItem_box")])[1]',
   },
   login: {
-    myPageBtn: '//a[text()="마이"]',
-    loginBtn: '//a[text()="로그인"]',
+    loginButton: '//a[text()="로그인"]',
     idInput: '//input[@placeholder="아이디"]',
     pwInput: '//input[@placeholder="비밀번호"]',
-    loginSubmitBtn: '//span[text()="로그인"]',
+    loginSubmitButton: '//span[text()="로그인"]',
+    logoutButton: '//button[text()="로그아웃"]',
   },
 };

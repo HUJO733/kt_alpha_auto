@@ -24,7 +24,7 @@ export class MainPage extends BasePage {
 
   // ON AIR 클릭
   async clickOnAirButton() {
-    await this.click(PcLocators.main.onAirBtn);
+    await this.click(PcLocators.main.onAirButton);
   }
 
   // ON AIR 모달 img 노출 여부
@@ -34,7 +34,7 @@ export class MainPage extends BasePage {
 
   // ON AIR > 바로구매 버튼 클릭
   async clickDirectBuyButton() {
-    await this.click(PcLocators.main.onAirDirectBuyBtn);
+    await this.click(PcLocators.main.onAirDirectBuyButton);
   }
 
   // ON AIR > 바로구매 버튼 클릭 > 옵션 개수 확인
