@@ -50,7 +50,7 @@ export class MainSteps {
     await this.mainPage.clickCartDeleteButton();
 
     await parameter('ON AIR 상품명', onAirProductName);
-    await parameter('장바구니 상품명', cartProductName);   
+    await parameter('장바구니 상품명', cartProductName);
 
     return cartProductName.includes(onAirProductName);
   }

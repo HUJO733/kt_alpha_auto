@@ -30,6 +30,11 @@ export class BasePage {
     return this.urlContains(CommonLocators.urls.homePage, CommonLocators.urls.homePage);
   }
 
+  // 확인 버튼 클릭
+  async clickConfirmButton() {
+    await this.click(CommonLocators.modal.confirmButton);
+  }
+
   // 지정한 URL로 이동
   async goToUrl(url: string) {
     await this.page.goto(url);
@@ -48,6 +53,11 @@ export class BasePage {
   // index번째 요소 클릭
   async nthClick(selector: string, index: number) {
     await this.page.locator(selector).nth(index).click();
+  }
+
+  // 첫 번째 요소 클릭
+  async firstClick(selector: string) {
+    await this.page.locator(selector).first().click();
   }
 
   // 마지막 요소 클릭

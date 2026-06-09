@@ -1,5 +1,6 @@
 import { BasePage } from '../../pages/common/BasePage';
 import { LoginPage } from '../../pages/web/pc/login.page';
+import { parameter } from 'allure-js-commons';
 
 export class LoginSteps {
   private loginPage: LoginPage;

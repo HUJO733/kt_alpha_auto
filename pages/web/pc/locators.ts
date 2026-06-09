@@ -37,6 +37,15 @@ export const PcLocators = {
     certificationRequestButton: '//span[text()="인증요청"]',
     mdsPickProduct: '//div[contains(@class,"HeroBannerC_frame")]'
   },
+  product: {
+    onAirVideo: '//div[contains(@class,"ModalOnAir_videoBox")]//video',
+    alarmButton: '//button[contains(@class,"OnAirProgram_btnAlarm")]',
+    broadcastNotificationPopupHeader: '//h3[text()="방송 알림 등록"]',
+    broadcastNotificationRegisterButton: '//span[text()="방송 알림 등록하기"]',
+    smsConsentCheckbox: '//label[contains(@class,"checkbox")]',
+    myBroadcastNotificationButton: '//span[text()="내 방송알림보기"]',
+    disableNotificationButton: '//span[text()="알림 해제"]',
+  },
   my: {
     myButton: '//a[text()="마이"]'
   }
