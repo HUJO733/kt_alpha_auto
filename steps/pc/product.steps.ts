@@ -9,7 +9,7 @@ export class ProductSteps {
     this.productPage = new ProductPage(basePage.getPage());
   }
 
-  // ON AIR > VOD 영상 재생 확인
+  /** ON AIR > VOD 영상 재생 확인 */
   async verifyVOD(): Promise<boolean> {
     await this.productPage.goToHome();
     await this.productPage.clickOnAirButton();
@@ -17,8 +17,8 @@ export class ProductSteps {
     return await this.productPage.isVideoPlaying();
   }
 
-  // 편성표 > 방송알림 신청 팝업 확인 및 방송알림 등록 완료 확인
-  async verifyBroadcastNotification() : Promise<boolean> {
+  /** 편성표 > 방송알림 신청 팝업 확인 및 등록 완료 확인 */
+  async verifyBroadcastNotification(): Promise<boolean> {
     await this.productPage.goToHome();
     await this.productPage.clickBroadcastSchedule();
     await this.productPage.clickAlarmButton();
@@ -36,8 +36,8 @@ export class ProductSteps {
     return popup && register;
   }
 
-  // 상품 > 좋아요 추가 및 삭제 확인
-  async verifyProductLike() : Promise<boolean> {
+  /** 상품 > 좋아요 추가 및 삭제 확인 */
+  async verifyProductLike(): Promise<boolean> {
     await this.productPage.clickProduct();
     await this.productPage.clickProductLikeButton();
     await this.productPage.gotoLikePage();
@@ -51,43 +51,43 @@ export class ProductSteps {
     return likePageLikeButtonBefore && !likePageLikeButtonAfter;
   }
 
-  // 상품 > 상세정보 확인
-  async verifyProductDetailInfo() : Promise<boolean> {
+  /** 상품 > 상세정보 탭 노출 확인 */
+  async verifyProductDetailInfo(): Promise<boolean> {
     await this.productPage.clickProduct();
     await this.productPage.clickProductDetailInfoTab();
     return await this.productPage.isProductDetailInfoVisible();
   }
 
-  // 상품 > 구매정보 확인
-  async verifyProductBuyInfo() : Promise<boolean> {
+  /** 상품 > 구매정보 탭 노출 확인 */
+  async verifyProductBuyInfo(): Promise<boolean> {
     await this.productPage.clickProduct();
     await this.productPage.clickProductBuyInfoTab();
     return await this.productPage.isProductBuyInfoVisible();
   }
 
-  // 상품 > 상품평 확인
-  async verifyProductReview() : Promise<boolean> {
+  /** 상품 > 상품평 탭 노출 확인 */
+  async verifyProductReview(): Promise<boolean> {
     await this.productPage.clickProduct();
     await this.productPage.clickProductReviewTab();
     return await this.productPage.isProductReviewVisible();
   }
 
-  // 상품 > 상품문의 확인
-  async verifyProductQna() : Promise<boolean> {
+  /** 상품 > 상품문의 탭 노출 확인 */
+  async verifyProductQna(): Promise<boolean> {
     await this.productPage.clickProduct();
     await this.productPage.clickProductQnaTab();
     return await this.productPage.isProductQnaVisible();
   }
 
-  // 상품 > 선물하기
-  async verifyProductGift() : Promise<boolean> {
+  /** 상품 > 선물하기 주문서 이동 확인 */
+  async verifyProductGift(): Promise<boolean> {
     await this.productPage.clickProduct();
     await this.productPage.clickProductGift();
     return await this.productPage.isGiftOrderPage();
   }
 
-  // 상품 > 장바구니
-  async verifyProductCart() : Promise<boolean> {
+  /** 상품 > 장바구니 상품 추가 확인 */
+  async verifyProductCart(): Promise<boolean> {
     await this.productPage.clickProduct();
     const productName = await this.productPage.getProductName();
     const clicked = await this.productPage.clickProductCart();
@@ -106,8 +106,8 @@ export class ProductSteps {
     return cartProductName.includes(productName);
   }
 
-  // 상품 > 구매하기
-  async verifyProductBuy() : Promise<boolean> {
+  /** 상품 > 구매하기 주문서 이동 확인 */
+  async verifyProductBuy(): Promise<boolean> {
     await this.productPage.clickProduct();
     await this.productPage.clickProductBuy();
     return await this.productPage.isBuyOrderPage();

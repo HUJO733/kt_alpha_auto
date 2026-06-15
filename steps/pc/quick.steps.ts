@@ -9,14 +9,14 @@ export class QuickSteps {
     this.quickPage = new QuickPage(basePage.getPage());
   }
 
-  // ON AIR > 바로구매 > 선물하기
+  /** 독바 > ON AIR > 바로구매 > 선물하기 주문서 이동 확인 */
   async verifyOnAirGift(): Promise<boolean> {
     await this.quickPage.selectOnAirOption();
     await this.quickPage.clickOnAirGiftButton();
     return await this.quickPage.isGiftOrderPage();
   }
 
-  // ON AIR > 바로구매 > 장바구니
+  /** 독바 > ON AIR > 바로구매 > 장바구니 상품 추가 확인 */
   async verifyOnAirCart(): Promise<boolean> {
     await this.quickPage.selectOnAirOption();
     const onAirProductName = await this.quickPage.getOnAirProductName();
@@ -27,7 +27,7 @@ export class QuickSteps {
     }
 
     await this.quickPage.clickOnAirCartMoveButton();
-    const cartProductName = await this.quickPage.getCartProductName(); 
+    const cartProductName = await this.quickPage.getCartProductName();
     await this.quickPage.clickCartDeleteButton();
 
     await parameter('ON AIR 상품명', onAirProductName);
@@ -36,11 +36,10 @@ export class QuickSteps {
     return cartProductName.includes(onAirProductName);
   }
 
-  // ON AIR > 바로구매 > 구매하기
+  /** 독바 > ON AIR > 바로구매 > 구매하기 주문서 이동 확인 */
   async verifyOnAirBuy(): Promise<boolean> {
     await this.quickPage.selectOnAirOption();
     await this.quickPage.clickOnAirBuyButton();
     return await this.quickPage.isBuyOrderPage();
   }
-
 }
