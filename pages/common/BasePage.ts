@@ -177,7 +177,7 @@ export class BasePage {
     if (count === 0) return;
     for (let i = 0; i < count; i++) {
       const option = this.page.locator(selector).nth(i);
-      if (await option.isEnabled()) {
+      if (await option.isEnabled() && await option.isVisible()) {
         await option.click();
         return;
       }

@@ -1,6 +1,5 @@
 import { BasePage } from '../../pages/common/BasePage';
 import { LoginPage } from '../../pages/web/pc/login.page';
-import { parameter } from 'allure-js-commons';
 
 export class LoginSteps {
   private loginPage: LoginPage;
@@ -22,7 +21,10 @@ export class LoginSteps {
     // 휴대폰 인증
     await this.loginPage.wait(30);
 
-    return this.loginPage.isLogoutButtonVisible();
+    const logoutButton = await this.loginPage.isLogoutButtonVisible();
+    await this.loginPage.clickLogoutButton();
+
+    return logoutButton;
   }
 
   // 임의 상품 상세 > 구매하기 > 일반 계정 로그인 확인
@@ -40,6 +42,6 @@ export class LoginSteps {
     // 휴대폰 인증
     await this.loginPage.wait(30);
 
-    return this.loginPage.isLogoutButtonVisible();
+    return await this.loginPage.isLogoutButtonVisible();
   }
 }

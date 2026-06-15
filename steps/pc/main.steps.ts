@@ -32,7 +32,7 @@ export class MainSteps {
   async verifyOnAirGift(): Promise<boolean> {
     await this.mainPage.selectOnAirOption();
     await this.mainPage.clickOnAirGiftButton();
-    return this.mainPage.isGiftOrderPage();
+    return await this.mainPage.isGiftOrderPage();
   }
 
   // ON AIR > 바로구매 > 장바구니
@@ -59,10 +59,10 @@ export class MainSteps {
   async verifyOnAirBuy(): Promise<boolean> {
     await this.mainPage.selectOnAirOption();
     await this.mainPage.clickOnAirBuyButton();
-    return this.mainPage.isBuyOrderPage();
+    return await this.mainPage.isBuyOrderPage();
   }
 
-  // 카테고리
+  // 카테고리 및 필터 기능 확인
   async verifyCategory(): Promise<boolean> {
     await this.mainPage.goToHome();
     await this.mainPage.clickCategoryButton();
@@ -87,6 +87,6 @@ export class MainSteps {
 
     await parameter('선택한 인기 검색어', popularWord);
 
-    return this.mainPage.isProductDetailPage(popularWord);
+    return await this.mainPage.isProductDetailPage(popularWord);
   }
 }

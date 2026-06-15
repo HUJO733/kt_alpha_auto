@@ -39,9 +39,14 @@ export class LoginPage extends BasePage {
     return await this.isVisible(PcLocators.login.logoutButton);
   }
 
+  // 로그아웃 버튼 클릭
+  async clickLogoutButton() {
+    await this.click(PcLocators.login.logoutButton);
+  }
+
   // 임의 상품 클릭
   async clickProduct() {
-    await this.click(PcLocators.login.mdsPickProduct);
+    await this.click(PcLocators.product.mdsPickProduct);
   }
 
   // 구매하기 버튼 클릭

@@ -35,4 +35,81 @@ export class ProductSteps {
 
     return popup && register;
   }
+
+  // 상품 > 좋아요 추가 및 삭제 확인
+  async verifyProductLike() : Promise<boolean> {
+    await this.productPage.clickProduct();
+    await this.productPage.clickProductLikeButton();
+    await this.productPage.gotoLikePage();
+    const likePageLikeButtonBefore = await this.productPage.isLikeButtonVisible();
+    await this.productPage.clickLikePageLikeButton();
+    const likePageLikeButtonAfter = await this.productPage.isLikeButtonVisible();
+
+    await parameter('마이페이지 > 좋아요 > 좋아요 버튼(클릭 전)', `${likePageLikeButtonBefore}`);
+    await parameter('마이페이지 > 좋아요 > 좋아요 버튼(클릭 후)', `${likePageLikeButtonAfter}`);
+
+    return likePageLikeButtonBefore && !likePageLikeButtonAfter;
+  }
+
+  // 상품 > 상세정보 확인
+  async verifyProductDetailInfo() : Promise<boolean> {
+    await this.productPage.clickProduct();
+    await this.productPage.clickProductDetailInfoTab();
+    return await this.productPage.isProductDetailInfoVisible();
+  }
+
+  // 상품 > 구매정보 확인
+  async verifyProductBuyInfo() : Promise<boolean> {
+    await this.productPage.clickProduct();
+    await this.productPage.clickProductBuyInfoTab();
+    return await this.productPage.isProductBuyInfoVisible();
+  }
+
+  // 상품 > 상품평 확인
+  async verifyProductReview() : Promise<boolean> {
+    await this.productPage.clickProduct();
+    await this.productPage.clickProductReviewTab();
+    return await this.productPage.isProductReviewVisible();
+  }
+
+  // 상품 > 상품문의 확인
+  async verifyProductQna() : Promise<boolean> {
+    await this.productPage.clickProduct();
+    await this.productPage.clickProductQnaTab();
+    return await this.productPage.isProductQnaVisible();
+  }
+
+  // 상품 > 선물하기
+  async verifyProductGift() : Promise<boolean> {
+    await this.productPage.clickProduct();
+    await this.productPage.clickProductGift();
+    return await this.productPage.isGiftOrderPage();
+  }
+
+  // 상품 > 장바구니
+  async verifyProductCart() : Promise<boolean> {
+    await this.productPage.clickProduct();
+    const productName = await this.productPage.getProductName();
+    const clicked = await this.productPage.clickProductCart();
+    if (!clicked) {
+      await parameter('메인페이지 > 상품 > 장바구니', '장바구니 버튼 없는 케이스');
+      return true;
+    }
+
+    await this.productPage.clickProductCartMoveButton();
+    const cartProductName = await this.productPage.getCartProductName();
+    await this.productPage.clickCartDeleteButton();
+
+    await parameter('상품명', productName);
+    await parameter('장바구니 상품명', cartProductName);
+
+    return cartProductName.includes(productName);
+  }
+
+  // 상품 > 구매하기
+  async verifyProductBuy() : Promise<boolean> {
+    await this.productPage.clickProduct();
+    await this.productPage.clickProductBuy();
+    return await this.productPage.isBuyOrderPage();
+  }
 }

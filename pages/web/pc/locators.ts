@@ -3,6 +3,7 @@ export const PcLocators = {
     onAirGiftOrder: 'custord/present/orderSheet',
     onAirBuyOrder: 'custord/orderSheet',
     productDetail: 'display/product',
+    myLikePage: 'https://www.kshop.co.kr/display/shoppingHistory/product?tab=like',
   },
   main: {
     navItems: '//nav//li',  // 상단 네비게이션 항목 (9개)
@@ -35,7 +36,6 @@ export const PcLocators = {
     loginSubmitButton: '//span[text()="로그인"]',
     logoutButton: '//button[text()="로그아웃"]',
     certificationRequestButton: '//span[text()="인증요청"]',
-    mdsPickProduct: '//div[contains(@class,"HeroBannerC_frame")]'
   },
   product: {
     onAirVideo: '//div[contains(@class,"ModalOnAir_videoBox")]//video',
@@ -45,6 +45,19 @@ export const PcLocators = {
     smsConsentCheckbox: '//label[contains(@class,"checkbox")]',
     myBroadcastNotificationButton: '//span[text()="내 방송알림보기"]',
     disableNotificationButton: '//span[text()="알림 해제"]',
+    mdsPickProduct: '//div[contains(@class,"HeroBannerC_frame")]',
+    productLikeButton: '(//div[contains(@class,"ProdActions_support")]//button)[1]',
+    likePageLikeButton: '//div[contains(@class,"ProductItem_box")]/button',
+    productDetailInfoTab: '(//div[contains(@class,"ProductTemplate_tab")]//button)[1]',
+    productBuyInfoTab: '(//div[contains(@class,"ProductTemplate_tab")]//button)[2]',
+    productReviewTab: '(//div[contains(@class,"ProductTemplate_tab")]//button)[3]',
+    productQnaTab: '(//div[contains(@class,"ProductTemplate_tab")]//button)[4]',
+    productDetailInfo: '//div[contains(@class,"ProdDetailInfo_wrap")]',
+    productBuyInfo: '//div[contains(@class,"BuyDetailInfo_wrap")]',
+    productReview: '//div[contains(@class,"ReviewDetailInfo_wrap")]',
+    productQna: '//div[contains(@class,"ProdQnaDetail_wrap")]',
+    optionBox: '//div[contains(@class,"SelectBox_item")]',
+    productName: '//div[contains(@class,"ProdTopInfo_title")]//strong',
   },
   my: {
     myButton: '//a[text()="마이"]'
