@@ -2,6 +2,7 @@ import { test, expect } from '../../fixtures/web/pc.fixture';
 import { LoginSteps } from '../../steps/pc/login.steps';
 import { MainSteps } from '../../steps/pc/main.steps';
 import { ProductSteps } from '../../steps/pc/product.steps';
+import { QuickSteps } from '../../steps/pc/quick.steps';
 
 const CREDENTIALS = {
   id: process.env.LOGIN_ID ?? '',
@@ -12,11 +13,13 @@ test.describe.serial('로그인 후 메인 페이지', () => {
   let loginSteps: LoginSteps;
   let mainSteps: MainSteps;
   let productSteps: ProductSteps;
+  let quickSteps: QuickSteps;
 
   test.beforeAll(async ({ sharedBasePage }) => {
     loginSteps = new LoginSteps(sharedBasePage);
     mainSteps = new MainSteps(sharedBasePage);
     productSteps = new ProductSteps(sharedBasePage);
+    quickSteps = new QuickSteps(sharedBasePage);
   });
 
   test('일반 계정 로그인 확인', async () => {
@@ -142,6 +145,27 @@ test.describe.serial('로그인 후 메인 페이지', () => {
     await test.step('상품 > 구매하기 주문서 페이지 이동 확인', async () => {
       const isBuyOrder = await productSteps.verifyProductBuy();
       expect.soft(isBuyOrder, '상품 > 구매하기 주문서 페이지 이동 확인 실패').toBe(true);
+    });
+  });
+
+  test('독바 > ON AIR > 바로구매 > 선물하기 주문서 페이지 이동 확인', async () => {
+    await test.step('독바 > ON AIR > 바로구매 > 선물하기 주문서 페이지 이동 확인', async () => {
+      const isGiftOrder = await quickSteps.verifyOnAirGift();
+      expect.soft(isGiftOrder, '독바 > ON AIR > 바로구매 > 선물하기 주문서 페이지 이동 확인 실패').toBe(true);
+    });
+  });
+
+  test('독바 > ON AIR > 바로구매 > 장바구니 상품 추가 확인', async () => {
+    await test.step('독바 > ON AIR > 바로구매 > 장바구니 상품 추가 확인', async () => {
+      const isMatched = await quickSteps.verifyOnAirCart();
+      expect.soft(isMatched, '독바 > ON AIR > 바로구매 > 장바구니 상품 추가 확인 실패').toBe(true);
+    });
+  });
+
+  test('독바 > ON AIR > 바로구매 > 구매하기 주문서 페이지 이동 확인', async () => {
+    await test.step('독바 > ON AIR > 바로구매 > 구매하기 주문서 페이지 이동 확인', async () => {
+      const isBuyOrder = await quickSteps.verifyOnAirBuy();
+      expect.soft(isBuyOrder, '독바 > ON AIR > 바로구매 > 구매하기 주문서 페이지 이동 확인 실패').toBe(true);
     });
   });
 

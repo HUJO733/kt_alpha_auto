@@ -17,30 +17,37 @@ export class MainPage extends BasePage {
     return results;
   }
 
-  // ON AIR 클릭
-  async clickOnAirButton() {
-    await this.click(PcLocators.main.onAirButton);
+  // 홈 > ON AIR(지금 방송중) 정상 노출 확인
+  async isOnAirDisplayVisible(): Promise<boolean> {
+    return await this.isVisible(PcLocators.main.onAirDisplay);
   }
 
-  // ON AIR 모달 img 노출 여부
-  async isOnAirModalImgVisible(): Promise<boolean> {
-    return await this.isVisible(PcLocators.main.onAirModalImg);
-  }
-
-  // ON AIR > 바로구매 버튼 클릭
+  // 홈 > ON AIR(지금 방송중) > 바로구매 버튼 클릭
   async clickDirectBuyButton() {
-    await this.click(PcLocators.main.onAirDirectBuyButton);
+    await this.clickVisible(PcLocators.main.onAirDirectBuyButton);
   }
 
-  // ON AIR > 바로구매 버튼 클릭 > 옵션 선택
+  // 홈 > ON AIR(지금 방송중) > 바로구매 버튼 클릭 > 옵션 선택
+  async selectFirstEnabledOption() {
+    let prevCount = 0;
+
+    while (true) {
+      const count = await this.count(PcLocators.product.optionBox);
+      if (count === 0 || count === prevCount) return;
+      prevCount = count;
+      await this.clickFirstEnabled(PcLocators.main.onAirDirectBuyFirstOption);
+      await this.clickFirstEnabled(PcLocators.main.onAirDirectBuySecondOption);
+    }
+  }
+
+  // 홈 > ON AIR(지금 방송중) > 바로구매 버튼 클릭 > 옵션 선택
   async selectOnAirOption() {
     await this.goToHome();
-    await this.clickOnAirButton();
     await this.clickDirectBuyButton();
-    await this.clickFirstEnabled(PcLocators.main.onAirDirectBuyOption);
+    await this.selectFirstEnabledOption();
   }
 
-  // ON AIR > 바로구매 버튼 클릭 > 옵션 선택 > 선물하기 클릭
+  // 홈 > ON AIR(지금 방송중) > 바로구매 버튼 클릭 > 옵션 선택 > 선물하기 클릭
   async clickOnAirGiftButton() {
     await this.click(PcLocators.main.onAirGiftButton);
   }
@@ -55,7 +62,7 @@ export class MainPage extends BasePage {
     return (await this.getText(PcLocators.main.onAirProductName)).replace(/\s/g, '');
   }
 
-  // ON AIR > 바로구매 버튼 클릭 > 옵션 선택 > 장바구니 클릭
+  // 홈 > ON AIR(지금 방송중) > 바로구매 버튼 클릭 > 옵션 선택 > 장바구니 클릭
   async clickOnAirCartButton(): Promise<boolean> {
     const exists = await this.isVisible(PcLocators.main.onAirCartButton);
 
@@ -65,7 +72,7 @@ export class MainPage extends BasePage {
     return true;
   }
 
-  // ON AIR > 바로구매 버튼 클릭 > 옵션 선택 > 장바구니 > 바로가기 클릭
+  // 홈 > ON AIR(지금 방송중) > 바로구매 버튼 클릭 > 옵션 선택 > 장바구니 > 바로가기 클릭
   async clickOnAirCartMoveButton() {
     await this.click(PcLocators.main.onAirCartMoveButton);
   }
@@ -81,7 +88,7 @@ export class MainPage extends BasePage {
     await this.click(PcLocators.main.cartDeleteButton);
   }
 
-  // ON AIR > 바로구매 버튼 클릭 > 옵션 선택 > 구매하기 클릭
+  // 홈 > ON AIR(지금 방송중) > 바로구매 버튼 클릭 > 옵션 선택 > 구매하기 클릭
   async clickOnAirBuyButton() {
     await this.click(PcLocators.main.onAirBuyButton);
   }

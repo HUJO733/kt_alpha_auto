@@ -171,6 +171,11 @@ export class BasePage {
     return this.getCurrentURL().includes(text);
   }
 
+  // 여러 요소 중 visible 상태인 요소 클릭
+  async clickVisible(selector: string) {
+    await this.page.locator(selector).filter({ visible: true }).click();
+  }
+
   // 활성화된 첫 번째 요소 클릭 (비활성화 건너뜀)
   async clickFirstEnabled(selector: string) {
     const count = await this.count(selector);

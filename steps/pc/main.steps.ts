@@ -21,21 +21,20 @@ export class MainSteps {
     return results.every(({ isVisible }) => isVisible);
   }
 
-  // ON AIR 상품 노출 확인
+  // 홈 > ON AIR(지금 방송중) 상품 노출 확인
   async verifyOnAirModal(): Promise<boolean> {
     await this.mainPage.goToHome();
-    await this.mainPage.clickOnAirButton();
-    return await this.mainPage.isOnAirModalImgVisible();
+    return await this.mainPage.isOnAirDisplayVisible();
   }
 
-  // ON AIR > 바로구매 > 선물하기
+  // 홈 > ON AIR(지금 방송중) > 바로구매 > 선물하기
   async verifyOnAirGift(): Promise<boolean> {
     await this.mainPage.selectOnAirOption();
     await this.mainPage.clickOnAirGiftButton();
     return await this.mainPage.isGiftOrderPage();
   }
 
-  // ON AIR > 바로구매 > 장바구니
+  // 홈 > ON AIR(지금 방송중) > 바로구매 > 장바구니
   async verifyOnAirCart(): Promise<boolean> {
     await this.mainPage.selectOnAirOption();
     const onAirProductName = await this.mainPage.getOnAirProductName();
@@ -55,7 +54,7 @@ export class MainSteps {
     return cartProductName.includes(onAirProductName);
   }
 
-  // ON AIR > 바로구매 > 구매하기
+  // 홈 > ON AIR(지금 방송중) > 바로구매 > 구매하기
   async verifyOnAirBuy(): Promise<boolean> {
     await this.mainPage.selectOnAirOption();
     await this.mainPage.clickOnAirBuyButton();

@@ -132,7 +132,7 @@ export class ProductPage extends BasePage {
       const count = await this.count(PcLocators.product.optionBox);
       if (count === 0 || count === prevCount) return;
       prevCount = count;
-      await this.clickFirstEnabled(PcLocators.main.onAirDirectBuyOption);
+      await this.clickFirstEnabled(PcLocators.main.onAirDirectBuyFirstOption);
     }
   }
 
