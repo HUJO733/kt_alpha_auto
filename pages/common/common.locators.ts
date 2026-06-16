@@ -4,6 +4,7 @@ export const CommonLocators = {
     homePage: 'https://www.kshop.co.kr/',
   },
   modal: {
+    modal: '//div[contains(@class,"Modal_open")]',
     closeBtn: '//button[text()="닫기"]',
     confirmButton: '//span[text()="확인"]',
   },

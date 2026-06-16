@@ -1,7 +1,7 @@
 import { test, expect } from '../../fixtures/web/pc.fixture';
 import { LoginSteps } from '../../steps/pc/login.steps';
 
-const CREDENTIALS = {
+const ENV = {
   id: process.env.LOGIN_ID ?? '',
   pw: process.env.LOGIN_PW ?? '',
 };
@@ -16,7 +16,7 @@ test.describe('로그인', () => {
 
   test('일반 계정 로그인 확인', async () => {
     await test.step('일반 계정 로그인 확인', async () => {
-      const result = await loginSteps.verifyLocalLogin(CREDENTIALS.id, CREDENTIALS.pw);
+      const result = await loginSteps.verifyLocalLogin(ENV.id, ENV.pw);
       expect.soft(result, '일반 계정 로그인 확인 실패').toBe(true);
     });
   });

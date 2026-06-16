@@ -8,6 +8,11 @@ export class BasePage {
     return this.page;
   }
 
+  /** 모달 확인 */
+  async isModalVisible(): Promise<boolean> {
+    return await this.isVisible(CommonLocators.modal.modal);
+  }
+
   /** 공통 팝업 모달 닫기 (모달이 없으면 무시) */
   async closeModal() {
     const visible = await this.isVisible(CommonLocators.modal.closeBtn);
