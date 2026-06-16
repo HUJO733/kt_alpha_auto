@@ -132,6 +132,29 @@ export class MainPage extends BasePage {
     await this.nthClick(PcLocators.main.giftShowThreeDepthButton, randomNum);
   }
 
+  /** 첫번째 필터 클릭 */
+  async clickFirstFilterButton() {
+    await this.click(PcLocators.main.firstFilterButton);
+    await this.wait(2);
+  }
+
+  /** 필터 내 첫번째 버튼 클릭 */
+  async clickFirstButtonInFilter() {
+    await this.click(PcLocators.main.firstButtonInFilter);
+  }
+
+  /** 상품보기 버튼 클릭 */
+  async clickFilterSearchButton() {
+    await this.click(PcLocators.main.filterSearchButton);
+    await this.wait(2);
+  }
+
+  /** 상품 개수 추출 */
+  async extractProductQuantity(): Promise<number | false> {
+    const text = await this.getText(PcLocators.main.productQuantity);
+    return this.extractNumber(text);
+  }
+
   /** 검색 버튼 클릭 */
   async clickSearchButton() {
     await this.click(PcLocators.main.searchButton);

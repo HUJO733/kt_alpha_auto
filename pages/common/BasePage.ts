@@ -125,6 +125,12 @@ export class BasePage {
     return await this.page.locator(selector).inputValue();
   }
 
+  /** 문자열에서 숫자만 추출하여 number로 반환 (숫자 없으면 false) */
+  extractNumber(text: string): number | false {
+    const digits = text.replace(/\D/g, '');
+    return digits.length > 0 ? Number(digits) : false;
+  }
+
   /** 요소가 화면에 보이는지 여부 반환 */
   async isVisible(selector: string): Promise<boolean> {
     return await this.page.locator(selector).isVisible();
