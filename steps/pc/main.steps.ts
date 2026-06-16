@@ -65,37 +65,19 @@ export class MainSteps {
   async verifyCategory(): Promise<boolean> {
     await this.mainPage.goToHome();
     await this.mainPage.clickCategoryButton();
-    const oneDepthIndex = await this.mainPage.clickCategoryOneDepth();
+    await this.mainPage.clickHomeShoppingOneDepth();
     await this.mainPage.clickCategoryTwoDepth();
+    await this.mainPage.clickHomeShoppingThreeDepth();
+    const beforeQuantity = await this.mainPage.extractProductQuantity();
+    await this.mainPage.clickFirstFilterButton();
+    const afterQuantity = await this.mainPage.extractProductQuantity();
 
-    if (oneDepthIndex === 0) {
-      await this.mainPage.clickHomeShoppingThreeDepth();
-      const beforeQuantity = await this.mainPage.extractProductQuantity();
-      await this.mainPage.clickFirstFilterButton();
-      const afterQuantity = await this.mainPage.extractProductQuantity();
+    if (beforeQuantity === false || afterQuantity === false) return false;
 
-      if (beforeQuantity === false || afterQuantity === false) return false;
+    await parameter('필터 적용 전 상품 개수', `${beforeQuantity}`);
+    await parameter('필터 적용 후 상품 개수', `${afterQuantity}`);
 
-      await parameter('필터 적용 전 상품 개수', `${beforeQuantity}`);
-      await parameter('필터 적용 후 상품 개수', `${afterQuantity}`);
-
-      return beforeQuantity >= afterQuantity;
-
-    } else {
-      await this.mainPage.clickGiftShowThreeDepth();
-      const beforeQuantity = await this.mainPage.extractProductQuantity();
-      await this.mainPage.clickFirstFilterButton();
-      await this.mainPage.clickFirstButtonInFilter();
-      await this.mainPage.clickFilterSearchButton();
-      const afterQuantity = await this.mainPage.extractProductQuantity();
-
-      if (beforeQuantity === false || afterQuantity === false) return false;
-
-      await parameter('필터 적용 전 상품 개수', `${beforeQuantity}`);
-      await parameter('필터 적용 후 상품 개수', `${afterQuantity}`);
-
-      return beforeQuantity >= afterQuantity;
-    }
+    return beforeQuantity >= afterQuantity;
   }
 
   /** 검색 후 상품 상세 페이지 이동 확인 */

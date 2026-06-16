@@ -8,4 +8,7 @@ export const CommonLocators = {
     closeBtn: '//button[text()="닫기"]',
     confirmButton: '//span[text()="확인"]',
   },
+  button: {
+    giftShowButton: '//button[text()="기프티쇼"]',
+  }
 };

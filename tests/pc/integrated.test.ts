@@ -1,9 +1,11 @@
 import { test, expect } from '../../fixtures/web/pc.fixture';
 import { LoginSteps } from '../../steps/pc/login.steps';
 import { MainSteps } from '../../steps/pc/main.steps';
-import { MySteps } from '../../steps/pc/my.steps';
 import { ProductSteps } from '../../steps/pc/product.steps';
 import { QuickSteps } from '../../steps/pc/quick.steps';
+import { MySteps } from '../../steps/pc/my.steps';
+import { GsMainSteps } from '../../steps/pc/gs_main.steps';
+import { GsProductSteps } from '../../steps/pc/gs_product.steps';
 
 const ENV = {
   id: process.env.LOGIN_ID ?? '',
@@ -21,6 +23,8 @@ test.describe.serial('메인 페이지', () => {
   let productSteps: ProductSteps;
   let quickSteps: QuickSteps;
   let mySteps: MySteps;
+  let gsMainSteps: GsMainSteps;
+  let gsProductSteps: GsProductSteps;
 
   test.beforeAll(async ({ sharedBasePage }) => {
     loginSteps = new LoginSteps(sharedBasePage);
@@ -28,6 +32,8 @@ test.describe.serial('메인 페이지', () => {
     productSteps = new ProductSteps(sharedBasePage);
     quickSteps = new QuickSteps(sharedBasePage);
     mySteps = new MySteps(sharedBasePage);
+    gsMainSteps = new GsMainSteps(sharedBasePage);
+    gsProductSteps = new GsProductSteps(sharedBasePage);
   });
 
   test('일반 계정 로그인 확인', async () => {
@@ -342,6 +348,90 @@ test.describe.serial('메인 페이지', () => {
     await test.step('자주하는 질문 확인', async () => {
       const result = await mySteps.verifyFaq();
       expect.soft(result, '자주하는 질문 확인 실패').toBe(true);
+    });
+  });
+
+  test('기프티쇼 GNB 메뉴별 화면 노출 확인', async () => {
+    await test.step('기프티쇼 GNB 메뉴별 화면 노출 확인', async () => {
+      const result = await gsMainSteps.gsVerifyAllNavItems();
+      expect.soft(result, '기프티쇼 GNB 메뉴별 화면 노출 확인 실패').toBe(true);
+    });
+  });
+
+  test('기프티쇼 카테고리 및 필터 기능 확인', async () => {
+    await test.step('기프티쇼 카테고리 및 필터 기능 확인', async () => {
+      const result = await gsMainSteps.gsVerifyCategory();
+      expect.soft(result, '기프티쇼 카테고리 및 필터 기능 확인 실패').toBe(true);
+    });
+  });
+
+  test('기프티쇼 검색 후 상품 상세 페이지 이동 확인', async () => {
+    await test.step('기프티쇼 검색 후 상품 상세 페이지 이동 확인', async () => {
+      const result = await gsMainSteps.gsVerifySearch();
+      expect.soft(result, '기프티쇼 검색 후 상품 상세 페이지 이동 확인 실패').toBe(true);
+    });
+  });
+
+  test('기프티쇼 > 상품 > 좋아요 추가 및 삭제 확인', async () => {
+    await test.step('기프티쇼 > 상품 > 좋아요 추가 및 삭제 확인', async () => {
+      const result = await gsProductSteps.gsVerifyProductLike();
+      expect.soft(result, '기프티쇼 > 상품 > 좋아요 추가 및 삭제 확인 실패').toBe(true);
+    });
+  });
+
+  test('기프티쇼 > 상품 > 상세정보 탭 노출 확인', async () => {
+    await test.step('기프티쇼 > 상품 > 상세정보 탭 노출 확인', async () => {
+      const result = await gsProductSteps.gsVerifyProductDetailInfo();
+      expect.soft(result, '기프티쇼 > 상품 > 상세정보 탭 노출 확인 실패').toBe(true);
+    });
+  });
+
+  test('기프티쇼 > 상품 > 구매정보 탭 노출 확인', async () => {
+    await test.step('기프티쇼 > 상품 > 구매정보 탭 노출 확인', async () => {
+      const result = await gsProductSteps.gsVerifyProductBuyInfo();
+      expect.soft(result, '기프티쇼 > 상품 > 구매정보 탭 노출 확인 실패').toBe(true);
+    });
+  });
+
+  test('기프티쇼 > 상품 > 선물하기 주문서 이동 확인', async () => {
+    await test.step('기프티쇼 > 상품 > 선물하기 주문서 이동 확인', async () => {
+      const result = await gsProductSteps.gsVerifyProductGift();
+      expect.soft(result, '기프티쇼 > 상품 > 선물하기 주문서 이동 확인 실패').toBe(true);
+    });
+  });
+
+  test('기프티쇼 > 상품 > 선물하기 > 기프티쇼 대표 번호로 보내기 확인', async () => {
+    await test.step('기프티쇼 > 상품 > 선물하기 > 기프티쇼 대표 번호로 보내기 확인', async () => {
+      const result = await gsProductSteps.gsVerifyGiftShowMainPhoneNumber(ENV.name);
+      expect.soft(result, '기프티쇼 > 상품 > 선물하기 > 기프티쇼 대표 번호로 보내기 확인 실패').toBe(true);
+    });
+  });
+
+  test('기프티쇼 > 상품 > 선물하기 > 내 번호로 보내기 확인', async () => {
+    await test.step('기프티쇼 > 상품 > 선물하기 > 내 번호로 보내기 확인', async () => {
+      const result = await gsProductSteps.gsVerifyMyPhoneNumber(ENV.name);
+      expect.soft(result, '기프티쇼 > 상품 > 선물하기 > 내 번호로 보내기 확인 실패').toBe(true);
+    });
+  });
+
+  test('기프티쇼 > 상품 > 선물하기 > 받는 사람 확인', async () => {
+    await test.step('기프티쇼 > 상품 > 선물하기 > 받는 사람 확인', async () => {
+      const result = await gsProductSteps.gsVerifyRecipient(ENV.phoneNumber, ENV.name);
+      expect.soft(result, '기프티쇼 > 상품 > 선물하기 > 받는 사람 확인 실패').toBe(true);
+    });
+  });
+
+  test('기프티쇼 > 상품 > 선물하기 > 결제 진행 및 상품 결제 페이지 이동 확인', async () => {
+    await test.step('기프티쇼 > 상품 > 선물하기 > 결제 진행 및 상품 결제 페이지 이동 확인', async () => {
+      const result = await gsProductSteps.gsVerifyPayment();
+      expect.soft(result, '기프티쇼 > 상품 > 선물하기 > 결제 진행 및 상품 결제 페이지 이동 확인 실패').toBe(true);
+    });
+  });
+
+  test('기프티쇼 > 상품 > 나에게 보내기 주문서 이동 확인', async () => {
+    await test.step('기프티쇼 > 상품 > 나에게 보내기 주문서 이동 확인', async () => {
+      const result = await gsProductSteps.gsVerifyProductSendToMe();
+      expect.soft(result, '기프티쇼 > 상품 > 나에게 보내기 주문서 이동 확인 실패').toBe(true);
     });
   });
 

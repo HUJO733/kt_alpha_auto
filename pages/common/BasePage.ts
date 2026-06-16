@@ -25,6 +25,12 @@ export class BasePage {
     await this.closeModal();
   }
 
+  /** 상단 기프티쇼 버튼 클릭 */
+    async clickGiftShowButton() {
+      await this.goToHome();
+      await this.click(CommonLocators.button.giftShowButton);
+    }
+
   /** 메인페이지 전환 대기 */
   async waitMainPage() {
     await this.waitForURL(CommonLocators.urls.homePage);
@@ -123,6 +129,11 @@ export class BasePage {
   /** input 요소의 현재 입력값 반환 */
   async getValue(selector: string): Promise<string> {
     return await this.page.locator(selector).inputValue();
+  }
+
+  /** input 요소의 값이 비어있는지 여부 반환 */
+  async isEmpty(selector: string): Promise<boolean> {
+    return (await this.getValue(selector)) === '';
   }
 
   /** 문자열에서 숫자만 추출하여 number로 반환 (숫자 없으면 false) */

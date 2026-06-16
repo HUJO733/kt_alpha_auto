@@ -103,12 +103,9 @@ export class MainPage extends BasePage {
     await this.click(PcLocators.main.categoryButton);
   }
 
-  /** 카테고리 1depth 랜덤 클릭 후 인덱스 반환 */
-  async clickCategoryOneDepth(): Promise<number> {
-    const count = await this.count(PcLocators.main.categoryOneDepthButton);
-    const randomNum = this.getRandomIndex(count);
-    await this.nthClick(PcLocators.main.categoryOneDepthButton, randomNum);
-    return randomNum;
+  /** 카테고리 1depth(홈쇼핑) 클릭 */
+  async clickHomeShoppingOneDepth() {
+    await this.click(PcLocators.main.homeShoppingOneDepthButton);
   }
 
   /** 카테고리 2depth 랜덤 클릭 */
@@ -125,27 +122,9 @@ export class MainPage extends BasePage {
     await this.nthClick(PcLocators.main.homeShoppingThreeDepthButton, randomNum);
   }
 
-  /** 기프트쇼 3depth 랜덤 클릭 */
-  async clickGiftShowThreeDepth() {
-    const count = await this.count(PcLocators.main.giftShowThreeDepthButton);
-    const randomNum = this.getRandomIndex(count - 1);
-    await this.nthClick(PcLocators.main.giftShowThreeDepthButton, randomNum);
-  }
-
   /** 첫번째 필터 클릭 */
   async clickFirstFilterButton() {
     await this.click(PcLocators.main.firstFilterButton);
-    await this.wait(2);
-  }
-
-  /** 필터 내 첫번째 버튼 클릭 */
-  async clickFirstButtonInFilter() {
-    await this.click(PcLocators.main.firstButtonInFilter);
-  }
-
-  /** 상품보기 버튼 클릭 */
-  async clickFilterSearchButton() {
-    await this.click(PcLocators.main.filterSearchButton);
     await this.wait(2);
   }
 
