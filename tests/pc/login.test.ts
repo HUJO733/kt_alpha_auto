@@ -21,4 +21,11 @@ test.describe('로그인', () => {
     });
   });
 
+  test('임의 상품 상세 > 구매하기 > 일반 계정 로그인 확인', async () => {
+    await test.step('임의 상품 상세 > 구매하기 > 일반 계정 로그인 확인', async () => {
+      const result = await loginSteps.verifyBuyAndLogin(ENV.id, ENV.pw);
+      expect.soft(result, '임의 상품 상세 > 구매하기 > 일반 계정 로그인 확인 실패').toBe(true);
+    });
+  });
+
 });
