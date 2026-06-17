@@ -10,24 +10,18 @@ test.describe('독바', () => {
   });
 
   test('ON AIR > 바로구매 > 선물하기 주문서 페이지 이동 확인', async () => {
-    await test.step('ON AIR > 바로구매 > 선물하기 주문서 페이지 이동 확인', async () => {
-      const isGiftOrder = await quickSteps.verifyOnAirGift();
-      expect.soft(isGiftOrder, 'ON AIR > 바로구매 > 선물하기 주문서 페이지 이동 확인 실패').toBe(true);
-    });
+    const result = await quickSteps.verifyOnAirGift();
+    expect.soft(result, 'ON AIR > 바로구매 > 선물하기 주문서 페이지 이동 확인 실패').toBe(true);
   });
 
   test('ON AIR > 바로구매 > 장바구니 상품 추가 확인', async () => {
-    await test.step('ON AIR > 바로구매 > 장바구니 상품 추가 확인', async () => {
-      const isMatched = await quickSteps.verifyOnAirCart();
-      expect.soft(isMatched, 'ON AIR > 바로구매 > 장바구니 상품 추가 확인 실패').toBe(true);
-    });
+    const result = await quickSteps.verifyOnAirCart();
+    expect.soft(result, 'ON AIR > 바로구매 > 장바구니 상품 추가 확인 실패').toBe(true);
   });
 
   test('ON AIR > 바로구매 > 구매하기 주문서 페이지 이동 확인', async () => {
-    await test.step('ON AIR > 바로구매 > 구매하기 주문서 페이지 이동 확인', async () => {
-      const isBuyOrder = await quickSteps.verifyOnAirBuy();
-      expect.soft(isBuyOrder, 'ON AIR > 바로구매 > 구매하기 주문서 페이지 이동 확인 실패').toBe(true);
-    });
+    const result = await quickSteps.verifyOnAirBuy();
+    expect.soft(result, 'ON AIR > 바로구매 > 구매하기 주문서 페이지 이동 확인 실패').toBe(true);
   });
 
 });

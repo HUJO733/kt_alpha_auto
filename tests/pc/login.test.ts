@@ -9,23 +9,19 @@ const ENV = {
 test.describe('로그인', () => {
 
   let loginSteps: LoginSteps;
-  
-    test.beforeEach(async ({ basePage }) => {
-      loginSteps = new LoginSteps(basePage);
-    });
+
+  test.beforeEach(async ({ basePage }) => {
+    loginSteps = new LoginSteps(basePage);
+  });
 
   test('일반 계정 로그인 확인', async () => {
-    await test.step('일반 계정 로그인 확인', async () => {
-      const result = await loginSteps.verifyLocalLogin(ENV.id, ENV.pw);
-      expect.soft(result, '일반 계정 로그인 확인 실패').toBe(true);
-    });
+    const result = await loginSteps.verifyLocalLogin(ENV.id, ENV.pw);
+    expect.soft(result, '일반 계정 로그인 확인 실패').toBe(true);
   });
 
   test('임의 상품 상세 > 구매하기 > 일반 계정 로그인 확인', async () => {
-    await test.step('임의 상품 상세 > 구매하기 > 일반 계정 로그인 확인', async () => {
-      const result = await loginSteps.verifyBuyAndLogin(ENV.id, ENV.pw);
-      expect.soft(result, '임의 상품 상세 > 구매하기 > 일반 계정 로그인 확인 실패').toBe(true);
-    });
+    const result = await loginSteps.verifyBuyAndLogin(ENV.id, ENV.pw);
+    expect.soft(result, '임의 상품 상세 > 구매하기 > 일반 계정 로그인 확인 실패').toBe(true);
   });
 
 });

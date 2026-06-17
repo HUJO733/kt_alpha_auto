@@ -56,7 +56,7 @@ export class GsProductPage extends BasePage {
 
   /** 선물하기 주문서 페이지 URL 확인 */
   async isGiftOrderPage(): Promise<boolean> {
-    return this.urlContains(PcLocators.urls.giftShowGiftOrder, PcLocators.urls.giftShowGiftOrder);
+    return this.urlContains(PcLocators.urls.giftShowGiftOrder);
   }
 
   /** 선물하기 > 기프티쇼 대표 번호 버튼 클릭 */
@@ -119,6 +119,6 @@ export class GsProductPage extends BasePage {
 
   /** 상품 결제 주문서 페이지 URL 확인 */
   async isPaymentPage(): Promise<boolean> {
-    return this.urlContains(PcLocators.urls.giftShowPaymentOrder, PcLocators.urls.giftShowPaymentOrder);
+    return this.urlContains(PcLocators.urls.giftShowPaymentOrder);
   }
 }

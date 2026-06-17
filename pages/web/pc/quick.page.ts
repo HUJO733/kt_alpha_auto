@@ -44,7 +44,7 @@ export class QuickPage extends BasePage {
 
   /** 선물하기 주문서 페이지 URL 확인 */
   async isGiftOrderPage(): Promise<boolean> {
-    return this.urlContains(PcLocators.urls.onAirGiftOrder, PcLocators.urls.onAirGiftOrder);
+    return this.urlContains(PcLocators.urls.onAirGiftOrder);
   }
 
   /** ON AIR 상품 이름 추출 */
@@ -85,6 +85,6 @@ export class QuickPage extends BasePage {
 
   /** 구매하기 주문서 페이지 URL 확인 */
   async isBuyOrderPage(): Promise<boolean> {
-    return this.urlContains(PcLocators.urls.onAirBuyOrder, PcLocators.urls.onAirBuyOrder);
+    return this.urlContains(PcLocators.urls.onAirBuyOrder);
   }
 }

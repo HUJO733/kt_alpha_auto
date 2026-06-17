@@ -38,7 +38,7 @@ export class BasePage {
 
   /** 메인페이지 이동 확인 */
   async isMainPage(): Promise<boolean> {
-    return this.urlContains(CommonLocators.urls.homePage, CommonLocators.urls.homePage);
+    return this.urlContains(CommonLocators.urls.homePage);
   }
 
   /** 확인 버튼 클릭 */
@@ -188,7 +188,7 @@ export class BasePage {
   }
 
   /** 현재 URL이 특정 문자열을 포함하는지 여부 반환 */
-  async urlContains(url: string, text: string): Promise<boolean> {
+  async urlContains(url: string, text: string = url): Promise<boolean> {
     await this.waitForURL(new RegExp(url.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&')));
     return this.getCurrentURL().includes(text);
   }
