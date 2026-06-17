@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/web/pc.fixture';
+import { test, check } from '../../fixtures/web/pc.fixture';
 import { GsMainSteps } from '../../steps/pc/gs_main.steps';
 
 test.describe('GS 메인', () => {
@@ -9,19 +9,8 @@ test.describe('GS 메인', () => {
     gsMainSteps = new GsMainSteps(basePage);
   });
 
-  test('기프티쇼 GNB 메뉴별 화면 노출 확인', async () => {
-    const result = await gsMainSteps.gsVerifyAllNavItems();
-    expect.soft(result, '기프티쇼 GNB 메뉴별 화면 노출 확인 실패').toBe(true);
-  });
-
-  test('기프티쇼 카테고리 및 필터 기능 확인', async () => {
-    const result = await gsMainSteps.gsVerifyCategory();
-    expect.soft(result, '기프티쇼 카테고리 및 필터 기능 확인 실패').toBe(true);
-  });
-
-  test('기프티쇼 검색 후 상품 상세 페이지 이동 확인', async () => {
-    const result = await gsMainSteps.gsVerifySearch();
-    expect.soft(result, '기프티쇼 검색 후 상품 상세 페이지 이동 확인 실패').toBe(true);
-  });
+  check('기프티쇼 GNB 메뉴별 화면 노출 확인', () => gsMainSteps.gsVerifyAllNavItems());
+  check('기프티쇼 카테고리 및 필터 기능 확인', () => gsMainSteps.gsVerifyCategory());
+  check('기프티쇼 검색 후 상품 상세 페이지 이동 확인', () => gsMainSteps.gsVerifySearch());
 
 });

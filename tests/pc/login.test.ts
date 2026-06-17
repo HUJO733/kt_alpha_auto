@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/web/pc.fixture';
+import { test, check } from '../../fixtures/web/pc.fixture';
 import { LoginSteps } from '../../steps/pc/login.steps';
 
 const ENV = {
@@ -14,14 +14,7 @@ test.describe('로그인', () => {
     loginSteps = new LoginSteps(basePage);
   });
 
-  test('일반 계정 로그인 확인', async () => {
-    const result = await loginSteps.verifyLocalLogin(ENV.id, ENV.pw);
-    expect.soft(result, '일반 계정 로그인 확인 실패').toBe(true);
-  });
-
-  test('임의 상품 상세 > 구매하기 > 일반 계정 로그인 확인', async () => {
-    const result = await loginSteps.verifyBuyAndLogin(ENV.id, ENV.pw);
-    expect.soft(result, '임의 상품 상세 > 구매하기 > 일반 계정 로그인 확인 실패').toBe(true);
-  });
+  check('일반 계정 로그인 확인', () => loginSteps.verifyLocalLogin(ENV.id, ENV.pw));
+  check('임의 상품 상세 > 구매하기 > 일반 계정 로그인 확인', () => loginSteps.verifyBuyAndLogin(ENV.id, ENV.pw));
 
 });

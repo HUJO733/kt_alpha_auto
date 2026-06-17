@@ -31,3 +31,9 @@ export const test = base.extend<PCFixtures, PCWorkerFixtures>({
 });
 
 export { expect };
+
+export const check = (name: string, fn: () => Promise<boolean>, hard = false) => {
+  test(name, async () => {
+    (hard ? expect : expect.soft)(await fn(), `${name} 실패`).toBe(true);
+  });
+};
