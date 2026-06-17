@@ -16,8 +16,7 @@ export default defineConfig({
   ],
 
   use: {
-    headless: !!process.env.CI,
-    actionTimeout: 10_000,
+actionTimeout: 10_000,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',

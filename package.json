@@ -13,6 +13,8 @@
     "test:integrated": "playwright test tests/pc/integrated --project=pc-no-auth",
     "test:all": "playwright test --project=setup --project=pc --project=pc-no-auth",
     "test:mw": "playwright test tests/mw",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
     "appium": "appium",
     "test:android": "TS_NODE_PROJECT=tsconfig.mobile.json mocha -r ts-node/register tests/android/**/*.ts",
     "test:ios": "TS_NODE_PROJECT=tsconfig.mobile.json mocha -r ts-node/register tests/ios/**/*.ts",
