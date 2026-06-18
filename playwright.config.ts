@@ -16,7 +16,7 @@ export default defineConfig({
   ],
 
   use: {
-actionTimeout: 10_000,
+    actionTimeout: 10_000,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -55,10 +55,30 @@ actionTimeout: 10_000,
       },
     },
 
-    // MOBILE WEB
+    // MW AUTH SETUP
+    {
+      name: 'mw-setup',
+      testMatch: /tests\/mw\/auth\.setup\.ts/,
+      use: {
+        ...devices['iPhone 13'],
+      },
+    },
+
+    // MOBILE WEB (auth 필요)
     {
       name: 'mw',
-      testMatch: /tests\/mw\/.*\.test\.ts/,
+      dependencies: ['mw-setup'],
+      testMatch: /tests\/mw\/(?!auth\.setup|login|integrated).*\.test\.ts/,
+      use: {
+        ...devices['iPhone 13'],
+        storageState: 'mw-auth.json',
+      },
+    },
+
+    // MOBILE WEB (auth 불필요 - login, integrated)
+    {
+      name: 'mw-no-auth',
+      testMatch: /tests\/mw\/(login|integrated)\.test\.ts/,
       use: {
         ...devices['iPhone 13'],
       },

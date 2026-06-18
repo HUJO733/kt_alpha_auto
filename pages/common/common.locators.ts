@@ -2,6 +2,7 @@
 export const CommonLocators = {
   urls: {
     homePage: 'https://www.kshop.co.kr/',
+    mwHomePage: 'https://m.kshop.co.kr/',
   },
   modal: {
     modal: '//div[contains(@class,"Modal_open")]',
