@@ -1,12 +1,16 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "types": ["node", "@wdio/globals/types"]
+    "types": ["node", "mocha", "@wdio/globals/types"]
   },
+  "exclude": ["node_modules"],
   "include": [
     "configs/appium/**/*.ts",
     "drivers/**/*.ts",
+    "fixtures/mobile/**/*.ts",
     "pages/mobile/**/*.ts",
+    "steps/android/**/*.ts",
+    "steps/ios/**/*.ts",
     "tests/android/**/*.ts",
     "tests/ios/**/*.ts"
   ]

@@ -52,6 +52,7 @@
   "homepage": "https://github.com/HUJO733/kt_alpha_auto#readme",
   "devDependencies": {
     "@playwright/test": "^1.60.0",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^25.7.0",
     "@wdio/globals": "^9.27.1",
     "allure-commandline": "^2.42.0",
