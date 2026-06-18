@@ -35,7 +35,7 @@ export class LoginPage extends BasePage {
 
   /** 로그아웃 버튼 노출 여부 반환 */
   async isLogoutButtonVisible(): Promise<boolean> {
-    await this.waitMainPage();
+    await this.waitForURLContains(PcLocators.urls.myPage);
     return await this.isVisible(PcLocators.login.logoutButton);
   }
 
@@ -46,6 +46,7 @@ export class LoginPage extends BasePage {
 
   /** 임의 상품 클릭 */
   async clickProduct() {
+    await this.scrollToBottom();
     await this.click(PcLocators.product.mdsPickProduct);
   }
 

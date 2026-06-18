@@ -1,5 +1,6 @@
 export const PcLocators = {
   urls: {
+    myPage: '/custord/mypage/auth/main',
     onAirGiftOrder: 'custord/present/orderSheet',
     onAirBuyOrder: 'custord/orderSheet',
     productDetail: 'display/product',

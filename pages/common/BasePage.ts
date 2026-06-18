@@ -33,7 +33,7 @@ export class BasePage {
 
   /** 메인페이지 전환 대기 */
   async waitMainPage() {
-    await this.waitForURL(CommonLocators.urls.homePage);
+    await this.waitForURLContains(CommonLocators.urls.homePage);
   }
 
   /** 메인페이지 이동 확인 */
@@ -48,7 +48,12 @@ export class BasePage {
 
   /** 지정한 URL로 이동 */
   async goToUrl(url: string) {
-    await this.page.goto(url);
+    try {
+      await this.page.goto(url);
+    } catch (e: any) {
+      if (e.message?.includes('ERR_ABORTED')) await this.page.goto(url);
+      else throw e;
+    }
   }
 
   /** 페이지 새로고침 */
@@ -167,9 +172,9 @@ export class BasePage {
     await this.page.locator(selector).waitFor({ state: 'hidden', timeout });
   }
 
-  /** 지정한 URL로 전환될 때까지 대기 */
-  async waitForURL(url: string | RegExp) {
-    await this.page.waitForURL(url);
+  /** URL에 특정 문자열이 포함될 때까지 대기 */
+  async waitForURLContains(url: string) {
+    await this.page.waitForURL(new RegExp(url.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&')));
   }
 
   /** 페이지 로드 완료까지 대기 (load / domcontentloaded / networkidle) */
@@ -182,6 +187,11 @@ export class BasePage {
     await this.page.locator(selector).scrollIntoViewIfNeeded();
   }
 
+  /** 페이지 최하단으로 스크롤 */
+  async scrollToBottom() {
+    await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  }
+
   /** 현재 페이지의 URL 반환 */
   getCurrentURL(): string {
     return this.page.url();
@@ -189,7 +199,7 @@ export class BasePage {
 
   /** 현재 URL이 특정 문자열을 포함하는지 여부 반환 */
   async urlContains(url: string, text: string = url): Promise<boolean> {
-    await this.waitForURL(new RegExp(url.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&')));
+    await this.waitForURLContains(url);
     return this.getCurrentURL().includes(text);
   }
 
