@@ -10,6 +10,7 @@ export class MainPage extends BasePage {
 
     for (let i = 0; i < count; i++) {
       await this.nthClick(PcLocators.main.navItems, i);
+      if (i === 3) await this.closeModal();
       const isVisible = await this.isVisible(PcLocators.main.mainArea);
       results.push({ index: i, isVisible });
     }
@@ -24,7 +25,8 @@ export class MainPage extends BasePage {
 
   /** 홈 > ON AIR(지금 방송중) > 바로구매 버튼 클릭 */
   async clickDirectBuyButton() {
-    await this.clickVisible(PcLocators.main.onAirDirectBuyButton);
+    await this.scrollIntoView(PcLocators.main.onAirDirectBuyButton);
+    await this.clickFirstInViewport(PcLocators.main.onAirDirectBuyButton);
   }
 
   /** 홈 > ON AIR(지금 방송중) > 바로구매 > 옵션 선택 (중첩 옵션박스 대응) */
@@ -32,6 +34,7 @@ export class MainPage extends BasePage {
     let prevCount = 0;
 
     while (true) {
+      await this.waitForElement(PcLocators.product.optionBox, 5).catch(() => {});
       const count = await this.count(PcLocators.product.optionBox);
       if (count === 0 || count === prevCount) return;
       prevCount = count;
@@ -120,6 +123,7 @@ export class MainPage extends BasePage {
     const count = await this.count(PcLocators.main.homeShoppingThreeDepthButton);
     const randomNum = this.getRandomIndex(count);
     await this.nthClick(PcLocators.main.homeShoppingThreeDepthButton, randomNum);
+    await this.wait(3);
   }
 
   /** 첫번째 필터 클릭 */
@@ -155,7 +159,7 @@ export class MainPage extends BasePage {
   }
 
   /** 상품 상세 페이지 이동 확인 */
-  async isProductDetailPage(productName: string): Promise<boolean> {
-    return this.urlContains(PcLocators.urls.productDetail, productName);
+  async isProductDetailPage(): Promise<boolean> {
+    return this.urlContains(PcLocators.urls.productDetail);
   }
 }

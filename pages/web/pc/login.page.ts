@@ -44,10 +44,15 @@ export class LoginPage extends BasePage {
     await this.click(PcLocators.login.logoutButton);
   }
 
+  /** MD's Pick 상품 영역으로 스크롤 */
+  async scrollToProduct() {
+    await this.scrollIntoView(PcLocators.product.mdsPickSection);
+  }
+
   /** 임의 상품 클릭 */
   async clickProduct() {
-    await this.scrollToBottom();
-    await this.click(PcLocators.product.mdsPickProduct);
+    await this.scrollToProduct();
+    await this.click(PcLocators.product.mdsPickProduct, true);
   }
 
   /** 구매하기 버튼 클릭 (옵션 선택 전) */
@@ -63,5 +68,10 @@ export class LoginPage extends BasePage {
   /** 구매하기 > 옵션 선택 > 구매하기 버튼 클릭 */
   async clickBuyButtonAfterOption() {
     await this.lastClick(PcLocators.main.onAirBuyButton);
+  }
+
+  /** 주문서 페이지 URL 확인 */
+  async isBuyOrderPage(): Promise<boolean> {
+    return this.urlContains(PcLocators.urls.onAirBuyOrder);
   }
 }

@@ -3,6 +3,7 @@ import 'dotenv/config';
 
 export default defineConfig({
   testDir: './tests',
+  globalSetup: './configs/global-setup.ts',
   timeout: 300_000,
 
   fullyParallel: true,
@@ -37,8 +38,8 @@ export default defineConfig({
     // PC WEB (auth 필요)
     {
       name: 'pc',
-      dependencies: ['setup'],
       testMatch: /tests\/pc\/(?!auth\.setup|login|integrated).*\.test\.ts/,
+      fullyParallel: false,
       use: {
         viewport: null,
         storageState: 'auth.json',
@@ -68,7 +69,6 @@ export default defineConfig({
     // MOBILE WEB (auth 필요)
     {
       name: 'mw',
-      dependencies: ['mw-setup'],
       testMatch: /tests\/mw\/(?!auth\.setup|login|integrated).*\.test\.ts/,
       use: {
         ...devices['iPhone 13'],

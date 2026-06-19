@@ -1,10 +1,7 @@
-import { test as setup, devices } from '@playwright/test';
+import { test as setup } from '../../fixtures/web/mw.fixture';
 import { LoginPage } from '../../pages/web/mw/login.page';
 
-setup('MW auth 상태 저장', async ({ browser }) => {
-  const context = await browser.newContext(devices['iPhone 13']);
-  const page = await context.newPage();
-
+setup('MW auth 상태 저장', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goToHome();
   await loginPage.clickMyButton();
@@ -15,6 +12,5 @@ setup('MW auth 상태 저장', async ({ browser }) => {
   await loginPage.clickCertificationRequestButton();
   await loginPage.wait(30);
 
-  await context.storageState({ path: 'mw-auth.json' });
-  await context.close();
+  await page.context().storageState({ path: 'mw-auth.json' });
 });

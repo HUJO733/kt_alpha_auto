@@ -61,6 +61,7 @@ export class ProductPage extends BasePage {
   /** 홈으로 이동 후 임의 상품 클릭 */
   async clickProduct() {
     await this.goToHome();
+    await this.scrollToBottom();
     await this.click(PcLocators.product.mdsPickProduct);
   }
 

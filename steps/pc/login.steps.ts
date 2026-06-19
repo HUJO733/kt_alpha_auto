@@ -20,6 +20,7 @@ export class LoginSteps {
 
     // 휴대폰 인증
     await this.loginPage.wait(20);
+    await this.loginPage.saveStorageState('auth.json');
 
     const logoutButton = await this.loginPage.isLogoutButtonVisible();
     await this.loginPage.clickLogoutButton();
@@ -41,7 +42,8 @@ export class LoginSteps {
 
     // 휴대폰 인증
     await this.loginPage.wait(20);
+    await this.loginPage.saveStorageState('auth.json');
 
-    return await this.loginPage.isLogoutButtonVisible();
+    return await this.loginPage.isBuyOrderPage();
   }
 }

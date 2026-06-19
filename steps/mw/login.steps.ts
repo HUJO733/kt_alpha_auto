@@ -20,6 +20,7 @@ export class LoginSteps {
 
     // 휴대폰 인증
     await this.loginPage.wait(30);
+    await this.loginPage.saveStorageState('mw-auth.json');
 
     const logoutButton = await this.loginPage.isLogoutButtonVisible();
     await this.loginPage.clickLogoutButton();
@@ -41,6 +42,7 @@ export class LoginSteps {
 
     // 휴대폰 인증
     await this.loginPage.wait(30);
+    await this.loginPage.saveStorageState('mw-auth.json');
 
     return await this.loginPage.isLogoutButtonVisible();
   }

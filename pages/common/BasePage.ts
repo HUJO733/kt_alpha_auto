@@ -15,8 +15,15 @@ export class BasePage {
 
   /** 공통 팝업 모달 닫기 (모달이 없으면 무시) */
   async closeModal() {
-    const visible = await this.isVisible(CommonLocators.modal.closeBtn);
-    if (visible) await this.click(CommonLocators.modal.closeBtn);
+    try {
+      await this.waitForElement(CommonLocators.modal.closeBtn, 3);
+    } catch {
+      return;
+    }
+    while (await this.isVisible(CommonLocators.modal.closeBtn)) {
+      await this.click(CommonLocators.modal.closeBtn);
+      await this.wait(1);
+    }
   }
 
   /** 홈페이지로 이동 */
@@ -62,8 +69,8 @@ export class BasePage {
   }
 
   /** 요소 단일 클릭 */
-  async click(selector: string) {
-    await this.page.locator(selector).click();
+  async click(selector: string, force = false) {
+    await this.page.locator(selector).click({ force });
   }
 
   /** index번째 요소 클릭 */
@@ -163,13 +170,13 @@ export class BasePage {
   }
 
   /** 요소가 visible 상태가 될 때까지 대기 */
-  async waitForElement(selector: string, timeout?: number) {
-    await this.page.locator(selector).waitFor({ state: 'visible', timeout });
+  async waitForElement(selector: string, seconds?: number) {
+    await this.page.locator(selector).waitFor({ state: 'visible', timeout: seconds ? seconds * 1000 : undefined });
   }
 
   /** 요소가 DOM에서 사라질 때까지 대기 */
-  async waitForHidden(selector: string, timeout?: number) {
-    await this.page.locator(selector).waitFor({ state: 'hidden', timeout });
+  async waitForHidden(selector: string, seconds?: number) {
+    await this.page.locator(selector).waitFor({ state: 'hidden', timeout: seconds ? seconds * 1000 : undefined });
   }
 
   /** URL에 특정 문자열이 포함될 때까지 대기 */
@@ -184,7 +191,7 @@ export class BasePage {
 
   /** 요소가 뷰포트 내로 스크롤될 때까지 이동 */
   async scrollIntoView(selector: string) {
-    await this.page.locator(selector).scrollIntoViewIfNeeded();
+    await this.page.locator(selector).first().scrollIntoViewIfNeeded();
   }
 
   /** 페이지 최하단으로 스크롤 */
@@ -203,9 +210,28 @@ export class BasePage {
     return this.getCurrentURL().includes(text);
   }
 
-  /** 여러 요소 중 visible 상태인 요소 클릭 */
+  /** 여러 요소 중 visible 상태인 첫 번째 요소 클릭 */
   async clickVisible(selector: string) {
-    await this.page.locator(selector).filter({ visible: true }).click();
+    await this.page.locator(selector).filter({ visible: true }).first().click();
+  }
+
+  /** 뷰포트 내에 실제로 노출된 첫 번째 요소 클릭 (캐러셀 등 transform으로 숨겨진 요소 대응) */
+  async clickFirstInViewport(selector: string) {
+    const locator = this.page.locator(selector);
+    const count = await locator.count();
+    for (let i = 0; i < count; i++) {
+      const el = locator.nth(i);
+      const isInViewport = await el.evaluate(node => {
+        const rect = node.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const vw = window.innerWidth || document.documentElement.clientWidth;
+        return centerX > vw / 3 && centerX < (vw * 2) / 3;
+      });
+      if (isInViewport) {
+        await el.click({ force: true });
+        return;
+      }
+    }
   }
 
   /** 활성화된 첫 번째 요소 클릭 (비활성화 건너뜀) */
@@ -234,5 +260,10 @@ export class BasePage {
   /** 스크린샷 저장 (path 미지정 시 Buffer 반환) */
   async screenshot(path?: string): Promise<Buffer> {
     return await this.page.screenshot({ path, fullPage: true });
+  }
+
+  /** 현재 컨텍스트의 스토리지 상태를 파일로 저장 */
+  async saveStorageState(path: string) {
+    await this.page.context().storageState({ path });
   }
 }

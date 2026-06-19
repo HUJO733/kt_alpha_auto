@@ -80,13 +80,13 @@ export class MobileBasePage {
   }
 
   /** 요소가 visible 상태가 될 때까지 대기 */
-  async waitForElement(selector: string, timeout = 10000) {
-    await this.driver.$(selector).waitForDisplayed({ timeout });
+  async waitForElement(selector: string, seconds = 10) {
+    await this.driver.$(selector).waitForDisplayed({ timeout: seconds * 1000 });
   }
 
   /** 요소가 사라질 때까지 대기 */
-  async waitForHidden(selector: string, timeout = 10000) {
-    await this.driver.$(selector).waitForDisplayed({ timeout, reverse: true });
+  async waitForHidden(selector: string, seconds = 10) {
+    await this.driver.$(selector).waitForDisplayed({ timeout: seconds * 1000, reverse: true });
   }
 
   /** 활성화된 첫 번째 요소 클릭 */
