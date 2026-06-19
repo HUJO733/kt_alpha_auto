@@ -70,6 +70,7 @@ export default defineConfig({
     {
       name: 'mw',
       testMatch: /tests\/mw\/(?!auth\.setup|login|integrated).*\.test\.ts/,
+      fullyParallel: false,
       use: {
         ...devices['iPhone 13'],
         storageState: 'mw-auth.json',

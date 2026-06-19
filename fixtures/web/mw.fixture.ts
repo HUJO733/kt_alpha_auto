@@ -1,4 +1,5 @@
-import { test as base, expect, devices, Page } from '@playwright/test';
+import { test as base, expect, devices, Page, WorkerInfo } from '@playwright/test';
+import { story } from 'allure-js-commons';
 import { existsSync } from 'fs';
 import { BasePage } from '../../pages/common/BasePage';
 import { CommonLocators } from '../../pages/common/common.locators';
@@ -11,10 +12,21 @@ type MWWorkerFixtures = {
   sharedBasePage: BasePage;
 };
 
+async function gotoSafe(page: Page, url: string) {
+  try {
+    await page.goto(url);
+  } catch (e: any) {
+    if (e.message?.includes('ERR_ABORTED')) await page.goto(url);
+    else throw e;
+  }
+}
+
 async function ensureLoggedIn(page: Page) {
   const myPageUrl = CommonLocators.urls.mwHomePage.replace(/\/$/, '') + '/custord/mypage/auth/main';
-  await page.goto(myPageUrl);
-  if (page.url().includes('/custord/mypage')) return;
+  await gotoSafe(page, myPageUrl);
+  await page.locator(MwLocators.login.loginBtn).waitFor({ state: 'visible', timeout: 5_000 }).catch(() => {});
+  const isNotLoggedIn = await page.locator(MwLocators.login.loginBtn).isVisible();
+  if (!isNotLoggedIn) return;
 
   // 세션 만료 - 재로그인
   const loginPage = new LoginPage(page);
@@ -25,10 +37,9 @@ async function ensureLoggedIn(page: Page) {
   await loginPage.fillPw(process.env.LOGIN_PW ?? '');
   await loginPage.submitLogin();
 
-  const otpButton = page.locator(MwLocators.login.certificationRequestButton);
   try {
-    await otpButton.waitFor({ state: 'visible', timeout: 10_000 });
-    await otpButton.click();
+    await page.locator(MwLocators.login.certificationRequestButton).waitFor({ state: 'visible', timeout: 10_000 });
+    await page.locator(MwLocators.login.certificationRequestButton).click();
     await page.waitForTimeout(60_000);
   } catch {
     // OTP 불필요 또는 자동 로그인 성공
@@ -38,12 +49,14 @@ async function ensureLoggedIn(page: Page) {
 }
 
 export const test = base.extend<{}, MWWorkerFixtures>({
-  appPage: [async ({ browser }, use) => {
+  appPage: [async ({ browser }, use, workerInfo: WorkerInfo) => {
     const storageState = existsSync('mw-auth.json') ? 'mw-auth.json' : undefined;
     const context = await browser.newContext({ ...devices['iPhone 13'], storageState });
+    context.setDefaultTimeout(workerInfo.project.use.actionTimeout ?? 10_000);
+    context.setDefaultNavigationTimeout(workerInfo.project.use.navigationTimeout ?? 10_000);
     const page = await context.newPage();
     await ensureLoggedIn(page);
-    await page.goto(CommonLocators.urls.mwHomePage);
+    await gotoSafe(page, CommonLocators.urls.mwHomePage);
     await use(page);
     await context.close();
   }, { scope: 'worker' }],
@@ -65,6 +78,7 @@ export { expect };
 
 export const check = (name: string, fn: () => Promise<boolean>, hard = false) => {
   test(name, async () => {
+    await story(name);
     (hard ? expect : expect.soft)(await fn(), `${name} 실패`).toBe(true);
   });
 };

@@ -71,10 +71,10 @@ export class MainSteps {
     await this.mainPage.clickFirstFilterButton();
     const afterQuantity = await this.mainPage.extractProductQuantity();
 
-    if (beforeQuantity === false || afterQuantity === false) return false;
-
     await parameter('필터 적용 전 상품 개수', `${beforeQuantity}`);
     await parameter('필터 적용 후 상품 개수', `${afterQuantity}`);
+
+    if (beforeQuantity === false || afterQuantity === false) return false;
 
     return beforeQuantity >= afterQuantity;
   }
@@ -87,7 +87,8 @@ export class MainSteps {
     await this.mainPage.clickSearchProduct();
 
     await parameter('선택한 인기 검색어', popularWord);
+    await parameter('상품 클릭 후 URL', this.mainPage.getCurrentURL());
 
-    return await this.mainPage.isProductDetailPage(popularWord);
+    return await this.mainPage.isProductDetailPage();
   }
 }

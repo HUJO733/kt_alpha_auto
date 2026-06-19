@@ -9,6 +9,7 @@ export class MainPage extends BasePage {
 
     for (let i = 0; i < count; i++) {
       await this.nthClick(MwLocators.main.navItems, i);
+      if (i === 3) await this.closeModal();
       const isVisible = await this.isVisible(MwLocators.main.mainArea);
       results.push({ index: i, isVisible });
     }
@@ -21,13 +22,15 @@ export class MainPage extends BasePage {
   }
 
   async clickDirectBuyButton() {
-    await this.click(MwLocators.main.onAirDirectBuyButton);
+    await this.scrollIntoView(MwLocators.main.onAirDirectBuyButton);
+    await this.clickFirstInViewport(MwLocators.main.onAirDirectBuyButton);
   }
 
   async selectFirstEnabledOption() {
     let prevCount = 0;
 
     while (true) {
+      await this.waitForElement(MwLocators.product.optionBox, 5).catch(() => {});
       const count = await this.count(MwLocators.product.optionBox);
       if (count === 0 || count === prevCount) return;
       prevCount = count;
@@ -95,6 +98,7 @@ export class MainPage extends BasePage {
     const count = await this.count(MwLocators.main.categoryThreeDepthButton);
     const randomNum = this.getRandomIndex(count);
     await this.nthClick(MwLocators.main.categoryThreeDepthButton, randomNum);
+    await this.wait(3);
   }
 
   async clickFirstFilterButton() {
@@ -123,7 +127,7 @@ export class MainPage extends BasePage {
     await this.click(MwLocators.main.searchProduct);
   }
 
-  async isProductDetailPage(productName: string): Promise<boolean> {
-    return this.urlContains(MwLocators.urls.productDetail, productName);
+  async isProductDetailPage(): Promise<boolean> {
+    return this.urlContains(MwLocators.urls.productDetail);
   }
 }

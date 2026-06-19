@@ -1,5 +1,6 @@
 import { test, check } from '../../fixtures/web/mw.fixture';
 import { MainSteps } from '../../steps/mw/main.steps';
+import { epic, feature } from 'allure-js-commons';
 
 test.describe('메인 페이지 (MW)', () => {
 
@@ -7,6 +8,8 @@ test.describe('메인 페이지 (MW)', () => {
 
   test.beforeEach(async ({ basePage }) => {
     mainSteps = new MainSteps(basePage);
+    await epic('MW Web');
+    await feature(`메인 페이지 (${process.env.TEST_RUN_TIMESTAMP})`);
   });
 
   check('GNB 메뉴별 화면 확인', () => mainSteps.verifyAllNavItems());
