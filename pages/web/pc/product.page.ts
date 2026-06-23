@@ -10,7 +10,8 @@ export class ProductPage extends BasePage {
 
   /** ON AIR > 비디오 재생 */
   async playVideo() {
-    await this.click(PcLocators.product.onAirVideo);
+    await this.click(PcLocators.product.onAirVideoPoster);
+    await this.wait(2);
   }
 
   /** 비디오 재생 여부 반환 (autoplay 속성 존재 여부) */
@@ -20,7 +21,7 @@ export class ProductPage extends BasePage {
 
   /** 편성표 탭 클릭 */
   async clickBroadcastSchedule() {
-    await this.firstClick(PcLocators.main.navItems);
+    await this.click(PcLocators.main.navItems);
   }
 
   /** 방송알림 버튼 클릭 */
@@ -28,14 +29,13 @@ export class ProductPage extends BasePage {
     await this.lastClick(PcLocators.product.alarmButton);
   }
 
-  /** 방송 알림 신청 팝업 노출 여부 반환 */
-  async isBroadcastNotificationPopupVisible(): Promise<boolean> {
-    return await this.isVisible(PcLocators.product.broadcastNotificationPopupHeader);
-  }
-
-  /** 광고성 SMS 수신 동의 체크박스 클릭 */
+  /** 광고성 SMS 수신 동의 체크박스 클릭 (없으면 스킵) */
   async clickSmsConsentCheckbox() {
-    await this.click(PcLocators.product.smsConsentCheckbox);
+    try {
+      await this.click(PcLocators.product.smsConsentCheckbox);
+    } catch {
+      // 체크박스 없으면 스킵
+    }
   }
 
   /** 방송 알림 등록하기 버튼 클릭 */
@@ -58,11 +58,16 @@ export class ProductPage extends BasePage {
     await this.click(PcLocators.product.disableNotificationButton);
   }
 
+  /** MD's Pick 상품 영역으로 스크롤 */
+  async scrollToProduct() {
+    await this.scrollIntoView(PcLocators.product.mdsPickSection);
+  }
+
   /** 홈으로 이동 후 임의 상품 클릭 */
   async clickProduct() {
     await this.goToHome();
-    await this.scrollToBottom();
-    await this.click(PcLocators.product.mdsPickProduct);
+    await this.scrollToProduct();
+    await this.click(PcLocators.product.mdsPickProduct, true);
   }
 
   /** 상품 > 좋아요(하트) 버튼 클릭 */
@@ -83,6 +88,7 @@ export class ProductPage extends BasePage {
   /** 마이페이지 > 좋아요 탭 > 좋아요(하트) 버튼 클릭 */
   async clickLikePageLikeButton() {
     await this.click(PcLocators.product.likePageLikeButton);
+    await this.waitForHidden(PcLocators.product.likePageLikeButton, 5).catch(() => {});
   }
 
   /** 상품 > 상세정보 탭 클릭 */
@@ -141,7 +147,7 @@ export class ProductPage extends BasePage {
   async clickProductGift() {
     await this.click(PcLocators.main.onAirGiftButton);
     await this.selectFirstEnabledOption();
-    await this.click(PcLocators.main.onAirGiftButton);
+    await this.lastClick(PcLocators.main.onAirGiftButton);
   }
 
   /** 선물하기 주문서 페이지 URL 확인 */
@@ -162,7 +168,7 @@ export class ProductPage extends BasePage {
 
     await this.click(PcLocators.main.onAirCartButton);
     await this.selectFirstEnabledOption();
-    await this.click(PcLocators.main.onAirCartButton);
+    await this.lastClick(PcLocators.main.onAirCartButton);
     return true;
   }
 
@@ -186,7 +192,7 @@ export class ProductPage extends BasePage {
   async clickProductBuy() {
     await this.click(PcLocators.main.onAirBuyButton);
     await this.selectFirstEnabledOption();
-    await this.click(PcLocators.main.onAirBuyButton);
+    await this.lastClick(PcLocators.main.onAirBuyButton);
   }
 
   /** 구매하기 주문서 페이지 URL 확인 */

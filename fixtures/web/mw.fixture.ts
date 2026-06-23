@@ -38,7 +38,6 @@ async function ensureLoggedIn(page: Page) {
   await loginPage.submitLogin();
 
   try {
-    await loginPage.waitForElement(MwLocators.login.certificationRequestButton, 20);
     await loginPage.clickCertificationRequestButton();
     await loginPage.wait(20);
   } catch {

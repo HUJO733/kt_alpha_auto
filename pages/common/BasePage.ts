@@ -69,18 +69,14 @@ export class BasePage {
   }
 
   /** 요소 단일 클릭 */
-  async click(selector: string, force = false) {
-    await this.page.locator(selector).click({ force });
+  async click(selector: string, force = false, timeout = 3) {
+    await this.waitForElement(selector, timeout);
+    await this.page.locator(selector).first().click({ force });
   }
 
   /** index번째 요소 클릭 */
   async nthClick(selector: string, index: number) {
     await this.page.locator(selector).nth(index).click();
-  }
-
-  /** 첫 번째 요소 클릭 */
-  async firstClick(selector: string) {
-    await this.page.locator(selector).first().click();
   }
 
   /** 마지막 요소 클릭 */
@@ -156,6 +152,7 @@ export class BasePage {
 
   /** 요소가 화면에 보이는지 여부 반환 */
   async isVisible(selector: string): Promise<boolean> {
+    await this.waitForElement(selector, 3).catch(() => {});
     return await this.page.locator(selector).isVisible();
   }
 
@@ -170,8 +167,8 @@ export class BasePage {
   }
 
   /** 요소가 visible 상태가 될 때까지 대기 */
-  async waitForElement(selector: string, seconds?: number) {
-    await this.page.locator(selector).waitFor({ state: 'visible', timeout: seconds ? seconds * 1000 : undefined });
+  async waitForElement(selector: string, seconds: number = 10) {
+    await this.page.locator(selector).first().waitFor({ state: 'visible', timeout: seconds * 1000 });
   }
 
   /** 요소가 DOM에서 사라질 때까지 대기 */

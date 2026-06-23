@@ -58,6 +58,7 @@ export class ProductPage extends BasePage {
 
   async clickLikePageLikeButton() {
     await this.click(MwLocators.product.likePageLikeButton);
+    await this.waitForHidden(MwLocators.product.likePageLikeButton, 5).catch(() => {});
   }
 
   async clickProductDetailInfoTab() {

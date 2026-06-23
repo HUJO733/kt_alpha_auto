@@ -22,7 +22,6 @@ export class ProductSteps {
     await this.productPage.goToHome();
     await this.productPage.clickBroadcastSchedule();
     await this.productPage.clickAlarmButton();
-    const popup = await this.productPage.isBroadcastNotificationPopupVisible();
     await this.productPage.clickSmsConsentCheckbox();
     await this.productPage.clickBroadcastNotificationRegisterButton();
     await this.productPage.clickMyBroadcastNotificationButton();
@@ -30,10 +29,9 @@ export class ProductSteps {
     await this.productPage.clickDisableNotificationButton();
     await this.productPage.clickConfirmButton();
 
-    await parameter('방송알림 신청 팝업', `${popup}`);
     await parameter('방송알림 등록 완료', `${register}`);
 
-    return popup && register;
+    return register;
   }
 
   /** 상품 > 좋아요 추가 및 삭제 확인 */

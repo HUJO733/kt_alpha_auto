@@ -30,8 +30,7 @@ export class LoginPage extends BasePage {
 
   /** 인증요청 버튼 클릭 (최대 20초 대기) */
   async clickCertificationRequestButton() {
-    await this.waitForElement(PcLocators.login.certificationRequestButton, 20);
-    await this.click(PcLocators.login.certificationRequestButton);
+    await this.click(PcLocators.login.certificationRequestButton, false, 20);
   }
 
   /** 로그아웃 버튼 노출 여부 반환 */
