@@ -27,6 +27,7 @@ export class GsProductPage extends BasePage {
   /** 마이페이지 > 좋아요 탭 > 좋아요(하트) 버튼 클릭 */
   async clickLikePageLikeButton() {
     await this.click(PcLocators.product.likePageLikeButton);
+    await this.waitForHidden(PcLocators.product.likePageLikeButton, 5).catch(() => {});
   }
 
   /** 상품 > 상세정보 탭 클릭 */

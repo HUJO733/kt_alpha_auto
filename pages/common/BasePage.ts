@@ -36,6 +36,7 @@ export class BasePage {
     async clickGiftShowButton() {
       await this.goToHome();
       await this.click(CommonLocators.button.giftShowButton);
+      await this.closeModal();
     }
 
   /** 메인페이지 전환 대기 */
@@ -91,6 +92,7 @@ export class BasePage {
 
   /** 요소 개수 추출 */
   async count(selector: string): Promise<number> {
+    await this.waitForElement(selector, 5).catch(() => {});
     return await this.page.locator(selector).count();
   }
 
