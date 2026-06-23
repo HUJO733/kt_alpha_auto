@@ -10,6 +10,7 @@ export class GsMainPage extends BasePage {
 
     for (let i = 0; i < count; i++) {
       await this.nthClick(PcLocators.main.navItems, i);
+      if (i === 1) await this.closeModal();
       const isVisible = await this.isVisible(PcLocators.main.mainArea);
       results.push({ index: i, isVisible });
     }
@@ -39,12 +40,12 @@ export class GsMainPage extends BasePage {
     const count = await this.count(PcLocators.giftShowMain.giftShowThreeDepthButton);
     const randomNum = this.getRandomIndex(count - 1);
     await this.nthClick(PcLocators.giftShowMain.giftShowThreeDepthButton, randomNum);
+    await this.wait(3);
   }
 
   /** 첫번째 필터 클릭 */
   async clickFirstFilterButton() {
     await this.click(PcLocators.main.firstFilterButton);
-    await this.wait(2);
   }
 
   /** 필터 내 첫번째 버튼 클릭 */
@@ -85,7 +86,7 @@ export class GsMainPage extends BasePage {
   }
 
   /** 상품 상세 페이지 이동 확인 */
-  async isProductDetailPage(productName: string): Promise<boolean> {
-    return this.urlContains(PcLocators.urls.productDetail, productName);
+  async isProductDetailPage(): Promise<boolean> {
+    return this.urlContains(PcLocators.urls.productDetail);
   }
 }

@@ -34,10 +34,10 @@ export class GsMainSteps {
     await this.gsMainPage.clickFilterSearchButton();
     const afterQuantity = await this.gsMainPage.extractProductQuantity();
 
-    if (beforeQuantity === false || afterQuantity === false) return false;
-
     await parameter('필터 적용 전 상품 개수', `${beforeQuantity}`);
     await parameter('필터 적용 후 상품 개수', `${afterQuantity}`);
+
+    if (beforeQuantity === false || afterQuantity === false) return false;
 
     return beforeQuantity >= afterQuantity;
   }
