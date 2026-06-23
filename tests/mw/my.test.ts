@@ -1,5 +1,6 @@
 import { test, check } from '../../fixtures/web/mw.fixture';
 import { MySteps } from '../../steps/mw/my.steps';
+import { epic, feature } from 'allure-js-commons';
 
 const ENV = {
   name: process.env.NAME ?? '',
@@ -15,6 +16,8 @@ test.describe('마이 쇼핑 (MW)', () => {
 
   test.beforeEach(async ({ basePage }) => {
     mySteps = new MySteps(basePage);
+    await epic('MW Web');
+    await feature(`마이 쇼핑 (${process.env.TEST_RUN_TIMESTAMP})`);
   });
 
   check('주문 내역 확인', () => mySteps.verifyOrderHistory());

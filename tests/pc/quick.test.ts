@@ -1,5 +1,6 @@
 import { test, check } from '../../fixtures/web/pc.fixture';
 import { QuickSteps } from '../../steps/pc/quick.steps';
+import { epic, feature } from 'allure-js-commons';
 
 test.describe('독바', () => {
 
@@ -7,6 +8,8 @@ test.describe('독바', () => {
 
   test.beforeEach(async ({ basePage }) => {
     quickSteps = new QuickSteps(basePage);
+    await epic('PC Web');
+    await feature(`독바 (${process.env.TEST_RUN_TIMESTAMP})`);
   });
 
   check('ON AIR > 바로구매 > 선물하기 주문서 페이지 이동 확인', () => quickSteps.verifyOnAirGift());

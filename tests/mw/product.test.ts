@@ -1,5 +1,6 @@
 import { test, check } from '../../fixtures/web/mw.fixture';
 import { ProductSteps } from '../../steps/mw/product.steps';
+import { epic, feature } from 'allure-js-commons';
 
 test.describe('상품 페이지 (MW)', () => {
 
@@ -7,6 +8,8 @@ test.describe('상품 페이지 (MW)', () => {
 
   test.beforeEach(async ({ basePage }) => {
     productSteps = new ProductSteps(basePage);
+    await epic('MW Web');
+    await feature(`상품 페이지 (${process.env.TEST_RUN_TIMESTAMP})`);
   });
 
   check('ON AIR > VOD 영상 재생 확인', () => productSteps.verifyVOD());

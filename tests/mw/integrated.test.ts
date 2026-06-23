@@ -6,6 +6,7 @@ import { QuickSteps } from '../../steps/mw/quick.steps';
 import { MySteps } from '../../steps/mw/my.steps';
 import { GsMainSteps } from '../../steps/mw/gs_main.steps';
 import { GsProductSteps } from '../../steps/mw/gs_product.steps';
+import { epic, feature } from 'allure-js-commons';
 
 const ENV = {
   id: process.env.LOGIN_ID ?? '',
@@ -34,6 +35,11 @@ test.describe.serial('통합 테스트 (MW)', () => {
     mySteps = new MySteps(sharedBasePage);
     gsMainSteps = new GsMainSteps(sharedBasePage);
     gsProductSteps = new GsProductSteps(sharedBasePage);
+  });
+
+  test.beforeEach(async () => {
+    await epic('MW Web');
+    await feature(`통합 테스트 (${process.env.TEST_RUN_TIMESTAMP})`);
   });
 
   check('일반 계정 로그인 확인', () => loginSteps.verifyLocalLogin(ENV.id, ENV.pw));

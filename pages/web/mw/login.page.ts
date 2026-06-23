@@ -35,8 +35,9 @@ export class LoginPage extends BasePage {
     await this.click(MwLocators.login.loginSubmitButton);
   }
 
-  /** 인증요청 버튼 클릭 */
+  /** 인증요청 버튼 클릭 (최대 20초 대기) */
   async clickCertificationRequestButton() {
+    await this.waitForElement(MwLocators.login.certificationRequestButton, 20);
     await this.click(MwLocators.login.certificationRequestButton);
   }
 
