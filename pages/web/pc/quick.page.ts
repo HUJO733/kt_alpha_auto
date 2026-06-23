@@ -13,6 +13,11 @@ export class QuickPage extends BasePage {
     return await this.isVisible(PcLocators.quick.onAirModalImg);
   }
 
+  /** ON AIR > 바로구매 버튼 Text 추출 */
+  async getDirectBuyButtonText(): Promise<string> {
+    return await this.getText(PcLocators.quick.onAirDirectBuyButton);
+  }
+
   /** ON AIR > 바로구매 버튼 클릭 */
   async clickDirectBuyButton() {
     await this.click(PcLocators.quick.onAirDirectBuyButton);
@@ -31,10 +36,14 @@ export class QuickPage extends BasePage {
   }
 
   /** ON AIR > 바로구매 > 옵션 선택까지 수행 */
-  async selectOnAirOption() {
+  async selectOnAirOption(): Promise<boolean> {
     await this.goToHome();
+    await this.clickOnAirButton();
+    const text = await this.getDirectBuyButtonText();
     await this.clickDirectBuyButton();
+    if (text === "상담 신청") return false;
     await this.selectFirstEnabledOption();
+    return true;
   }
 
   /** ON AIR > 선물하기 버튼 클릭 */
