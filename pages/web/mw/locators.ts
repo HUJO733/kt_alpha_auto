@@ -1,5 +1,6 @@
 export const MwLocators = {
   urls: {
+    myPage: '/custord/mypage/auth/main',
     onAirGiftOrder: 'custord/present/orderSheet',
     onAirBuyOrder: 'custord/orderSheet',
     productDetail: 'display/product',
@@ -37,11 +38,10 @@ export const MwLocators = {
     onAirProductName: '//div[contains(@class,"ModalOnAir_inner")]//em[contains(@class,"ProductItem_title")]',
   },
   login: {
-    myPageBtn: '//a[text()="마이"]',
-    loginBtn: '//a[text()="로그인"]',
+    loginButton: '//a[text()="로그인"]',
     idInput: '//input[@placeholder="아이디"]',
     pwInput: '//input[@placeholder="비밀번호"]',
-    loginSubmitBtn: '//span[text()="로그인"]',
+    loginSubmitButton: '//span[text()="로그인"]',
     logoutButton: '//button[text()="로그아웃"]',
     certificationRequestButton: '//span[text()="인증요청"]',
     mdsPickProduct: '//div[contains(@class,"HeroBannerC_frame")]',

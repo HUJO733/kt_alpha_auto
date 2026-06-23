@@ -35,6 +35,7 @@ export class MainPage extends BasePage {
       if (count === 0 || count === prevCount) return;
       prevCount = count;
       await this.clickFirstEnabled(MwLocators.main.onAirDirectBuyFirstOption);
+      await this.clickFirstEnabled(MwLocators.main.onAirDirectBuySecondOption);
     }
   }
 

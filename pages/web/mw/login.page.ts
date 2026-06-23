@@ -12,12 +12,12 @@ export class LoginPage extends BasePage {
 
   /** 마이 버튼 클릭 */
   async clickMyButton() {
-    await this.click(MwLocators.login.myPageBtn);
+    await this.click(MwLocators.my.myButton);
   }
 
   /** 로그인 버튼 클릭 */
   async clickLoginButton() {
-    await this.click(MwLocators.login.loginBtn);
+    await this.click(MwLocators.login.loginButton);
   }
 
   /** 아이디 입력 */
@@ -32,7 +32,7 @@ export class LoginPage extends BasePage {
 
   /** 로그인 제출 */
   async submitLogin() {
-    await this.click(MwLocators.login.loginSubmitBtn);
+    await this.click(MwLocators.login.loginSubmitButton);
   }
 
   /** 인증요청 버튼 클릭 */

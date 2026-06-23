@@ -180,8 +180,8 @@ export class BasePage {
   }
 
   /** URL에 특정 문자열이 포함될 때까지 대기 */
-  async waitForURLContains(url: string) {
-    await this.page.waitForURL(new RegExp(url.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&')));
+  async waitForURLContains(path: string) {
+    await this.page.waitForURL(url => url.href.includes(path));
   }
 
   /** 페이지 로드 완료까지 대기 (load / domcontentloaded / networkidle) */

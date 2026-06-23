@@ -22,10 +22,10 @@ async function gotoSafe(page: Page, url: string) {
 }
 
 async function ensureLoggedIn(page: Page) {
-  const myPageUrl = CommonLocators.urls.mwHomePage.replace(/\/$/, '') + '/custord/mypage/auth/main';
+  const myPageUrl = CommonLocators.urls.mwHomePage.replace(/\/$/, '') + MwLocators.urls.myPage;
   await gotoSafe(page, myPageUrl);
-  await page.locator(MwLocators.login.loginBtn).waitFor({ state: 'visible', timeout: 5_000 }).catch(() => {});
-  const isNotLoggedIn = await page.locator(MwLocators.login.loginBtn).isVisible();
+  await page.locator(MwLocators.login.loginButton).waitFor({ state: 'visible', timeout: 5_000 }).catch(() => {});
+  const isNotLoggedIn = await page.locator(MwLocators.login.loginButton).isVisible();
   if (!isNotLoggedIn) return;
 
   // 세션 만료 - 재로그인
@@ -38,9 +38,9 @@ async function ensureLoggedIn(page: Page) {
   await loginPage.submitLogin();
 
   try {
-    await page.locator(MwLocators.login.certificationRequestButton).waitFor({ state: 'visible', timeout: 10_000 });
-    await page.locator(MwLocators.login.certificationRequestButton).click();
-    await page.waitForTimeout(60_000);
+    await loginPage.waitForElement(MwLocators.login.certificationRequestButton, 20);
+    await loginPage.clickCertificationRequestButton();
+    await loginPage.wait(20);
   } catch {
     // OTP 불필요 또는 자동 로그인 성공
   }
