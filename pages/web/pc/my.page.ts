@@ -141,7 +141,7 @@ export class MyPage extends BasePage {
 
   /** 마이 > 나의 쇼핑 정보 관리 > 회원 정보 수정 > 본인인증 > 이름 입력 */
   async fillName(name: string) {
-    await this.fill(PcLocators.my.nameInput, name)
+    await this.pressSequentially(PcLocators.my.nameInput, name)
   }
 
   /** 마이 > 나의 쇼핑 정보 관리 > 회원 정보 수정 > 본인인증 > 동의하고 다음 버튼 클릭 */
@@ -156,17 +156,17 @@ export class MyPage extends BasePage {
 
   /** 마이 > 나의 쇼핑 정보 관리 > 회원 정보 수정 > 본인인증 > 생년월일 (연도) 입력 */
   async fillYear(year: string) {
-    await this.fill(PcLocators.my.yearInput, year)
+    await this.pressSequentially(PcLocators.my.yearInput, year)
   }
 
   /** 마이 > 나의 쇼핑 정보 관리 > 회원 정보 수정 > 본인인증 > 생년월일 (월) 입력 */
   async fillMonth(month: string) {
-    await this.fill(PcLocators.my.monthInput, month)
+    await this.pressSequentially(PcLocators.my.monthInput, month)
   }
 
   /** 마이 > 나의 쇼핑 정보 관리 > 회원 정보 수정 > 본인인증 > 생년월일 (일) 입력 */
   async fillDay(day: string) {
-    await this.fill(PcLocators.my.dayInput, day)
+    await this.pressSequentially(PcLocators.my.dayInput, day)
   }
 
   /** 마이 > 나의 쇼핑 정보 관리 > 회원 정보 수정 > 본인인증 > 통신사 (KT) 클릭 */
@@ -176,7 +176,7 @@ export class MyPage extends BasePage {
 
   /** 마이 > 나의 쇼핑 정보 관리 > 회원 정보 수정 > 본인인증 > 휴대폰 번호 입력 */
   async fillPhoneNumber(phoneNumber: string) {
-    await this.fill(PcLocators.my.phoneNumberInput, phoneNumber)
+    await this.pressSequentially(PcLocators.my.phoneNumberInput, phoneNumber)
   }
 
   /** 회원 정보 수정 노출 여부 반환 */

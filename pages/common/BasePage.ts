@@ -96,9 +96,9 @@ export class BasePage {
     return await this.page.locator(selector).count();
   }
 
-  /** input 요소에 텍스트 입력 (기존 값 초기화 후 입력) */
-  async fill(selector: string, text: string) {
-    await this.page.locator(selector).fill(text);
+  /** input 요소에 텍스트를 키 이벤트로 한 글자씩 입력 (React controlled input 대응) */
+  async pressSequentially(selector: string, text: string) {
+    await this.page.locator(selector).pressSequentially(text);
   }
 
   /** input 요소의 값 초기화 */

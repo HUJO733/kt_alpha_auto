@@ -27,12 +27,12 @@ export class LoginPage extends MobileBasePage {
 
   /** 아이디 입력 */
   async fillId(id: string) {
-    await this.fill(AndroidLocators.login.idInput, id);
+    await this.pressSequentially(AndroidLocators.login.idInput, id);
   }
 
   /** 비밀번호 입력 */
   async fillPw(pw: string) {
-    await this.fill(AndroidLocators.login.pwInput, pw);
+    await this.pressSequentially(AndroidLocators.login.pwInput, pw);
   }
 
   /** 로그인 제출 */

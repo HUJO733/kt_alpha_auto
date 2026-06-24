@@ -57,7 +57,7 @@ export class GsProductPage extends BasePage {
   }
 
   async fillAndVerify(name: string): Promise<boolean> {
-    await this.fill(MwLocators.giftShowProduct.senderInput, name);
+    await this.pressSequentially(MwLocators.giftShowProduct.senderInput, name);
     const value = await this.getValue(MwLocators.giftShowProduct.senderInput);
     return value === name;
   }
@@ -81,11 +81,11 @@ export class GsProductPage extends BasePage {
   }
 
   async fillRecipientPhoneNumber(phoneNumber: string) {
-    await this.fill(MwLocators.giftShowProduct.recipientPhoneNumberInput, phoneNumber);
+    await this.pressSequentially(MwLocators.giftShowProduct.recipientPhoneNumberInput, phoneNumber);
   }
 
   async fillRecipientName(name: string) {
-    await this.fill(MwLocators.giftShowProduct.recipientNameInput, name);
+    await this.pressSequentially(MwLocators.giftShowProduct.recipientNameInput, name);
   }
 
   async clickSendToMeButton() {

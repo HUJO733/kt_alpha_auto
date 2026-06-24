@@ -22,12 +22,12 @@ export class LoginPage extends BasePage {
 
   /** 아이디 입력 */
   async fillId(id: string) {
-    await this.fill(MwLocators.login.idInput, id);
+    await this.pressSequentially(MwLocators.login.idInput, id);
   }
 
   /** 비밀번호 입력 */
   async fillPw(pw: string) {
-    await this.fill(MwLocators.login.pwInput, pw);
+    await this.pressSequentially(MwLocators.login.pwInput, pw);
   }
 
   /** 로그인 제출 */

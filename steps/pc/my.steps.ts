@@ -111,6 +111,7 @@ export class MySteps {
     if (modal) {
       await this.myPage.fillName(name);
       await this.myPage.clickNextButton();
+      await this.myPage.clickMaleButton();
       await this.myPage.fillYear(year);
       await this.myPage.fillMonth(month);
       await this.myPage.fillDay(day);

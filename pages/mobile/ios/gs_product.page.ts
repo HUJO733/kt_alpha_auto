@@ -20,7 +20,7 @@ export class GsProductPage extends MobileBasePage {
   async clickGiftShowMainPhoneNumberButton() { await this.click(IosLocators.giftShowProduct.giftShowMainPhoneNumberButton); }
   async isSenderInputEmpty(): Promise<boolean> { return await this.isEmpty(IosLocators.giftShowProduct.senderInput); }
   async fillAndVerify(name: string): Promise<boolean> {
-    await this.fill(IosLocators.giftShowProduct.senderInput, name);
+    await this.pressSequentially(IosLocators.giftShowProduct.senderInput, name);
     return (await this.getValue(IosLocators.giftShowProduct.senderInput)) === name;
   }
   async clickMyPhoneNumberButton() { await this.click(IosLocators.giftShowProduct.myPhoneNumberButton); }
@@ -30,7 +30,7 @@ export class GsProductPage extends MobileBasePage {
   async extractTotalRecipients(): Promise<number> {
     return Number((await this.getText(IosLocators.giftShowProduct.totalRecipients)).replace(/\D/g, '')) || 0;
   }
-  async fillRecipientPhoneNumber(phoneNumber: string) { await this.fill(IosLocators.giftShowProduct.recipientPhoneNumberInput, phoneNumber); }
-  async fillRecipientName(name: string) { await this.fill(IosLocators.giftShowProduct.recipientNameInput, name); }
+  async fillRecipientPhoneNumber(phoneNumber: string) { await this.pressSequentially(IosLocators.giftShowProduct.recipientPhoneNumberInput, phoneNumber); }
+  async fillRecipientName(name: string) { await this.pressSequentially(IosLocators.giftShowProduct.recipientNameInput, name); }
   async clickPaymentButton() { await this.click(IosLocators.giftShowProduct.paymentButton); }
 }

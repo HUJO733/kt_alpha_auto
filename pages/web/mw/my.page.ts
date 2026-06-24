@@ -112,7 +112,7 @@ export class MyPage extends BasePage {
   }
 
   async fillName(name: string) {
-    await this.fill(MwLocators.my.nameInput, name);
+    await this.pressSequentially(MwLocators.my.nameInput, name);
   }
 
   async clickNextButton() {
@@ -124,15 +124,15 @@ export class MyPage extends BasePage {
   }
 
   async fillYear(year: string) {
-    await this.fill(MwLocators.my.yearInput, year);
+    await this.pressSequentially(MwLocators.my.yearInput, year);
   }
 
   async fillMonth(month: string) {
-    await this.fill(MwLocators.my.monthInput, month);
+    await this.pressSequentially(MwLocators.my.monthInput, month);
   }
 
   async fillDay(day: string) {
-    await this.fill(MwLocators.my.dayInput, day);
+    await this.pressSequentially(MwLocators.my.dayInput, day);
   }
 
   async clickKtAgencyButton() {
@@ -140,7 +140,7 @@ export class MyPage extends BasePage {
   }
 
   async fillPhoneNumber(phoneNumber: string) {
-    await this.fill(MwLocators.my.phoneNumberInput, phoneNumber);
+    await this.pressSequentially(MwLocators.my.phoneNumberInput, phoneNumber);
   }
 
   async isModifyCustomerInfoContentVisible(): Promise<boolean> {

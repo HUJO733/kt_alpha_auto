@@ -50,7 +50,8 @@ export class GsMainSteps {
     await this.gsMainPage.clickSearchProduct();
 
     await parameter('선택한 인기 검색어', popularWord);
+    await parameter('상품 클릭 후 URL', this.gsMainPage.getCurrentURL());
 
-    return await this.gsMainPage.isProductDetailPage(popularWord);
+    return await this.gsMainPage.isProductDetailPage();
   }
 }
