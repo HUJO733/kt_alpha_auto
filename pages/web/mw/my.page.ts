@@ -1,9 +1,16 @@
 import { BasePage } from '../../common/BasePage';
 import { MwLocators } from './locators';
+import { CommonLocators } from '../../common/common.locators';
 
 export class MyPage extends BasePage {
 
+  async goToHome() {
+    await this.goToUrl(CommonLocators.urls.mwHomePage);
+    await this.closeModal();
+  }
+
   async clickMyButton() {
+    await this.goToHome();
     await this.click(MwLocators.my.myButton);
   }
 

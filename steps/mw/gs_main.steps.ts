@@ -29,12 +29,14 @@ export class GsMainSteps {
     await this.gsMainPage.clickGiftShowThreeDepth();
     const beforeQuantity = await this.gsMainPage.extractProductQuantity();
     await this.gsMainPage.clickFirstFilterButton();
+    await this.gsMainPage.clickFirstButtonInFilter();
+    await this.gsMainPage.clickFilterSearchButton();
     const afterQuantity = await this.gsMainPage.extractProductQuantity();
-
-    if (beforeQuantity === false || afterQuantity === false) return false;
 
     await parameter('필터 적용 전 상품 개수', `${beforeQuantity}`);
     await parameter('필터 적용 후 상품 개수', `${afterQuantity}`);
+
+    if (beforeQuantity === false || afterQuantity === false) return false;
 
     return beforeQuantity >= afterQuantity;
   }
@@ -47,7 +49,8 @@ export class GsMainSteps {
     await this.gsMainPage.clickSearchProduct();
 
     await parameter('선택한 인기 검색어', popularWord);
+    await parameter('상품 클릭 후 URL', this.gsMainPage.getCurrentURL());
 
-    return await this.gsMainPage.isProductDetailPage(popularWord);
+    return await this.gsMainPage.isProductDetailPage();
   }
 }

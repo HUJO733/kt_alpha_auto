@@ -22,6 +22,7 @@ export class GsProductPage extends BasePage {
 
   async clickLikePageLikeButton() {
     await this.click(MwLocators.product.likePageLikeButton);
+    await this.waitForHidden(MwLocators.product.likePageLikeButton, 5).catch(() => {});
   }
 
   async clickProductDetailInfoTab() {
@@ -66,9 +67,8 @@ export class GsProductPage extends BasePage {
     await this.click(MwLocators.giftShowProduct.myPhoneNumberButton);
   }
 
-  async getSenderInputValue(name: string): Promise<boolean> {
-    const value = await this.getValue(MwLocators.giftShowProduct.senderInput);
-    return value.slice(0, 2) === name.slice(0, 2);
+  async getSenderInputValue(): Promise<string> {
+    return await this.getValue(MwLocators.giftShowProduct.senderInput);
   }
 
   async extractTotalRecipients(): Promise<number | false> {

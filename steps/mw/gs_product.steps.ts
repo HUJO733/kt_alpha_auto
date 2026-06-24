@@ -50,17 +50,18 @@ export class GsProductSteps {
     await this.gsProductPage.clickGiftShowMainPhoneNumberButton();
     const empty = await this.gsProductPage.isSenderInputEmpty();
     const verify = await this.gsProductPage.fillAndVerify(name);
-    await parameter('보내는 사람 input Empty 여부', `${empty}`);
-    await parameter('보내는 사람 input 정상 입력 여부', `${verify}`);
+    await parameter('기프티쇼 > 상품 > 선물하기 > 기프티쇼 대표번호로 보내기 > 보내는 사람 input Empty 여부', `${empty}`);
+    await parameter('기프티쇼 > 상품 > 선물하기 > 기프티쇼 대표번호로 보내기 > 보내는 사람 input 정상 입력 여부', `${verify}`);
     return empty && verify;
   }
 
   /** 기프티쇼 > 상품 > 선물하기 > 내 번호로 보내기 확인 */
   async gsVerifyMyPhoneNumber(name: string): Promise<boolean> {
     await this.gsProductPage.clickMyPhoneNumberButton();
-    const result = await this.gsProductPage.getSenderInputValue(name);
+    const value = await this.gsProductPage.getSenderInputValue();
+    await parameter('기프티쇼 > 상품 > 선물하기 > 내 번호로 보내기 > 보내는 사람 input 값', value);
     await parameter('비교할 회원명', name);
-    return result;
+    return value.slice(0, 2) === name.slice(0, 2);
   }
 
   /** 기프티쇼 > 상품 > 선물하기 > 받는 사람 확인 */

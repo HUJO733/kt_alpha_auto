@@ -51,9 +51,9 @@ export const test = base.extend<{}, MWWorkerFixtures>({
   appPage: [async ({ browser }, use, workerInfo: WorkerInfo) => {
     const storageState = existsSync('mw-auth.json') ? 'mw-auth.json' : undefined;
     const context = await browser.newContext({ ...devices['iPhone 13'], storageState });
-    context.setDefaultTimeout(workerInfo.project.use.actionTimeout ?? 10_000);
-    context.setDefaultNavigationTimeout(workerInfo.project.use.navigationTimeout ?? 10_000);
     const page = await context.newPage();
+    page.setDefaultTimeout(workerInfo.project.use.actionTimeout ?? 10_000);
+    page.setDefaultNavigationTimeout(workerInfo.project.use.navigationTimeout ?? 10_000);
     await ensureLoggedIn(page);
     await gotoSafe(page, CommonLocators.urls.mwHomePage);
     await use(page);
