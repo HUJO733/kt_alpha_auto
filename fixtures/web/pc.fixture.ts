@@ -44,7 +44,7 @@ async function ensureLoggedIn(page: Page) {
     // OTP 불필요 또는 자동 로그인 성공
   }
 
-  await page.context().storageState({ path: 'auth.json' });
+  await page.context().storageState({ path: 'auth.json' }).catch(() => {});
 }
 
 export const test = base.extend<{}, PCWorkerFixtures>({
