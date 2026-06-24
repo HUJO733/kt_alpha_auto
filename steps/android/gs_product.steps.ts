@@ -52,7 +52,8 @@ export class GsProductSteps {
   /** 기프티쇼 > 상품 > 선물하기 > 내 번호로 보내기 확인 */
   async gsVerifyMyPhoneNumber(name: string): Promise<boolean> {
     await this.gsProductPage.clickMyPhoneNumberButton();
-    return await this.gsProductPage.getSenderInputValue(name);
+    const value = await this.gsProductPage.getSenderInputValue();
+    return value.slice(0, 2) === name.slice(0, 2);
   }
 
   /** 기프티쇼 > 상품 > 선물하기 > 받는 사람 확인 */

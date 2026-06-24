@@ -123,7 +123,7 @@ export class ProductPage extends BasePage {
     if (!exists) return false;
     await this.click(MwLocators.main.onAirCartButton);
     await this.selectFirstEnabledOption();
-    await this.click(MwLocators.main.onAirCartButton);
+    await this.lastClick(MwLocators.main.onAirCartButton);
     return true;
   }
 
@@ -143,7 +143,7 @@ export class ProductPage extends BasePage {
   async clickProductBuy() {
     await this.click(MwLocators.main.onAirBuyButton);
     await this.selectFirstEnabledOption();
-    await this.click(MwLocators.main.onAirBuyButton);
+    await this.lastClick(MwLocators.main.onAirBuyButton);
   }
 
   async isBuyOrderPage(): Promise<boolean> {

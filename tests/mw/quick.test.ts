@@ -1,0 +1,19 @@
+import { test, check } from '../../fixtures/web/mw.fixture';
+import { QuickSteps } from '../../steps/mw/quick.steps';
+import { epic, feature } from 'allure-js-commons';
+
+test.describe('독바 (MW)', () => {
+
+  let quickSteps: QuickSteps;
+
+  test.beforeEach(async ({ basePage }) => {
+    quickSteps = new QuickSteps(basePage);
+    await epic('MW Web');
+    await feature(`독바 (${process.env.TEST_RUN_TIMESTAMP})`);
+  });
+
+  check('ON AIR > 바로구매 > 선물하기 주문서 페이지 이동 확인', () => quickSteps.verifyOnAirGift());
+  check('ON AIR > 바로구매 > 장바구니 상품 추가 확인', () => quickSteps.verifyOnAirCart());
+  check('ON AIR > 바로구매 > 구매하기 주문서 페이지 이동 확인', () => quickSteps.verifyOnAirBuy());
+
+});

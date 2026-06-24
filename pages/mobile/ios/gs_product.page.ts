@@ -24,11 +24,11 @@ export class GsProductPage extends MobileBasePage {
     return (await this.getValue(IosLocators.giftShowProduct.senderInput)) === name;
   }
   async clickMyPhoneNumberButton() { await this.click(IosLocators.giftShowProduct.myPhoneNumberButton); }
-  async getSenderInputValue(name: string): Promise<boolean> {
-    return (await this.getValue(IosLocators.giftShowProduct.senderInput)).includes(name);
+  async getSenderInputValue(): Promise<string> {
+    return await this.getValue(IosLocators.giftShowProduct.senderInput);
   }
-  async extractTotalRecipients(): Promise<number> {
-    return Number((await this.getText(IosLocators.giftShowProduct.totalRecipients)).replace(/\D/g, '')) || 0;
+  async extractTotalRecipients(): Promise<number | false> {
+    return this.extractNumber(await this.getText(IosLocators.giftShowProduct.totalRecipients));
   }
   async fillRecipientPhoneNumber(phoneNumber: string) { await this.pressSequentially(IosLocators.giftShowProduct.recipientPhoneNumberInput, phoneNumber); }
   async fillRecipientName(name: string) { await this.pressSequentially(IosLocators.giftShowProduct.recipientNameInput, name); }

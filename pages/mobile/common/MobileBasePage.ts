@@ -146,4 +146,9 @@ export class MobileBasePage {
   async isMainPage(): Promise<boolean> {
     return false;
   }
+
+  /** 현재 페이지의 URL 반환 */
+  async getCurrentURL(): Promise<string> {
+    return await this.driver.getUrl();
+  }
 }

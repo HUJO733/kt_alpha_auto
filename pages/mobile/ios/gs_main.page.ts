@@ -23,7 +23,8 @@ export class GsMainPage extends MobileBasePage {
   }
   async clickGiftShowThreeDepth() {
     const count = await this.count(IosLocators.giftShowMain.giftShowThreeDepthButton);
-    await this.nthClick(IosLocators.giftShowMain.giftShowThreeDepthButton, this.getRandomIndex(count));
+    await this.nthClick(IosLocators.giftShowMain.giftShowThreeDepthButton, this.getRandomIndex(count - 1));
+    await this.wait(3);
   }
   async clickFirstFilterButton() {
     await this.click(IosLocators.giftShowMain.firstButtonInFilter);
@@ -42,7 +43,7 @@ export class GsMainPage extends MobileBasePage {
     return word;
   }
   async clickSearchProduct() { await this.click(IosLocators.main.searchProduct); }
-  async isProductDetailPage(_productName: string): Promise<boolean> {
+  async isProductDetailPage(): Promise<boolean> {
     return await this.isVisible(IosLocators.urls.productDetail);
   }
 }

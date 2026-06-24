@@ -122,7 +122,7 @@ export class MainPage extends MobileBasePage {
     await this.click(IosLocators.main.searchProduct);
   }
 
-  async isProductDetailPage(_productName: string): Promise<boolean> {
+  async isProductDetailPage(): Promise<boolean> {
     return await this.isVisible(IosLocators.urls.productDetail);
   }
 }

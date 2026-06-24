@@ -145,7 +145,7 @@ export class MainPage extends MobileBasePage {
   }
 
   /** 상품 상세 페이지 이동 확인 */
-  async isProductDetailPage(_productName: string): Promise<boolean> {
+  async isProductDetailPage(): Promise<boolean> {
     return await this.isVisible(AndroidLocators.urls.productDetail);
   }
 }

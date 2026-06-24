@@ -32,8 +32,9 @@ export class GsMainPage extends MobileBasePage {
   /** 기프티쇼 3depth 랜덤 클릭 */
   async clickGiftShowThreeDepth() {
     const count = await this.count(AndroidLocators.giftShowMain.giftShowThreeDepthButton);
-    const randomNum = this.getRandomIndex(count);
+    const randomNum = this.getRandomIndex(count - 1);
     await this.nthClick(AndroidLocators.giftShowMain.giftShowThreeDepthButton, randomNum);
+    await this.wait(3);
   }
 
   /** 첫번째 필터 클릭 */
@@ -69,7 +70,7 @@ export class GsMainPage extends MobileBasePage {
   }
 
   /** 상품 상세 페이지 이동 확인 */
-  async isProductDetailPage(_productName: string): Promise<boolean> {
+  async isProductDetailPage(): Promise<boolean> {
     return await this.isVisible(AndroidLocators.urls.productDetail);
   }
 }

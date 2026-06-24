@@ -1,5 +1,6 @@
 import { MobileBasePage } from '../../pages/mobile/common/MobileBasePage';
 import { GsMainPage } from '../../pages/mobile/android/gs_main.page';
+import { parameter } from 'allure-js-commons';
 
 export class GsMainSteps {
   private gsMainPage: GsMainPage;
@@ -37,6 +38,9 @@ export class GsMainSteps {
     const popularWord = await this.gsMainPage.clickPopularWord();
     await this.gsMainPage.clickSearchProduct();
 
-    return await this.gsMainPage.isProductDetailPage(popularWord);
+    await parameter('선택한 인기 검색어', popularWord);
+    await parameter('상품 클릭 후 URL', await this.gsMainPage.getCurrentURL());
+
+    return await this.gsMainPage.isProductDetailPage();
   }
 }

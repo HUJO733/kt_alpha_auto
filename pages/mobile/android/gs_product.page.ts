@@ -94,16 +94,15 @@ export class GsProductPage extends MobileBasePage {
     await this.click(AndroidLocators.giftShowProduct.myPhoneNumberButton);
   }
 
-  /** 보내는 사람 input 값 확인 */
-  async getSenderInputValue(name: string): Promise<boolean> {
-    const value = await this.getValue(AndroidLocators.giftShowProduct.senderInput);
-    return value.includes(name);
+  /** 보내는 사람 input값 추출 */
+  async getSenderInputValue(): Promise<string> {
+    return await this.getValue(AndroidLocators.giftShowProduct.senderInput);
   }
 
   /** 받는 사람 수 추출 */
-  async extractTotalRecipients(): Promise<number> {
+  async extractTotalRecipients(): Promise<number | false> {
     const text = await this.getText(AndroidLocators.giftShowProduct.totalRecipients);
-    return Number(text.replace(/\D/g, '')) || 0;
+    return this.extractNumber(text);
   }
 
   /** 받는 사람 휴대폰 번호 입력 */
