@@ -18,7 +18,7 @@ const ENV = {
   phoneNumber: process.env.PHONE_NUMBER ?? '',
 };
 
-test.describe.serial('통합 테스트 (MW)', () => {
+test.describe('통합 테스트 (MW)', () => {
   let loginSteps: LoginSteps;
   let mainSteps: MainSteps;
   let productSteps: ProductSteps;

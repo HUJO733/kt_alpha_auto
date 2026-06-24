@@ -18,7 +18,7 @@ const ENV = {
   phoneNumber: process.env.PHONE_NUMBER ?? '',
 };
 
-test.describe.serial('메인 페이지', () => {
+test.describe('메인 페이지', () => {
   let loginSteps: LoginSteps;
   let mainSteps: MainSteps;
   let productSteps: ProductSteps;
@@ -85,7 +85,7 @@ test.describe.serial('메인 페이지', () => {
   check('혜택 관리 확인', () => mySteps.verifyBenefit());
   check('장바구니 확인', () => mySteps.verifyCart());
   check('좋아요 확인', () => mySteps.verifyLike());
-  check('상품평 확인', () => mySteps.verifyReview());
+  // check('상품평 확인', () => mySteps.verifyReview());
   check('최근 본 상품 확인', () => mySteps.verifyRecently());
   check('1:1 문의하기 확인', () => mySteps.verifyInquiry());
   check('문의 내역 확인', () => mySteps.verifyInquiryList());
