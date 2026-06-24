@@ -1,5 +1,6 @@
 import { MobileBasePage } from '../../pages/mobile/common/MobileBasePage';
 import { ProductPage } from '../../pages/mobile/ios/product.page';
+import { parameter } from 'allure-js-commons';
 
 export class ProductSteps {
   private productPage: ProductPage;
@@ -36,6 +37,9 @@ export class ProductSteps {
     const likePageLikeButtonBefore = await this.productPage.isLikeButtonVisible();
     await this.productPage.clickLikePageLikeButton();
     const likePageLikeButtonAfter = await this.productPage.isLikeButtonVisible();
+
+    await parameter('마이페이지 > 좋아요 > 좋아요 버튼(클릭 전)', `${likePageLikeButtonBefore}`);
+    await parameter('마이페이지 > 좋아요 > 좋아요 버튼(클릭 후)', `${likePageLikeButtonAfter}`);
 
     return likePageLikeButtonBefore && !likePageLikeButtonAfter;
   }
@@ -80,11 +84,17 @@ export class ProductSteps {
     await this.productPage.clickProduct();
     const productName = await this.productPage.getProductName();
     const clicked = await this.productPage.clickProductCart();
-    if (!clicked) return true;
+    if (!clicked) {
+      await parameter('메인페이지 > 상품 > 장바구니', '장바구니 버튼 없는 케이스');
+      return true;
+    }
 
     await this.productPage.clickProductCartMoveButton();
     const cartProductName = await this.productPage.getCartProductName();
     await this.productPage.clickCartDeleteButton();
+
+    await parameter('상품명', productName);
+    await parameter('장바구니 상품명', cartProductName);
 
     return cartProductName.includes(productName);
   }

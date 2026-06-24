@@ -15,7 +15,7 @@ export class GsProductPage extends MobileBasePage {
   async clickProductGift() { await this.click(IosLocators.giftShowProduct.sendToMeButton); }
   async isGiftOrderPage(): Promise<boolean> { return await this.isVisible(IosLocators.urls.giftShowGiftOrder); }
   async clickSendToMeButton() { await this.click(IosLocators.giftShowProduct.sendToMeButton); }
-  async reClickSendToMeButton() { await this.click(IosLocators.giftShowProduct.sendToMeButton); }
+  async reClickSendToMeButton() { await this.lastClick(IosLocators.giftShowProduct.sendToMeButton); }
   async isPaymentPage(): Promise<boolean> { return await this.isVisible(IosLocators.urls.giftShowPaymentOrder); }
   async clickGiftShowMainPhoneNumberButton() { await this.click(IosLocators.giftShowProduct.giftShowMainPhoneNumberButton); }
   async isSenderInputEmpty(): Promise<boolean> { return await this.isEmpty(IosLocators.giftShowProduct.senderInput); }

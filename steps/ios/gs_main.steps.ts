@@ -13,6 +13,11 @@ export class GsMainSteps {
   async gsVerifyAllNavItems(): Promise<boolean> {
     await this.gsMainPage.clickGiftShowButton();
     const results = await this.gsMainPage.isAllNavItemsVisible();
+
+    for (const { index, isVisible } of results) {
+      await parameter(`nav[${index}]`, isVisible ? 'visible' : 'not visible');
+    }
+
     return results.every(({ isVisible }) => isVisible);
   }
 
@@ -25,6 +30,9 @@ export class GsMainSteps {
     const beforeQuantity = await this.gsMainPage.extractProductQuantity();
     await this.gsMainPage.clickFirstFilterButton();
     const afterQuantity = await this.gsMainPage.extractProductQuantity();
+
+    await parameter('필터 적용 전 상품 개수', `${beforeQuantity}`);
+    await parameter('필터 적용 후 상품 개수', `${afterQuantity}`);
 
     if (beforeQuantity === false || afterQuantity === false) return false;
 

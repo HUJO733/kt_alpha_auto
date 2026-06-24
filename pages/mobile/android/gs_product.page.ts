@@ -65,7 +65,7 @@ export class GsProductPage extends MobileBasePage {
 
   /** 나에게 보내기 버튼 재클릭 */
   async reClickSendToMeButton() {
-    await this.click(AndroidLocators.giftShowProduct.sendToMeButton);
+    await this.lastClick(AndroidLocators.giftShowProduct.sendToMeButton);
   }
 
   /** 결제 페이지 확인 */
