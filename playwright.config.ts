@@ -14,6 +14,7 @@ export default defineConfig({
   reporter: [
     ['html'],
     ['allure-playwright', { outputFolder: 'allure-results' }],
+    ['./utils/suite-timing-reporter.ts'],
   ],
 
   use: {
