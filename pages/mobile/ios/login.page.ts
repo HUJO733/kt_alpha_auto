@@ -22,11 +22,11 @@ export class LoginPage extends MobileBasePage {
   }
 
   async fillId(id: string) {
-    await this.pressSequentially(IosLocators.login.idInput, id);
+    await this.fill(IosLocators.login.idInput, id);
   }
 
   async fillPw(pw: string) {
-    await this.pressSequentially(IosLocators.login.pwInput, pw);
+    await this.fill(IosLocators.login.pwInput, pw);
   }
 
   async submitLogin() {

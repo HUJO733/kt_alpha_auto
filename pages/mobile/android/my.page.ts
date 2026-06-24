@@ -145,7 +145,7 @@ export class MyPage extends MobileBasePage {
 
   /** 이름 입력 */
   async fillName(name: string) {
-    await this.pressSequentially(AndroidLocators.my.nameInput, name);
+    await this.fill(AndroidLocators.my.nameInput, name);
   }
 
   /** 다음 버튼 클릭 */
@@ -155,17 +155,17 @@ export class MyPage extends MobileBasePage {
 
   /** 연도 입력 */
   async fillYear(year: string) {
-    await this.pressSequentially(AndroidLocators.my.yearInput, year);
+    await this.fill(AndroidLocators.my.yearInput, year);
   }
 
   /** 월 입력 */
   async fillMonth(month: string) {
-    await this.pressSequentially(AndroidLocators.my.monthInput, month);
+    await this.fill(AndroidLocators.my.monthInput, month);
   }
 
   /** 일 입력 */
   async fillDay(day: string) {
-    await this.pressSequentially(AndroidLocators.my.dayInput, day);
+    await this.fill(AndroidLocators.my.dayInput, day);
   }
 
   /** KT 통신사 버튼 클릭 */
@@ -175,7 +175,7 @@ export class MyPage extends MobileBasePage {
 
   /** 휴대폰 번호 입력 */
   async fillPhoneNumber(phoneNumber: string) {
-    await this.pressSequentially(AndroidLocators.my.phoneNumberInput, phoneNumber);
+    await this.fill(AndroidLocators.my.phoneNumberInput, phoneNumber);
   }
 
   /** 회원 정보 수정 콘텐츠 노출 여부 반환 */

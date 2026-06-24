@@ -31,13 +31,13 @@ export class MyPage extends MobileBasePage {
   async isSimpleLoginContentVisible(): Promise<boolean> { return await this.isVisible(IosLocators.my.simpleLoginContent); }
   async clickModifyCustomerInfoTab() { await this.click(IosLocators.my.modifyCustomerInfoTab); }
   async isModalVisible(): Promise<boolean> { return await this.isVisible(IosLocators.common.modalContainer); }
-  async fillName(name: string) { await this.pressSequentially(IosLocators.my.nameInput, name); }
+  async fillName(name: string) { await this.fill(IosLocators.my.nameInput, name); }
   async clickNextButton() { await this.click(IosLocators.my.nextButton); }
-  async fillYear(year: string) { await this.pressSequentially(IosLocators.my.yearInput, year); }
-  async fillMonth(month: string) { await this.pressSequentially(IosLocators.my.monthInput, month); }
-  async fillDay(day: string) { await this.pressSequentially(IosLocators.my.dayInput, day); }
+  async fillYear(year: string) { await this.fill(IosLocators.my.yearInput, year); }
+  async fillMonth(month: string) { await this.fill(IosLocators.my.monthInput, month); }
+  async fillDay(day: string) { await this.fill(IosLocators.my.dayInput, day); }
   async clickKtAgencyButton() { await this.click(IosLocators.my.ktAgencyButton); }
-  async fillPhoneNumber(phoneNumber: string) { await this.pressSequentially(IosLocators.my.phoneNumberInput, phoneNumber); }
+  async fillPhoneNumber(phoneNumber: string) { await this.fill(IosLocators.my.phoneNumberInput, phoneNumber); }
   async isModifyCustomerInfoContentVisible(): Promise<boolean> { return await this.isVisible(IosLocators.my.modifyCustomerInfoContent); }
   async clickBenefitTab() { await this.click(IosLocators.my.benefitTab); }
   async clickCartTab() { await this.click(IosLocators.my.cartTab); }

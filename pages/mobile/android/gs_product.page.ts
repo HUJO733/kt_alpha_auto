@@ -85,7 +85,7 @@ export class GsProductPage extends MobileBasePage {
 
   /** 보내는 사람 input 입력 및 검증 */
   async fillAndVerify(name: string): Promise<boolean> {
-    await this.pressSequentially(AndroidLocators.giftShowProduct.senderInput, name);
+    await this.fill(AndroidLocators.giftShowProduct.senderInput, name);
     return (await this.getValue(AndroidLocators.giftShowProduct.senderInput)) === name;
   }
 
@@ -107,12 +107,12 @@ export class GsProductPage extends MobileBasePage {
 
   /** 받는 사람 휴대폰 번호 입력 */
   async fillRecipientPhoneNumber(phoneNumber: string) {
-    await this.pressSequentially(AndroidLocators.giftShowProduct.recipientPhoneNumberInput, phoneNumber);
+    await this.fill(AndroidLocators.giftShowProduct.recipientPhoneNumberInput, phoneNumber);
   }
 
   /** 받는 사람 이름 입력 */
   async fillRecipientName(name: string) {
-    await this.pressSequentially(AndroidLocators.giftShowProduct.recipientNameInput, name);
+    await this.fill(AndroidLocators.giftShowProduct.recipientNameInput, name);
   }
 
   /** 결제 버튼 클릭 */
