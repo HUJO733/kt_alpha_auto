@@ -78,6 +78,6 @@ export { expect };
 export const check = (name: string, fn: () => Promise<boolean>, hard = false) => {
   test(name, async () => {
     await story(name);
-    (hard ? expect : expect.soft)(await fn(), `${name} 실패`).toBe(true);
+    (hard ? expect : expect.soft)(await fn()).toBe(true);
   });
 };
