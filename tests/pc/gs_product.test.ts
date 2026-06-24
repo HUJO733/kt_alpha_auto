@@ -7,7 +7,7 @@ const ENV = {
   phoneNumber: process.env.PHONE_NUMBER ?? '',
 };
 
-test.describe('GS 상품', () => {
+test.describe('기프티쇼 상품', () => {
 
   let gsProductSteps: GsProductSteps;
 

@@ -2,7 +2,7 @@ import { test, check } from '../../fixtures/web/pc.fixture';
 import { GsMainSteps } from '../../steps/pc/gs_main.steps';
 import { epic, feature } from 'allure-js-commons';
 
-test.describe('GS 메인', () => {
+test.describe('기프티쇼 메인', () => {
 
   let gsMainSteps: GsMainSteps;
 
