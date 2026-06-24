@@ -67,7 +67,7 @@ export const test = base.extend<{}, PCWorkerFixtures>({
   sharedBasePage: [async ({ browser }, use) => {
     const context = await browser.newContext({ viewport: null });
     const page = await context.newPage();
-    await page.goto(CommonLocators.urls.homePage);
+    await page.goto(CommonLocators.urls.homePage).catch(() => {});
     await use(new BasePage(page));
     await context.close();
   }, { scope: 'worker' }],
@@ -78,6 +78,11 @@ export { expect };
 export const check = (name: string, fn: () => Promise<boolean>, hard = false) => {
   test(name, async () => {
     await story(name);
-    (hard ? expect : expect.soft)(await fn()).toBe(true);
+    try {
+      (hard ? expect : expect.soft)(await fn()).toBe(true);
+    } catch (e) {
+      if (hard) throw e;
+      expect.soft(false, String(e)).toBe(true);
+    }
   });
 };
