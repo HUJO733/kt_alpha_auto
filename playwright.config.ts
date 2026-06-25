@@ -53,7 +53,6 @@ export default defineConfig({
       name: 'pc-no-auth',
       testMatch: /tests\/pc\/(login|integrated)\.test\.ts/,
       fullyParallel: false,
-      workers: 1,
       use: {
         viewport: null,
         launchOptions: { args: ['--start-maximized'] },
@@ -85,7 +84,6 @@ export default defineConfig({
       name: 'mw-no-auth',
       testMatch: /tests\/mw\/(login|integrated)\.test\.ts/,
       fullyParallel: false,
-      workers: 1,
       use: {
         ...devices['iPhone 13'],
       },

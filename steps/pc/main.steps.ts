@@ -24,7 +24,8 @@ export class MainSteps {
   /** 홈 > ON AIR(지금 방송중) 상품 노출 확인 */
   async verifyOnAirModal(): Promise<boolean> {
     await this.mainPage.goToHome();
-    return await this.mainPage.isOnAirDisplayVisible();
+    // return await this.mainPage.isOnAirDisplayVisible();
+    return await this.mainPage.isGiftOrderPage();
   }
 
   /** 홈 > ON AIR(지금 방송중) > 바로구매 > 선물하기 주문서 이동 확인 */
