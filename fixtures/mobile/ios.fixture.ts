@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { createIosDriver } from '../../drivers/ios.driver';
+import { createIOSDriver } from '../../drivers/mobile/ios.driver';
 import { MobileBasePage } from '../../pages/mobile/common/MobileBasePage';
 
 export class IosFixture {
@@ -7,7 +7,7 @@ export class IosFixture {
   basePage: MobileBasePage | null = null;
 
   async setup(): Promise<MobileBasePage> {
-    this.driver = await createIosDriver();
+    this.driver = await createIOSDriver();
     this.basePage = new MobileBasePage(this.driver);
     return this.basePage;
   }

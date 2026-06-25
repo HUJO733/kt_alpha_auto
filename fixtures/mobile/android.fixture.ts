@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { createAndroidDriver } from '../../drivers/android.driver';
+import { createAndroidDriver } from '../../drivers/mobile/android.driver';
 import { MobileBasePage } from '../../pages/mobile/common/MobileBasePage';
 
 export class AndroidFixture {
