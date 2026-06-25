@@ -59,8 +59,9 @@ export class BasePage {
     try {
       await this.page.goto(url);
     } catch (e: any) {
-      if (e.message?.includes('ERR_ABORTED')) await this.page.goto(url);
-      else throw e;
+      if (e.message?.includes('ERR_ABORTED') || e.message?.includes('interrupted by another navigation')) {
+        await this.page.goto(url);
+      } else throw e;
     }
   }
 

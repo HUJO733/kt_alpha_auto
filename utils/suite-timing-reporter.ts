@@ -34,7 +34,7 @@ class SuiteTimingReporter implements Reporter {
     const fmt = (ms: number) => {
       const d = new Date(ms);
       const pad = (n: number) => String(n).padStart(2, '0');
-      return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+      return `${String(d.getFullYear()).slice(2)}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
     };
 
     for (const [name, { start, end }] of this.timings) {
@@ -43,9 +43,7 @@ class SuiteTimingReporter implements Reporter {
       const s = totalSec % 60;
       const duration = m > 0 ? `${m}m ${s}s` : `${s}s`;
       const key = name.replace(/[\s=\n\r]/g, '_');
-      lines.push(`${key}_시작=${fmt(start)}`);
-      lines.push(`${key}_종료=${fmt(end)}`);
-      lines.push(`${key}_소요시간=${duration}`);
+      lines.push(`${key} = ${fmt(start)} ~ ${fmt(end)} | 소요시간: ${duration}`);
     }
 
     const file = 'allure-results/environment.properties';

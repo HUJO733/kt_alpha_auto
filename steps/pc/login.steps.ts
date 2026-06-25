@@ -16,10 +16,12 @@ export class LoginSteps {
     await this.loginPage.fillId(id);
     await this.loginPage.fillPw(pw);
     await this.loginPage.submitLogin();
-    await this.loginPage.clickCertificationRequestButton();
-
-    // 휴대폰 인증
-    await this.loginPage.wait(20);
+    try {
+      await this.loginPage.clickCertificationRequestButton();
+      await this.loginPage.wait(20);
+    } catch {
+      // OTP 불필요
+    }
     await this.loginPage.saveStorageState('auth.json');
 
     const logoutButton = await this.loginPage.isLogoutButtonVisible();
@@ -38,10 +40,12 @@ export class LoginSteps {
     await this.loginPage.fillId(id);
     await this.loginPage.fillPw(pw);
     await this.loginPage.submitLogin();
-    await this.loginPage.clickCertificationRequestButton();
-
-    // 휴대폰 인증
-    await this.loginPage.wait(20);
+    try {
+      await this.loginPage.clickCertificationRequestButton();
+      await this.loginPage.wait(20);
+    } catch {
+      // OTP 불필요
+    }
     await this.loginPage.saveStorageState('auth.json');
 
     return await this.loginPage.isBuyOrderPage();
