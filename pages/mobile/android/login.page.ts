@@ -74,4 +74,9 @@ export class LoginPage extends MobileBasePage {
   async clickBuyButtonAfterOption() {
     await this.lastClick(AndroidLocators.login.buyButton);
   }
+
+  /** 주문서 페이지 노출 여부 반환 */
+  async isBuyOrderPage(): Promise<boolean> {
+    return await this.isVisible(AndroidLocators.urls.onAirBuyOrder);
+  }
 }

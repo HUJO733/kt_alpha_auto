@@ -27,7 +27,14 @@ export class GsMainPage extends MobileBasePage {
     await this.wait(3);
   }
   async clickFirstFilterButton() {
+    await this.click(IosLocators.main.firstFilterButton);
+  }
+
+  async clickFirstButtonInFilter() {
     await this.click(IosLocators.giftShowMain.firstButtonInFilter);
+  }
+
+  async clickFilterSearchButton() {
     await this.click(IosLocators.giftShowMain.filterSearchButton);
     await this.wait(2);
   }

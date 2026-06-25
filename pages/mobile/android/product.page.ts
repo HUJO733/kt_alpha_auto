@@ -3,9 +3,24 @@ import { AndroidLocators } from './locators';
 
 export class ProductPage extends MobileBasePage {
 
+  /** ON AIR 버튼 클릭 */
+  async clickOnAirButton() {
+    await this.click(AndroidLocators.main.onAirButton);
+  }
+
+  /** ON AIR > VOD 재생 */
+  async playVideo() {
+    await this.click(AndroidLocators.product.onAirVideo);
+  }
+
   /** ON AIR Video 재생 여부 반환 */
   async isVideoPlaying(): Promise<boolean> {
     return await this.isVisible(AndroidLocators.product.onAirVideo);
+  }
+
+  /** 편성표 탭 클릭 */
+  async clickBroadcastSchedule() {
+    await this.click(AndroidLocators.main.navItems);
   }
 
   /** 방송알림 버튼 클릭 */

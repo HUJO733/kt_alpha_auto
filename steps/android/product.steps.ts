@@ -12,11 +12,14 @@ export class ProductSteps {
   /** ON AIR > VOD 영상 재생 확인 */
   async verifyVOD(): Promise<boolean> {
     await this.productPage.goToHome();
+    await this.productPage.clickOnAirButton();
+    await this.productPage.playVideo();
     return await this.productPage.isVideoPlaying();
   }
 
   /** 편성표 > 방송알림 신청 및 등록 완료 확인 */
   async verifyBroadcastNotification(): Promise<boolean> {
+    await this.productPage.clickBroadcastSchedule();
     await this.productPage.clickAlarmButton();
     const popup = await this.productPage.isBroadcastNotificationPopupVisible();
     await this.productPage.clickSmsConsentCheckbox();

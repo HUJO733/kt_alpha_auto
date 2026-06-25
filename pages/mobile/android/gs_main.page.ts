@@ -39,7 +39,16 @@ export class GsMainPage extends MobileBasePage {
 
   /** 첫번째 필터 클릭 */
   async clickFirstFilterButton() {
+    await this.click(AndroidLocators.main.firstFilterButton);
+  }
+
+  /** 필터 내 첫번째 버튼 클릭 */
+  async clickFirstButtonInFilter() {
     await this.click(AndroidLocators.giftShowMain.firstButtonInFilter);
+  }
+
+  /** 상품보기 버튼 클릭 */
+  async clickFilterSearchButton() {
     await this.click(AndroidLocators.giftShowMain.filterSearchButton);
     await this.wait(2);
   }

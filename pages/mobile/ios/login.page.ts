@@ -60,4 +60,8 @@ export class LoginPage extends MobileBasePage {
   async clickBuyButtonAfterOption() {
     await this.lastClick(IosLocators.login.buyButton);
   }
+
+  async isBuyOrderPage(): Promise<boolean> {
+    return await this.isVisible(IosLocators.urls.onAirBuyOrder);
+  }
 }

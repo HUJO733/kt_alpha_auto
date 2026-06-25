@@ -29,6 +29,8 @@ export class GsMainSteps {
     await this.gsMainPage.clickGiftShowThreeDepth();
     const beforeQuantity = await this.gsMainPage.extractProductQuantity();
     await this.gsMainPage.clickFirstFilterButton();
+    await this.gsMainPage.clickFirstButtonInFilter();
+    await this.gsMainPage.clickFilterSearchButton();
     const afterQuantity = await this.gsMainPage.extractProductQuantity();
 
     await parameter('필터 적용 전 상품 개수', `${beforeQuantity}`);

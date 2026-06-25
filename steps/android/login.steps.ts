@@ -42,6 +42,6 @@ export class LoginSteps {
     // 휴대폰 인증
     await this.loginPage.wait(30);
 
-    return await this.loginPage.isLogoutButtonVisible();
+    return await this.loginPage.isBuyOrderPage();
   }
 }

@@ -3,8 +3,20 @@ import { IosLocators } from './locators';
 
 export class ProductPage extends MobileBasePage {
 
+  async clickOnAirButton() {
+    await this.click(IosLocators.main.onAirButton);
+  }
+
+  async playVideo() {
+    await this.click(IosLocators.product.onAirVideo);
+  }
+
   async isVideoPlaying(): Promise<boolean> {
     return await this.isVisible(IosLocators.product.onAirVideo);
+  }
+
+  async clickBroadcastSchedule() {
+    await this.click(IosLocators.main.navItems);
   }
 
   async clickAlarmButton() {
