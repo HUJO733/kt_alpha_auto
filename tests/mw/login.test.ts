@@ -9,7 +9,7 @@ const ENV = {
 
 test('로그인 (MW)', async ({ basePage }) => {
   const loginSteps = new LoginSteps(basePage);
-  const run = createRun('MW Web', '로그인');
+  const run = createRun('MW Web', '로그인', basePage.getPage());
 
   await run('일반 계정 로그인 확인', () => loginSteps.verifyLocalLogin(ENV.id, ENV.pw));
 });

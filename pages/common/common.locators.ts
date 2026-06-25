@@ -1,8 +1,8 @@
 // PC/MW 공통으로 사용되는 locator
 export const CommonLocators = {
   urls: {
-    homePage: 'https://www.kshop.co.kr/',
-    mwHomePage: 'https://m.kshop.co.kr/',
+    homePage: process.env.BASE_URL ?? 'https://www.kshop.co.kr/',
+    mwHomePage: process.env.MW_BASE_URL ?? 'https://m.kshop.co.kr/',
   },
   modal: {
     modal: '//div[contains(@class,"Modal_open")]',

@@ -12,7 +12,7 @@ const ENV = {
 
 test('마이 쇼핑 (MW)', async ({ basePage }) => {
   const mySteps = new MySteps(basePage);
-  const run = createRun('MW Web', '마이 쇼핑');
+  const run = createRun('MW Web', '마이 쇼핑', basePage.getPage());
 
   await run('주문 내역 확인', () => mySteps.verifyOrderHistory());
   await run('취소/교환/반품 내역 확인', () => mySteps.verifyClaimHistory());

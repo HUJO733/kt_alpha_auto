@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test';
+import type { Page } from '@playwright/test';
 import { writeFileSync, mkdirSync } from 'fs';
 import { randomUUID } from 'crypto';
 import { join } from 'path';
 
-function writeStepResult(name: string, epic: string, feature: string, status: 'passed' | 'failed', start: number, stop: number, errorMsg?: string) {
+function writeStepResult(name: string, epic: string, feature: string, status: 'passed' | 'failed', start: number, stop: number, errorMsg?: string, screenshot?: Buffer) {
   const uuid = randomUUID();
   const result: Record<string, unknown> = {
     uuid,
@@ -18,6 +19,12 @@ function writeStepResult(name: string, epic: string, feature: string, status: 'p
     ],
   };
   if (errorMsg) result['statusDetails'] = { message: errorMsg };
+  if (screenshot) {
+    const attachUUID = randomUUID();
+    const attachFile = `${attachUUID}-attachment.png`;
+    writeFileSync(join('allure-results', attachFile), screenshot);
+    result['attachments'] = [{ name: 'screenshot', type: 'image/png', source: attachFile }];
+  }
   mkdirSync('allure-results', { recursive: true });
   writeFileSync(join('allure-results', `${uuid}-result.json`), JSON.stringify(result));
 }
@@ -51,7 +58,7 @@ export function createMobileRun(epicName: string, featureName: string) {
   return { run, finish };
 }
 
-export function createRun(epicName: string, featureName: string) {
+export function createRun(epicName: string, featureName: string, page?: Page) {
   return async (name: string, fn: () => Promise<boolean>, hard = false) => {
     const start = Date.now();
     let passed = true;
@@ -72,7 +79,10 @@ export function createRun(epicName: string, featureName: string) {
     } catch (e) {
       if (hard) throw e;
     } finally {
-      writeStepResult(name, epicName, featureName, passed ? 'passed' : 'failed', start, Date.now(), errorMsg);
+      const screenshot = (!passed && page)
+        ? await page.screenshot({ fullPage: false }).catch(() => undefined)
+        : undefined;
+      writeStepResult(name, epicName, featureName, passed ? 'passed' : 'failed', start, Date.now(), errorMsg, screenshot);
     }
   };
 }

@@ -4,7 +4,7 @@ import { createRun } from '../../utils/step-runner';
 
 test('메인 페이지', async ({ basePage }) => {
   const mainSteps = new MainSteps(basePage);
-  const run = createRun('PC Web', '메인 페이지');
+  const run = createRun('PC Web', '메인 페이지', basePage.getPage());
 
   await run('GNB 메뉴별 화면 확인', () => mainSteps.verifyAllNavItems());
   await run('ON AIR > 현재 방송 중인 상품 정보 노출 확인', () => mainSteps.verifyOnAirModal());

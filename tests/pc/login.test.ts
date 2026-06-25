@@ -9,7 +9,7 @@ const ENV = {
 
 test('로그인', async ({ basePage }) => {
   const loginSteps = new LoginSteps(basePage);
-  const run = createRun('PC Web', '로그인');
+  const run = createRun('PC Web', '로그인', basePage.getPage());
 
   await run('일반 계정 로그인 확인', () => loginSteps.verifyLocalLogin(ENV.id, ENV.pw));
   await run('임의 상품 상세 > 구매하기 > 일반 계정 로그인 확인', () => loginSteps.verifyBuyAndLogin(ENV.id, ENV.pw));

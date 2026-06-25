@@ -29,7 +29,7 @@ test('통합 테스트 (MW)', async ({ sharedBasePage }) => {
   const gsMainSteps = new GsMainSteps(sharedBasePage);
   const gsProductSteps = new GsProductSteps(sharedBasePage);
 
-  const run = createRun('MW Web', '통합 테스트');
+  const run = createRun('MW Web', '통합 테스트', sharedBasePage.getPage());
 
   await run('일반 계정 로그인 확인', () => loginSteps.verifyLocalLogin(ENV.id, ENV.pw));
   await run('임의 상품 상세 > 구매하기 > 일반 계정 로그인 확인', () => loginSteps.verifyBuyAndLogin(ENV.id, ENV.pw), true);

@@ -9,7 +9,7 @@ const ENV = {
 
 test('기프티쇼 상품', async ({ basePage }) => {
   const gsProductSteps = new GsProductSteps(basePage);
-  const run = createRun('PC Web', '기프티쇼 상품');
+  const run = createRun('PC Web', '기프티쇼 상품', basePage.getPage());
 
   await run('좋아요 추가 및 삭제 확인', () => gsProductSteps.gsVerifyProductLike());
   await run('상세정보 탭 노출 확인', () => gsProductSteps.gsVerifyProductDetailInfo());

@@ -4,7 +4,7 @@ import { createRun } from '../../utils/step-runner';
 
 test('상품 페이지 (MW)', async ({ basePage }) => {
   const productSteps = new ProductSteps(basePage);
-  const run = createRun('MW Web', '상품 페이지');
+  const run = createRun('MW Web', '상품 페이지', basePage.getPage());
 
   await run('ON AIR > VOD 영상 재생 확인', () => productSteps.verifyVOD());
   await run('편성표 > 방송알림 신청 및 등록 완료 확인', () => productSteps.verifyBroadcastNotification());
