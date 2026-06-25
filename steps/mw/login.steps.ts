@@ -44,6 +44,6 @@ export class LoginSteps {
     await this.loginPage.wait(20);
     await this.loginPage.saveStorageState('mw-auth.json');
 
-    return await this.loginPage.isLogoutButtonVisible();
+    return await this.loginPage.isBuyOrderPage();
   }
 }

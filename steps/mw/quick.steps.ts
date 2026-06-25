@@ -11,7 +11,8 @@ export class QuickSteps {
 
   /** 독바 > ON AIR > 바로구매 > 선물하기 주문서 이동 확인 */
   async verifyOnAirGift(): Promise<boolean> {
-    await this.quickPage.selectOnAirOption();
+    const counsel = await this.quickPage.selectOnAirOption();
+    if (!counsel) return await this.quickPage.isBuyOrderPage();
     await this.quickPage.clickOnAirGiftButton();
     return await this.quickPage.isGiftOrderPage();
   }

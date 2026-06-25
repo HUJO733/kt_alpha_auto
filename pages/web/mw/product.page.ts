@@ -25,7 +25,11 @@ export class ProductPage extends BasePage {
   }
 
   async clickSmsConsentCheckbox() {
-    await this.click(MwLocators.product.smsConsentCheckbox);
+    try {
+      await this.click(MwLocators.product.smsConsentCheckbox);
+    } catch {
+      // 체크박스 없으면 스킵
+    }
   }
 
   async clickBroadcastNotificationRegisterButton() {

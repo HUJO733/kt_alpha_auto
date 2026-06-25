@@ -69,4 +69,9 @@ export class LoginPage extends BasePage {
   async clickBuyButtonAfterOption() {
     await this.lastClick(MwLocators.login.buyButton);
   }
+
+  /** 주문서 페이지 URL 확인 */
+  async isBuyOrderPage(): Promise<boolean> {
+    return this.urlContains(MwLocators.urls.onAirBuyOrder);
+  }
 }
