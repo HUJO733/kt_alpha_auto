@@ -1,5 +1,4 @@
 import { test as base, expect, devices, Page, WorkerInfo } from '@playwright/test';
-import { story } from 'allure-js-commons';
 import { existsSync } from 'fs';
 import { BasePage } from '../../pages/common/BasePage';
 import { CommonLocators } from '../../pages/common/common.locators';
@@ -74,15 +73,3 @@ export const test = base.extend<{}, MWWorkerFixtures>({
 });
 
 export { expect };
-
-export const check = (name: string, fn: () => Promise<boolean>, hard = false) => {
-  test(name, async () => {
-    await story(name);
-    try {
-      (hard ? expect : expect.soft)(await fn()).toBe(true);
-    } catch (e) {
-      if (hard) throw e;
-      expect.soft(false, String(e)).toBe(true);
-    }
-  });
-};

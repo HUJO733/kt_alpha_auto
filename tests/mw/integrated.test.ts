@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/web/mw.fixture';
+import { test } from '../../fixtures/web/mw.fixture';
 import { LoginSteps } from '../../steps/mw/login.steps';
 import { MainSteps } from '../../steps/mw/main.steps';
 import { ProductSteps } from '../../steps/mw/product.steps';
@@ -6,7 +6,7 @@ import { QuickSteps } from '../../steps/mw/quick.steps';
 import { MySteps } from '../../steps/mw/my.steps';
 import { GsMainSteps } from '../../steps/mw/gs_main.steps';
 import { GsProductSteps } from '../../steps/mw/gs_product.steps';
-import { epic, feature } from 'allure-js-commons';
+import { createRun } from '../../utils/step-runner';
 
 const ENV = {
   id: process.env.LOGIN_ID ?? '',
@@ -20,8 +20,6 @@ const ENV = {
 
 test('통합 테스트 (MW)', async ({ sharedBasePage }) => {
   test.setTimeout(900_000);
-  await epic('MW Web');
-  await feature(`통합 테스트 (${process.env.TEST_RUN_TIMESTAMP})`);
 
   const loginSteps = new LoginSteps(sharedBasePage);
   const mainSteps = new MainSteps(sharedBasePage);
@@ -31,16 +29,7 @@ test('통합 테스트 (MW)', async ({ sharedBasePage }) => {
   const gsMainSteps = new GsMainSteps(sharedBasePage);
   const gsProductSteps = new GsProductSteps(sharedBasePage);
 
-  const run = async (name: string, fn: () => Promise<boolean>, hard = false) => {
-    await test.step(name, async () => {
-      try {
-        (hard ? expect : expect.soft)(await fn()).toBe(true);
-      } catch (e) {
-        if (hard) throw e;
-        expect.soft(false, String(e)).toBe(true);
-      }
-    });
-  };
+  const run = createRun('MW Web', '통합 테스트');
 
   await run('일반 계정 로그인 확인', () => loginSteps.verifyLocalLogin(ENV.id, ENV.pw));
   await run('임의 상품 상세 > 구매하기 > 일반 계정 로그인 확인', () => loginSteps.verifyBuyAndLogin(ENV.id, ENV.pw), true);

@@ -1,5 +1,6 @@
-import { AndroidFixture, check } from '../../fixtures/mobile/android.fixture';
+import { AndroidFixture } from '../../fixtures/mobile/android.fixture';
 import { GsMainSteps } from '../../steps/android/gs_main.steps';
+import { createMobileRun } from '../../utils/step-runner';
 
 describe('기프티쇼 메인 (Android)', () => {
   const fixture = new AndroidFixture();
@@ -10,11 +11,13 @@ describe('기프티쇼 메인 (Android)', () => {
     gsMainSteps = new GsMainSteps(basePage);
   });
 
-  after(async () => {
-    await fixture.teardown();
-  });
+  after(async () => { await fixture.teardown(); });
 
-  check('기프티쇼 GNB 메뉴별 화면 노출 확인', () => gsMainSteps.gsVerifyAllNavItems());
-  check('기프티쇼 카테고리 및 필터 기능 확인', () => gsMainSteps.gsVerifyCategory());
-  check('기프티쇼 검색 후 상품 상세 페이지 이동 확인', () => gsMainSteps.gsVerifySearch());
+  it('기프티쇼 메인', async () => {
+    const { run, finish } = createMobileRun('Android', '기프티쇼 메인');
+    await run('기프티쇼 GNB 메뉴별 화면 노출 확인', () => gsMainSteps.gsVerifyAllNavItems());
+    await run('기프티쇼 카테고리 및 필터 기능 확인', () => gsMainSteps.gsVerifyCategory());
+    await run('기프티쇼 검색 후 상품 상세 페이지 이동 확인', () => gsMainSteps.gsVerifySearch());
+    finish();
+  });
 });

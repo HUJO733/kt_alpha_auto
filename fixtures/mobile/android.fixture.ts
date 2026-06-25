@@ -1,4 +1,3 @@
-import assert from 'assert';
 import { createAndroidDriver } from '../../drivers/mobile/android.driver';
 import { MobileBasePage } from '../../pages/mobile/common/MobileBasePage';
 
@@ -18,10 +17,4 @@ export class AndroidFixture {
       this.driver = null;
     }
   }
-}
-
-export function check(name: string, fn: () => Promise<boolean>, _hard = false) {
-  it(name, async () => {
-    assert.strictEqual(await fn(), true, `${name} 실패`);
-  });
 }

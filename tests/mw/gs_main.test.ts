@@ -1,19 +1,12 @@
-import { test, check } from '../../fixtures/web/mw.fixture';
+import { test } from '../../fixtures/web/mw.fixture';
 import { GsMainSteps } from '../../steps/mw/gs_main.steps';
-import { epic, feature } from 'allure-js-commons';
+import { createRun } from '../../utils/step-runner';
 
-test.describe('기프티쇼 메인 (MW)', () => {
+test('기프티쇼 메인 (MW)', async ({ basePage }) => {
+  const gsMainSteps = new GsMainSteps(basePage);
+  const run = createRun('MW Web', '기프티쇼 메인');
 
-  let gsMainSteps: GsMainSteps;
-
-  test.beforeEach(async ({ basePage }) => {
-    gsMainSteps = new GsMainSteps(basePage);
-    await epic('MW Web');
-    await feature(`기프티쇼 메인 (${process.env.TEST_RUN_TIMESTAMP})`);
-  });
-
-  check('GNB 메뉴별 화면 노출 확인', () => gsMainSteps.gsVerifyAllNavItems());
-  check('카테고리 및 필터 기능 확인', () => gsMainSteps.gsVerifyCategory());
-  check('검색 후 상품 상세 페이지 이동 확인', () => gsMainSteps.gsVerifySearch());
-
+  await run('GNB 메뉴별 화면 노출 확인', () => gsMainSteps.gsVerifyAllNavItems());
+  await run('카테고리 및 필터 기능 확인', () => gsMainSteps.gsVerifyCategory());
+  await run('검색 후 상품 상세 페이지 이동 확인', () => gsMainSteps.gsVerifySearch());
 });

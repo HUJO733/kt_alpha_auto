@@ -1,23 +1,16 @@
-import { test, check } from '../../fixtures/web/pc.fixture';
+import { test } from '../../fixtures/web/pc.fixture';
 import { MainSteps } from '../../steps/pc/main.steps';
-import { epic, feature } from 'allure-js-commons';
+import { createRun } from '../../utils/step-runner';
 
-test.describe('메인 페이지', () => {
+test('메인 페이지', async ({ basePage }) => {
+  const mainSteps = new MainSteps(basePage);
+  const run = createRun('PC Web', '메인 페이지');
 
-  let mainSteps: MainSteps;
-
-  test.beforeEach(async ({ basePage }) => {
-    mainSteps = new MainSteps(basePage);
-    await epic('PC Web');
-    await feature(`메인 페이지 (${process.env.TEST_RUN_TIMESTAMP})`);
-  });
-
-  check('GNB 메뉴별 화면 확인', () => mainSteps.verifyAllNavItems());
-  check('ON AIR > 현재 방송 중인 상품 정보 노출 확인', () => mainSteps.verifyOnAirModal());
-  check('ON AIR > 바로구매 > 선물하기 주문서 페이지 이동 확인', () => mainSteps.verifyOnAirGift());
-  check('ON AIR > 바로구매 > 장바구니 상품 추가 확인', () => mainSteps.verifyOnAirCart());
-  check('ON AIR > 바로구매 > 구매하기 주문서 페이지 이동 확인', () => mainSteps.verifyOnAirBuy());
-  check('카테고리 정상 노출 및 필터 기능 확인', () => mainSteps.verifyCategory());
-  check('검색 후 상품 상세 페이지 이동 확인', () => mainSteps.verifySearch());
-
+  await run('GNB 메뉴별 화면 확인', () => mainSteps.verifyAllNavItems());
+  await run('ON AIR > 현재 방송 중인 상품 정보 노출 확인', () => mainSteps.verifyOnAirModal());
+  await run('ON AIR > 바로구매 > 선물하기 주문서 페이지 이동 확인', () => mainSteps.verifyOnAirGift());
+  await run('ON AIR > 바로구매 > 장바구니 상품 추가 확인', () => mainSteps.verifyOnAirCart());
+  await run('ON AIR > 바로구매 > 구매하기 주문서 페이지 이동 확인', () => mainSteps.verifyOnAirBuy());
+  await run('카테고리 정상 노출 및 필터 기능 확인', () => mainSteps.verifyCategory());
+  await run('검색 후 상품 상세 페이지 이동 확인', () => mainSteps.verifySearch());
 });
