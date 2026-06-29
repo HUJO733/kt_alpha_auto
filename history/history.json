@@ -1,1 +1,1 @@
-{"7ccff9da8f6274a8b798fd603bfa5f85:daa2856afc697958c96e14f06c0f0418":{"statistic":{"failed":1,"broken":0,"skipped":0,"passed":0,"unknown":0,"total":1},"items":[{"uid":"660ea95fab4f69b4","status":"failed","statusDetails":"Error: TimeoutError: locator.waitFor: Timeout 3000ms exceeded.\nCall log:\n  - waiting for locator('//div[contains(@class,\"ProductItem_box\")]/button').first() to be visible\n\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false","time":{"start":1782694686230,"stop":1782695500527,"duration":814297}}]}}
+{}
