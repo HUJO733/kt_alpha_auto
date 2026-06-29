@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: 코드 체크아웃
         uses: actions/checkout@v4
-        with:
-          clean: true
 
       - name: Node.js 설정
         uses: actions/setup-node@v4
@@ -27,7 +25,7 @@ jobs:
         run: npm ci
 
       - name: Playwright 브라우저 설치
-        run: npx playwright install chromium --with-deps
+        run: npx playwright install chromium
 
       - name: PC 통합 테스트 실행
         id: test
