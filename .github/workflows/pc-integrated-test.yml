@@ -66,13 +66,18 @@ jobs:
       - name: 히스토리 develop 브랜치에 누적
         if: always()
         run: |
+          TEMP=$(mktemp -d)
+          git clone --depth=1 --branch=develop https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/HUJO733/kt_alpha_auto.git "$TEMP"
+          rm -rf "$TEMP/allure-history"
+          cp -r allure-report/history "$TEMP/allure-history"
+          cd "$TEMP"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          rm -rf allure-history
-          cp -r allure-report/history allure-history
           git add allure-history/
           git diff --cached --quiet || git commit -m "chore: Allure 히스토리 업데이트 [skip ci]"
-          git push origin HEAD:develop
+          git push origin develop
+          cd -
+          rm -rf "$TEMP"
 
       - name: Slack 알림
         if: always()
