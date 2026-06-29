@@ -41,6 +41,12 @@ jobs:
         run: npx playwright test tests/pc/integrated --project=pc-no-auth --headed
         continue-on-error: true
 
+      - name: 이전 히스토리 복원
+        if: always()
+        run: |
+          mkdir -p allure-results/history
+          cp -r allure-history/. allure-results/history/ 2>/dev/null || true
+
       - name: Allure 리포트 생성
         if: always()
         run: |
@@ -54,6 +60,18 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
+
+      - name: 히스토리 develop 브랜치에 누적
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          rm -rf allure-history
+          cp -r allure-report/history allure-history
+          git add allure-history/
+          git diff --cached --quiet || git commit -m "chore: Allure 히스토리 업데이트 [skip ci]"
+          git pull --rebase origin develop
+          git push origin HEAD:develop
 
       - name: Slack 알림
         if: always()
