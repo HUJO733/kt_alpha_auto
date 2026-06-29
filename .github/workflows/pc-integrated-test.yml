@@ -1,4 +1,4 @@
-name: PC 통합 테스트
+name: KT ALPHA 통합 테스트(PC)
 
 on:
   workflow_dispatch:
