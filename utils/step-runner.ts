@@ -4,7 +4,23 @@ import { writeFileSync, mkdirSync } from 'fs';
 import { randomUUID } from 'crypto';
 import { join } from 'path';
 
-function writeStepResult(name: string, epic: string, feature: string, status: 'passed' | 'failed', start: number, stop: number, errorMsg?: string, screenshot?: Buffer) {
+let _params: Array<{ name: string; value: string }> = [];
+
+export function parameter(name: string, value: string): void {
+  _params.push({ name, value });
+}
+
+function writeStepResult(
+  name: string,
+  epic: string,
+  feature: string,
+  status: 'passed' | 'failed',
+  start: number,
+  stop: number,
+  params: Array<{ name: string; value: string }>,
+  errorMsg?: string,
+  screenshot?: Buffer,
+) {
   const uuid = randomUUID();
   const result: Record<string, unknown> = {
     uuid,
@@ -18,6 +34,7 @@ function writeStepResult(name: string, epic: string, feature: string, status: 'p
       { name: 'story', value: name },
     ],
   };
+  if (params.length > 0) result['parameters'] = params;
   if (errorMsg) result['statusDetails'] = { message: errorMsg };
   if (screenshot) {
     const attachUUID = randomUUID();
@@ -36,6 +53,7 @@ export function createMobileRun(epicName: string, featureName: string) {
     const start = Date.now();
     let passed = true;
     let errorMsg: string | undefined;
+    _params = [];
     try {
       const result = await fn();
       if (!result) { passed = false; errorMsg = 'expected true but received false'; }
@@ -43,7 +61,8 @@ export function createMobileRun(epicName: string, featureName: string) {
       passed = false;
       errorMsg = String(e);
     } finally {
-      writeStepResult(name, epicName, featureName, passed ? 'passed' : 'failed', start, Date.now(), errorMsg);
+      writeStepResult(name, epicName, featureName, passed ? 'passed' : 'failed', start, Date.now(), [..._params], errorMsg);
+      _params = [];
     }
     if (!passed) {
       if (hard) throw new Error(errorMsg);
@@ -63,6 +82,7 @@ export function createRun(epicName: string, featureName: string, page?: Page) {
     const start = Date.now();
     let passed = true;
     let errorMsg: string | undefined;
+    _params = [];
     try {
       await test.step(name, async () => {
         try {
@@ -82,7 +102,8 @@ export function createRun(epicName: string, featureName: string, page?: Page) {
       const screenshot = (!passed && page)
         ? await page.screenshot({ fullPage: false }).catch(() => undefined)
         : undefined;
-      writeStepResult(name, epicName, featureName, passed ? 'passed' : 'failed', start, Date.now(), errorMsg, screenshot);
+      writeStepResult(name, epicName, featureName, passed ? 'passed' : 'failed', start, Date.now(), [..._params], errorMsg, screenshot);
+      _params = [];
     }
   };
 }

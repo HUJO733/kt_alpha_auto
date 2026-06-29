@@ -1,6 +1,6 @@
 import { MobileBasePage } from '../../pages/mobile/common/MobileBasePage';
 import { GsProductPage } from '../../pages/mobile/android/gs_product.page';
-import { parameter } from 'allure-js-commons';
+import { parameter } from '../../utils/step-runner';
 
 export class GsProductSteps {
   private gsProductPage: GsProductPage;

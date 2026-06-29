@@ -1,6 +1,6 @@
 import { BasePage } from '../../pages/common/BasePage';
 import { QuickPage } from '../../pages/web/pc/quick.page';
-import { parameter } from 'allure-js-commons';
+import { parameter } from '../../utils/step-runner';
 
 export class QuickSteps {
   private quickPage: QuickPage;

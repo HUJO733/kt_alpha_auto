@@ -1,6 +1,6 @@
 import { BasePage } from '../../pages/common/BasePage';
 import { MyPage } from '../../pages/web/mw/my.page';
-import { parameter } from 'allure-js-commons';
+import { parameter } from '../../utils/step-runner';
 
 export class MySteps {
   private myPage: MyPage;

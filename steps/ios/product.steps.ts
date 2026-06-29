@@ -1,6 +1,6 @@
 import { MobileBasePage } from '../../pages/mobile/common/MobileBasePage';
 import { ProductPage } from '../../pages/mobile/ios/product.page';
-import { parameter } from 'allure-js-commons';
+import { parameter } from '../../utils/step-runner';
 
 export class ProductSteps {
   private productPage: ProductPage;

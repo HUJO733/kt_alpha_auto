@@ -1,6 +1,6 @@
 import { MobileBasePage } from '../../pages/mobile/common/MobileBasePage';
 import { MainPage } from '../../pages/mobile/android/main.page';
-import { parameter } from 'allure-js-commons';
+import { parameter } from '../../utils/step-runner';
 
 export class MainSteps {
   private mainPage: MainPage;

@@ -1,6 +1,6 @@
 import { BasePage } from '../../pages/common/BasePage';
 import { GsProductPage } from '../../pages/web/mw/gs_product.page';
-import { parameter } from 'allure-js-commons';
+import { parameter } from '../../utils/step-runner';
 
 export class GsProductSteps {
   private gsProductPage: GsProductPage;
