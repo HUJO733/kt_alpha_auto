@@ -1,1 +1,1 @@
-[{"uid":"e18115bf07ce25f5","name":"통합 테스트","time":{"start":1782699604009,"stop":1782699623587,"duration":19578},"status":"passed","severity":"normal"},{"uid":"39decd1e554af2a9","name":"GNB 메뉴별 화면 확인","time":{"start":1782699615004,"stop":1782699634575,"duration":19571},"status":"passed","severity":"normal"}]
+[{"uid":"8ccf8e32c6740e12","name":"GNB 메뉴별 화면 확인","time":{"start":1782700412664,"stop":1782700431978,"duration":19314},"status":"passed","severity":"normal"}]
