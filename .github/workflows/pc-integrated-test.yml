@@ -73,6 +73,22 @@ jobs:
           cd -
           rm -rf "$TEMP"
 
+      - name: GitHub Pages 배포 완료 대기
+        if: always()
+        run: |
+          for i in $(seq 1 20); do
+            STATUS=$(gh api repos/HUJO733/kt_alpha_auto/pages/deployments \
+              --jq '.[0].status' 2>/dev/null || echo "unknown")
+            echo "배포 상태: $STATUS ($i/20)"
+            if [ "$STATUS" = "succeed" ]; then
+              echo "배포 완료"
+              break
+            fi
+            sleep 15
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Slack 알림
         if: always()
         run: |
