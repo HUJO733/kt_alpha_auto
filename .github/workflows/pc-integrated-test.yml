@@ -28,6 +28,9 @@ jobs:
       - name: Playwright 브라우저 설치
         run: npx playwright install chromium
 
+      - name: 타임스탬프 설정
+        run: echo "RUN_TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)" >> $GITHUB_ENV
+
       - name: 이전 테스트 결과 초기화
         run: rm -rf allure-results && mkdir -p allure-results
 
@@ -59,6 +62,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
+          destination_dir: runs/${{ env.RUN_TIMESTAMP }}
+          keep_files: true
 
       - name: 히스토리 develop 브랜치에 누적
         if: always()
@@ -81,7 +86,6 @@ jobs:
         if: always()
         run: |
           STATUS="${{ steps.test.outcome }}"
-          TIMESTAMP=$(date +%Y%m%d_%H%M%S)
           if [ "$STATUS" = "success" ]; then
             EMOJI="✅"
             TEXT="통과"
@@ -100,7 +104,7 @@ jobs:
                 },
                 {
                   \"type\": \"section\",
-                  \"text\": {\"type\": \"mrkdwn\", \"text\": \"<https://hujo733.github.io/kt_alpha_auto?v=${TIMESTAMP}|📊 Allure 리포트 보기>\"}
+                  \"text\": {\"type\": \"mrkdwn\", \"text\": \"<https://hujo733.github.io/kt_alpha_auto/runs/${RUN_TIMESTAMP}|📊 Allure 리포트 보기>\"}
                 }
               ]
             }"
