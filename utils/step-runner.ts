@@ -4,12 +4,19 @@ import { writeFileSync, mkdirSync } from 'fs';
 import { randomUUID } from 'crypto';
 import { join } from 'path';
 
+// workers: 1 환경 전제 — 테스트가 순차 실행되므로 모듈 레벨 전역 변수로 관리해도 안전
 let _params: Array<{ name: string; value: string }> = [];
 
 export function parameter(name: string, value: string): void {
   _params.push({ name, value });
 }
 
+/**
+ * allure-playwright 없이 Allure 결과 JSON을 직접 작성하는 함수
+ *
+ * allure-playwright는 Playwright test 구조 기준으로 결과를 생성하지만,
+ * 이 함수는 스텝 단위로 독립된 결과 파일을 생성해 Allure 리포트에서 스텝별 통계를 볼 수 있게 함
+ */
 function writeStepResult(
   name: string,
   epic: string,
@@ -45,6 +52,14 @@ function writeStepResult(
   writeFileSync(join('allure-results', `${uuid}-result.json`), JSON.stringify(result));
 }
 
+/**
+ * 모바일 테스트용 run 함수 생성기
+ *
+ * createRun과 달리 Playwright의 test.step으로 래핑하지 않음
+ * (모바일은 Appium 기반이라 test.step API를 사용하지 않음)
+ *
+ * @param hard true면 해당 스텝 실패 시 테스트 즉시 중단, false면 soft fail로 계속 진행
+ */
 export function createMobileRun(epicName: string, featureName: string) {
   const softErrors: string[] = [];
 
@@ -76,6 +91,14 @@ export function createMobileRun(epicName: string, featureName: string) {
   return { run, finish };
 }
 
+/**
+ * PC 웹 테스트용 run 함수 생성기
+ *
+ * 각 스텝을 Playwright의 test.step으로 래핑하고, 결과를 Allure JSON으로 저장
+ * 실패 시 스크린샷을 자동 첨부함
+ *
+ * @param hard true면 해당 스텝 실패 시 테스트 즉시 중단, false면 soft fail로 계속 진행
+ */
 export function createRun(epicName: string, featureName: string, page?: Page) {
   return async (name: string, fn: () => Promise<boolean>, hard = false) => {
     const start = Date.now();

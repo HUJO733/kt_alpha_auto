@@ -11,6 +11,9 @@ type PCWorkerFixtures = {
   sharedBasePage: BasePage;
 };
 
+/**
+ * 광고 리다이렉트로 인해 ERR_ABORTED가 간헐적으로 발생하므로 한 번 재시도하는 안전한 goto
+ */
 async function gotoSafe(page: Page, url: string) {
   try {
     await page.goto(url);
@@ -20,6 +23,11 @@ async function gotoSafe(page: Page, url: string) {
   }
 }
 
+/**
+ * auth.json의 세션이 만료됐을 때 자동으로 재로그인하고 auth.json을 갱신
+ *
+ * 마이페이지 접근 후 로그인 버튼이 노출되면 세션 만료로 판단하여 재로그인 수행
+ */
 async function ensureLoggedIn(page: Page) {
   const myPageUrl = CommonLocators.urls.homePage.replace(/\/$/, '') + PcLocators.urls.myPage;
   await gotoSafe(page, myPageUrl);
@@ -47,6 +55,8 @@ async function ensureLoggedIn(page: Page) {
 }
 
 export const test = base.extend<{}, PCWorkerFixtures>({
+  // scope: 'worker' — 같은 worker의 모든 테스트가 브라우저 컨텍스트를 공유 (테스트마다 새로 열지 않음)
+  // auth.json이 있으면 로그인 상태로 시작하고, 세션 만료 시 ensureLoggedIn이 자동 재로그인
   appPage: [async ({ browser }, use, workerInfo: WorkerInfo) => {
     const storageState = existsSync('auth.json') ? 'auth.json' : undefined;
     const context = await browser.newContext({ viewport: null, storageState });
@@ -59,10 +69,12 @@ export const test = base.extend<{}, PCWorkerFixtures>({
     await context.close();
   }, { scope: 'worker' }],
 
+  // appPage를 BasePage로 래핑한 fixture (auth 필요한 테스트용)
   basePage: [async ({ appPage }, use) => {
     await use(new BasePage(appPage));
   }, { scope: 'worker' }],
 
+  // 로그인 없이 새 컨텍스트로 시작 (integrated 테스트처럼 로그인을 직접 수행하는 테스트용)
   sharedBasePage: [async ({ browser }, use) => {
     const context = await browser.newContext({ viewport: null });
     const page = await context.newPage();
