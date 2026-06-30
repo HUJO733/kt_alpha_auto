@@ -42,14 +42,16 @@ function writeStepResult(
   };
   if (params.length > 0) result['parameters'] = params;
   if (errorMsg) result['statusDetails'] = { message: errorMsg };
-  if (screenshot) {
-    const attachUUID = randomUUID();
-    const attachFile = `${attachUUID}-attachment.png`;
-    writeFileSync(join('allure-results', attachFile), screenshot);
-    result['attachments'] = [{ name: 'screenshot', type: 'image/png', source: attachFile }];
-  }
-  mkdirSync('allure-results', { recursive: true });
-  writeFileSync(join('allure-results', `${uuid}-result.json`), JSON.stringify(result));
+  try {
+    mkdirSync('allure-results', { recursive: true });
+    if (screenshot) {
+      const attachUUID = randomUUID();
+      const attachFile = `${attachUUID}-attachment.png`;
+      writeFileSync(join('allure-results', attachFile), screenshot);
+      result['attachments'] = [{ name: 'screenshot', type: 'image/png', source: attachFile }];
+    }
+    writeFileSync(join('allure-results', `${uuid}-result.json`), JSON.stringify(result));
+  } catch {}
 }
 
 /**

@@ -232,6 +232,7 @@ export class BasePage {
         return;
       }
     }
+    throw new Error(`뷰포트 내에 클릭 가능한 요소를 찾을 수 없음: ${selector}`);
   }
 
   /** 활성화된 첫 번째 요소 클릭 (비활성화 건너뜀) */
