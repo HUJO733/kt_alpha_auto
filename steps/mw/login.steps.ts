@@ -19,7 +19,7 @@ export class LoginSteps {
     await this.loginPage.clickCertificationRequestButton();
 
     // 휴대폰 인증
-    await this.loginPage.wait(20);
+    await this.loginPage.wait();
     await this.loginPage.saveStorageState('mw-auth.json');
 
     const logoutButton = await this.loginPage.isLogoutButtonVisible();
@@ -41,7 +41,7 @@ export class LoginSteps {
     await this.loginPage.clickCertificationRequestButton();
 
     // 휴대폰 인증
-    await this.loginPage.wait(20);
+    await this.loginPage.wait();
     await this.loginPage.saveStorageState('mw-auth.json');
 
     return await this.loginPage.isBuyOrderPage();

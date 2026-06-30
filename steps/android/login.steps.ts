@@ -19,7 +19,7 @@ export class LoginSteps {
     await this.loginPage.clickCertificationRequestButton();
 
     // 휴대폰 인증
-    await this.loginPage.wait(30);
+    await this.loginPage.wait();
 
     const logoutButton = await this.loginPage.isLogoutButtonVisible();
     await this.loginPage.clickLogoutButton();
@@ -40,7 +40,7 @@ export class LoginSteps {
     await this.loginPage.clickCertificationRequestButton();
 
     // 휴대폰 인증
-    await this.loginPage.wait(30);
+    await this.loginPage.wait();
 
     return await this.loginPage.isBuyOrderPage();
   }

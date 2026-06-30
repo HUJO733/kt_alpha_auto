@@ -99,7 +99,7 @@ export class MySteps {
       await this.myPage.fillDay(day);
       await this.myPage.clickKtAgencyButton();
       await this.myPage.fillPhoneNumber(phoneNumber);
-      await this.myPage.wait(30);
+      await this.myPage.wait();
     }
 
     return await this.myPage.isModifyCustomerInfoContentVisible();

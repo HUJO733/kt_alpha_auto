@@ -18,7 +18,7 @@ export class LoginSteps {
     await this.loginPage.submitLogin();
     try {
       await this.loginPage.clickCertificationRequestButton();
-      await this.loginPage.wait(20);
+      await this.loginPage.wait();
     } catch {
       // OTP 불필요
     }
@@ -42,7 +42,7 @@ export class LoginSteps {
     await this.loginPage.submitLogin();
     try {
       await this.loginPage.clickCertificationRequestButton();
-      await this.loginPage.wait(20);
+      await this.loginPage.wait();
     } catch {
       // OTP 불필요
     }

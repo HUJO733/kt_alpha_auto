@@ -137,6 +137,18 @@ export class BasePage {
     return await this.page.locator(selector).getAttribute(attribute);
   }
 
+  /** 요소에 특정 attribute가 나타날 때까지 대기 */
+  async waitForAttribute(selector: string, attribute: string, seconds = 10) {
+    await this.page.waitForFunction(
+      ([sel, attr]) => {
+        const el = document.evaluate(sel, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue as Element;
+        return el?.hasAttribute(attr) ?? false;
+      },
+      [selector, attribute],
+      { timeout: seconds * 1000 },
+    );
+  }
+
   /** input 요소의 현재 입력값 반환 */
   async getValue(selector: string): Promise<string> {
     return await this.page.locator(selector).inputValue();
@@ -249,7 +261,7 @@ export class BasePage {
   }
 
   /** 지정한 시간(초)만큼 대기 */
-  async wait(seconds: number) {
+  async wait(seconds = 20) {
     await this.page.waitForTimeout(seconds * 1000);
   }
 

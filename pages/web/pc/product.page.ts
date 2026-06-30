@@ -11,7 +11,7 @@ export class ProductPage extends BasePage {
   /** ON AIR > 비디오 재생 */
   async playVideo() {
     await this.click(PcLocators.product.onAirVideoPoster);
-    await this.wait(2);
+    await this.waitForAttribute(PcLocators.product.onAirVideo, 'autoplay');
   }
 
   /** 비디오 재생 여부 반환 (autoplay 속성 존재 여부) */
