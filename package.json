@@ -57,7 +57,6 @@
     "@types/node": "^25.7.0",
     "@wdio/globals": "^9.27.1",
     "allure-commandline": "^2.42.0",
-    "allure-playwright": "^3.8.0",
     "appium": "^3.4.2",
     "appium-uiautomator2-driver": "^7.2.3",
     "appium-xcuitest-driver": "^11.3.0",
