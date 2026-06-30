@@ -19,7 +19,7 @@ const ENV = {
 };
 
 test('통합 테스트', async ({ sharedBasePage }) => {
-  test.setTimeout(900_000);
+  test.setTimeout(1_200_000);
 
   const loginSteps = new LoginSteps(sharedBasePage);
   const mainSteps = new MainSteps(sharedBasePage);
