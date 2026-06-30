@@ -18,6 +18,7 @@ const ENV = {
   phoneNumber: process.env.PHONE_NUMBER ?? '',
 };
 
+
 test('통합 테스트', async ({ sharedBasePage }) => {
   test.setTimeout(1_200_000);
 

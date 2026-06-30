@@ -127,7 +127,7 @@ export class MySteps {
   async verifyBenefit(): Promise<boolean> {
     await this.myPage.clickMyButton();
     await this.myPage.clickBenefitTab();
-    return await this.myPage.isModifyCustomerInfoContentVisible();
+    return await this.myPage.isBenefitContentVisible();
   }
 
   /** 나의 쇼핑 활동 > 장바구니 */

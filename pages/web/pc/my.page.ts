@@ -184,6 +184,11 @@ export class MyPage extends BasePage {
     return await this.isVisible(PcLocators.my.modifyCustomerInfoContent);
   }
 
+  /** 혜택 관리 노출 여부 반환 (혜택 탭은 회원정보 수정과 동일한 wrapper 사용) */
+  async isBenefitContentVisible(): Promise<boolean> {
+    return await this.isVisible(PcLocators.my.modifyCustomerInfoContent);
+  }
+
   /** 마이 > 나의 쇼핑 정보 관리 > 혜택 관리 탭 클릭 */
   async clickBenefitTab() {
     await this.click(PcLocators.my.benefitTab);
