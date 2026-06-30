@@ -31,7 +31,6 @@ function writeStepResult(
     labels: [
       { name: 'epic', value: epic },
       { name: 'feature', value: `${feature} (${process.env.TEST_RUN_TIMESTAMP})` },
-      { name: 'story', value: name },
     ],
   };
   if (params.length > 0) result['parameters'] = params;
