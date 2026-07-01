@@ -22,7 +22,7 @@ export class BasePage {
     }
     while (await this.isVisible(CommonLocators.modal.closeBtn)) {
       await this.click(CommonLocators.modal.closeBtn);
-      await this.wait(1);
+      await this.waitForHidden(CommonLocators.modal.closeBtn, 3).catch(() => {});
     }
   }
 
