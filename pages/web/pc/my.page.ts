@@ -4,6 +4,12 @@ import { PcLocators } from './locators';
 export class MyPage extends BasePage {
 
   /** 마이 버튼 클릭 */
+  async clickMyButton() {
+    await this.goToHome();
+    await this.click(PcLocators.my.myButton);
+  }
+
+  /** 마이페이지 이동 */
   async goToMyPage() {
     await this.goToUrl(PcLocators.urls.myPage);
   }

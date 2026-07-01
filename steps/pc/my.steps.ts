@@ -11,7 +11,7 @@ export class MySteps {
 
   /** 나의 쇼핑 현황 > 주문 내역 확인 */
   async verifyOrderHistory(): Promise<boolean> {
-    await this.myPage.goToMyPage();
+    await this.myPage.clickMyButton();
     await this.myPage.clickOrderHistoryTab();
     return await this.myPage.isOrderListVisible();
   }
