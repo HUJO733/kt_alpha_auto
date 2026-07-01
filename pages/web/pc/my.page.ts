@@ -4,9 +4,8 @@ import { PcLocators } from './locators';
 export class MyPage extends BasePage {
 
   /** 마이 버튼 클릭 */
-  async clickMyButton() {
-    await this.goToHome();
-    await this.click(PcLocators.my.myButton);
+  async goToMyPage() {
+    await this.goToUrl(PcLocators.urls.myPage);
   }
 
   /** 마이 > 나의 쇼핑 현황 > 주문 내역 탭 클릭 */
