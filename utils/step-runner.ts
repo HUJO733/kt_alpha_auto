@@ -123,6 +123,9 @@ export function createRun(epicName: string, featureName: string, page?: Page) {
     } catch (e) {
       if (hard) throw e;
     } finally {
+      if (!passed && page) {
+        _params.push({ name: 'URL', value: page.url() });
+      }
       const screenshot = (!passed && page)
         ? await page.screenshot({ fullPage: false }).catch(() => undefined)
         : undefined;
