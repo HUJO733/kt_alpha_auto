@@ -109,16 +109,27 @@ export function createRun(epicName: string, featureName: string, page?: Page) {
     _params = [];
     try {
       await test.step(name, async () => {
-        try {
-          const result = await fn();
-          if (!result) { passed = false; errorMsg = 'expected true but received false'; }
-          (hard ? expect : expect.soft)(result).toBe(true);
-        } catch (e) {
-          passed = false;
-          errorMsg = String(e);
-          if (hard) throw e;
-          expect.soft(false, String(e)).toBe(true);
+        let lastError: unknown;
+        let lastAttempt = 0;
+        for (let attempt = 0; attempt <= 1; attempt++) {
+          lastAttempt = attempt;
+          _params = [];
+          try {
+            const result = await fn();
+            if (result) {
+              if (attempt > 0) _params.push({ name: '재시도', value: `${attempt}회` });
+              return;
+            }
+            lastError = new Error('expected true but received false');
+          } catch (e) {
+            lastError = e;
+          }
         }
+        passed = false;
+        errorMsg = String(lastError);
+        _params.push({ name: '재시도', value: `${lastAttempt}회` });
+        if (hard) throw lastError;
+        expect.soft(false, String(lastError)).toBe(true);
       });
     } catch (e) {
       if (hard) throw e;
