@@ -224,4 +224,14 @@ export class BasePage {
   async saveStorageState(path: string) {
     await this.page.context().storageState({ path });
   }
+
+  /** 버튼 클릭 후 새로 열리는 팝업 창 반환 */
+  async clickAndWaitForPopup(selector: string): Promise<Page> {
+    const [popup] = await Promise.all([
+      this.page.waitForEvent('popup'),
+      this.click(selector),
+    ]);
+    await popup.waitForLoadState();
+    return popup;
+  }
 }
