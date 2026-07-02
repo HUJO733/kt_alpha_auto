@@ -65,7 +65,11 @@ export class MainSteps {
   /** 홈 > ON AIR(지금 방송중) > 바로구매 > 구매하기 주문서 이동 확인 */
   async verifyOnAirBuy(): Promise<boolean> {
     await this.mainPage.selectOnAirOption();
+    const onAirProductName = await this.mainPage.getOnAirProductName();
     await this.mainPage.clickOnAirBuyButton();
+
+    parameter('ON AIR 상품명', onAirProductName);
+    
     return await this.mainPage.isBuyOrderPage();
   }
 
