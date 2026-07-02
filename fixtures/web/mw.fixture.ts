@@ -53,6 +53,9 @@ export const test = base.extend<{}, MWWorkerFixtures>({
     const page = await context.newPage();
     page.setDefaultTimeout(workerInfo.project.use.actionTimeout ?? 10_000);
     page.setDefaultNavigationTimeout(workerInfo.project.use.navigationTimeout ?? 10_000);
+    page.on('requestfailed', req => {
+      console.warn(`[NETWORK FAIL] ${req.method()} ${req.url()} — ${req.failure()?.errorText}`);
+    });
     await ensureLoggedIn(page);
     await gotoSafe(page, CommonLocators.urls.mwHomePage);
     await use(page);

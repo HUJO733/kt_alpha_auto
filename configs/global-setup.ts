@@ -1,3 +1,6 @@
+import { writeFileSync, mkdirSync } from 'fs';
+import { join } from 'path';
+
 /**
  * 모든 테스트 시작 전 한 번만 실행 (playwright.config.ts의 globalSetup)
  *
@@ -15,4 +18,20 @@ export default async function globalSetup() {
   if (missing.length > 0) {
     throw new Error(`필수 환경변수 누락: ${missing.join(', ')}`);
   }
+
+  mkdirSync('allure-results', { recursive: true });
+  writeFileSync(
+    join('allure-results', 'categories.json'),
+    JSON.stringify([
+      { name: '타임아웃',           messageRegex: '.*TimeoutError.*|.*Timeout.*exceeded.*' },
+      { name: '검증 실패',          messageRegex: '.*expected true but received false.*' },
+      { name: '네트워크 오류',      messageRegex: '.*net::ERR_.*|.*NS_ERROR_.*' },
+      { name: '페이지 이동 실패',   messageRegex: '.*Navigation failed.*|.*ERR_ABORTED.*' },
+      { name: '요소 없음/비노출',   messageRegex: '.*not visible.*|.*not enabled.*|.*out of viewport.*' },
+      { name: '요소 중복',          messageRegex: '.*strict mode violation.*|.*resolved to.*' },
+      { name: '브라우저 종료',      messageRegex: '.*Target closed.*|.*browser has been closed.*' },
+      { name: 'DOM 오류',           messageRegex: '.*detached.*|.*not attached to a Document.*' },
+      { name: '스크립트 오류',      messageRegex: '.*TypeError.*|.*Cannot read properties.*' },
+    ], null, 2),
+  );
 }
