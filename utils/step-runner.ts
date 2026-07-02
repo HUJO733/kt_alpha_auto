@@ -3,6 +3,7 @@ import type { Page } from '@playwright/test';
 import { writeFileSync, mkdirSync } from 'fs';
 import { randomUUID } from 'crypto';
 import { join } from 'path';
+import { toFriendlyError } from './error-map';
 
 // workers: 1 환경 전제 — 테스트가 순차 실행되므로 모듈 레벨 전역 변수로 관리해도 안전
 let _params: Array<{ name: string; value: string }> = [];
@@ -134,6 +135,9 @@ export function createRun(epicName: string, featureName: string, page?: Page) {
     } catch (e) {
       if (hard) throw e;
     } finally {
+      if (!passed && errorMsg) {
+        _params.push({ name: '실패 원인', value: toFriendlyError(errorMsg) });
+      }
       if (!passed && page) {
         _params.push({ name: 'URL', value: page.url() });
       }
