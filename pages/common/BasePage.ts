@@ -206,7 +206,7 @@ export class BasePage {
   }
 
   /** 지정한 시간(초)만큼 대기 */
-  async wait(seconds = 20) {
+  async wait(seconds: number) {
     await this.page.waitForTimeout(seconds * 1000);
   }
 
