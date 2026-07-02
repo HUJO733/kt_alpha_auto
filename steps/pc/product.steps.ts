@@ -29,7 +29,7 @@ export class ProductSteps {
     await this.productPage.clickDisableNotificationButton();
     await this.productPage.clickConfirmButton();
 
-    await parameter('방송알림 등록 완료', `${register}`);
+    parameter('방송알림 등록 완료', `${register}`);
 
     return register;
   }
@@ -43,8 +43,8 @@ export class ProductSteps {
     await this.productPage.clickLikePageLikeButton();
     const likePageLikeButtonAfter = await this.productPage.isLikeButtonVisible();
 
-    await parameter('마이페이지 > 좋아요 > 좋아요 버튼(클릭 전)', `${likePageLikeButtonBefore}`);
-    await parameter('마이페이지 > 좋아요 > 좋아요 버튼(클릭 후)', `${likePageLikeButtonAfter}`);
+    parameter('마이페이지 > 좋아요 > 좋아요 버튼(클릭 전)', `${likePageLikeButtonBefore}`);
+    parameter('마이페이지 > 좋아요 > 좋아요 버튼(클릭 후)', `${likePageLikeButtonAfter}`);
 
     return likePageLikeButtonBefore && !likePageLikeButtonAfter;
   }
@@ -90,7 +90,7 @@ export class ProductSteps {
     const productName = await this.productPage.getProductName();
     const clicked = await this.productPage.clickProductCart();
     if (!clicked) {
-      await parameter('메인페이지 > 상품 > 장바구니', '장바구니 버튼 없는 케이스');
+      parameter('메인페이지 > 상품 > 장바구니', '장바구니 버튼 없는 케이스');
       return true;
     }
 
@@ -98,8 +98,8 @@ export class ProductSteps {
     const cartProductName = await this.productPage.getCartProductName();
     await this.productPage.clickCartDeleteButton();
 
-    await parameter('상품명', productName);
-    await parameter('장바구니 상품명', cartProductName);
+    parameter('상품명', productName);
+    parameter('장바구니 상품명', cartProductName);
 
     return cartProductName.includes(productName);
   }

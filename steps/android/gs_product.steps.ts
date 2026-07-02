@@ -18,8 +18,8 @@ export class GsProductSteps {
     await this.gsProductPage.clickLikePageLikeButton();
     const likePageLikeButtonAfter = await this.gsProductPage.isLikeButtonVisible();
 
-    await parameter('마이페이지 > 좋아요 > 좋아요 버튼(클릭 전)', `${likePageLikeButtonBefore}`);
-    await parameter('마이페이지 > 좋아요 > 좋아요 버튼(클릭 후)', `${likePageLikeButtonAfter}`);
+    parameter('마이페이지 > 좋아요 > 좋아요 버튼(클릭 전)', `${likePageLikeButtonBefore}`);
+    parameter('마이페이지 > 좋아요 > 좋아요 버튼(클릭 후)', `${likePageLikeButtonAfter}`);
 
     return likePageLikeButtonBefore && !likePageLikeButtonAfter;
   }
@@ -50,8 +50,8 @@ export class GsProductSteps {
     await this.gsProductPage.clickGiftShowMainPhoneNumberButton();
     const empty = await this.gsProductPage.isSenderInputEmpty();
     const verify = await this.gsProductPage.fillAndVerify(name);
-    await parameter('기프티쇼 > 상품 > 선물하기 > 기프티쇼 대표번호로 보내기 > 보내는 사람 input Empty 여부', `${empty}`);
-    await parameter('기프티쇼 > 상품 > 선물하기 > 기프티쇼 대표번호로 보내기 > 보내는 사람 input 정상 입력 여부', `${verify}`);
+    parameter('기프티쇼 > 상품 > 선물하기 > 기프티쇼 대표번호로 보내기 > 보내는 사람 input Empty 여부', `${empty}`);
+    parameter('기프티쇼 > 상품 > 선물하기 > 기프티쇼 대표번호로 보내기 > 보내는 사람 input 정상 입력 여부', `${verify}`);
     return empty && verify;
   }
 
@@ -59,8 +59,8 @@ export class GsProductSteps {
   async gsVerifyMyPhoneNumber(name: string): Promise<boolean> {
     await this.gsProductPage.clickMyPhoneNumberButton();
     const value = await this.gsProductPage.getSenderInputValue();
-    await parameter('기프티쇼 > 상품 > 선물하기 > 내 번호로 보내기 > 보내는 사람 input 값', value);
-    await parameter('비교할 회원명', name);
+    parameter('기프티쇼 > 상품 > 선물하기 > 내 번호로 보내기 > 보내는 사람 input 값', value);
+    parameter('비교할 회원명', name);
     return value.slice(0, 2) === name.slice(0, 2);
   }
 
@@ -70,8 +70,8 @@ export class GsProductSteps {
     await this.gsProductPage.fillRecipientPhoneNumber(phoneNumber);
     await this.gsProductPage.fillRecipientName(name);
     const afterRecipients = await this.gsProductPage.extractTotalRecipients();
-    await parameter('받는 사람 입력 전', `${beforeRecipients}`);
-    await parameter('받는 사람 입력 후', `${afterRecipients}`);
+    parameter('받는 사람 입력 전', `${beforeRecipients}`);
+    parameter('받는 사람 입력 후', `${afterRecipients}`);
     return beforeRecipients < afterRecipients;
   }
 

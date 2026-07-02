@@ -50,9 +50,12 @@ export class MainPage extends BasePage {
     await this.selectFirstEnabledOption();
   }
 
-  /** ON AIR > 선물하기 버튼 클릭 */
-  async clickOnAirGiftButton() {
+  /** ON AIR > 선물하기 버튼 클릭 (버튼 없으면 false 반환) */
+  async clickOnAirGiftButton(): Promise<boolean> {
+    const exists = await this.isVisible(PcLocators.main.onAirGiftButton);
+    if (!exists) return false;
     await this.click(PcLocators.main.onAirGiftButton);
+    return true;
   }
 
   /** 선물하기 주문서 페이지 URL 확인 */

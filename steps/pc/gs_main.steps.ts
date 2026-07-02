@@ -15,7 +15,7 @@ export class GsMainSteps {
     const results = await this.gsMainPage.isAllNavItemsVisible();
   
     for (const { index, isVisible } of results) {
-      await parameter(`nav[${index}]`, isVisible ? 'visible' : 'not visible');
+      parameter(`nav[${index}]`, isVisible ? 'visible' : 'not visible');
     }
 
     return results.every(({ isVisible }) => isVisible);
@@ -34,8 +34,8 @@ export class GsMainSteps {
     await this.gsMainPage.clickFilterSearchButton();
     const afterQuantity = await this.gsMainPage.extractProductQuantity();
 
-    await parameter('필터 적용 전 상품 개수', `${beforeQuantity}`);
-    await parameter('필터 적용 후 상품 개수', `${afterQuantity}`);
+    parameter('필터 적용 전 상품 개수', `${beforeQuantity}`);
+    parameter('필터 적용 후 상품 개수', `${afterQuantity}`);
 
     if (beforeQuantity === false || afterQuantity === false) return false;
 
@@ -49,8 +49,8 @@ export class GsMainSteps {
     const popularWord = await this.gsMainPage.clickPopularWord();
     await this.gsMainPage.clickSearchProduct();
 
-    await parameter('선택한 인기 검색어', popularWord);
-    await parameter('상품 클릭 후 URL', this.gsMainPage.getCurrentURL());
+    parameter('선택한 인기 검색어', popularWord);
+    parameter('상품 클릭 후 URL', this.gsMainPage.getCurrentURL());
 
     return await this.gsMainPage.isProductDetailPage();
   }

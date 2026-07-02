@@ -106,7 +106,7 @@ export class MySteps {
     await this.myPage.clickModifyCustomerInfoTab();
     // 본인인증
     const modal = await this.myPage.isModalVisible();
-    await parameter('본인인증', `${modal}`);
+    parameter('본인인증', `${modal}`);
 
     if (modal) {
       await this.myPage.fillName(name);

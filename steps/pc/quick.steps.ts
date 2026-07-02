@@ -23,7 +23,7 @@ export class QuickSteps {
     const onAirProductName = await this.quickPage.getOnAirProductName();
     const clicked = await this.quickPage.clickOnAirCartButton();
     if (!clicked) {
-      await parameter('독바 > ON AIR > 바로구매 > 장바구니', '장바구니 버튼 없는 케이스');
+      parameter('독바 > ON AIR > 바로구매 > 장바구니', '장바구니 버튼 없는 케이스');
       return true;
     }
 
@@ -31,8 +31,8 @@ export class QuickSteps {
     const cartProductName = await this.quickPage.getCartProductName();
     await this.quickPage.clickCartDeleteButton();
 
-    await parameter('ON AIR 상품명', onAirProductName);
-    await parameter('장바구니 상품명', cartProductName);
+    parameter('ON AIR 상품명', onAirProductName);
+    parameter('장바구니 상품명', cartProductName);
 
     return cartProductName.includes(onAirProductName);
   }

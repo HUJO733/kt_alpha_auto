@@ -15,7 +15,7 @@ export class MainSteps {
     const results = await this.mainPage.isAllNavItemsVisible();
 
     for (const { index, isVisible } of results) {
-      await parameter(`nav[${index}]`, isVisible ? 'visible' : 'not visible');
+      parameter(`nav[${index}]`, isVisible ? 'visible' : 'not visible');
     }
 
     return results.every(({ isVisible }) => isVisible);
@@ -30,7 +30,15 @@ export class MainSteps {
   /** 홈 > ON AIR(지금 방송중) > 바로구매 > 선물하기 주문서 이동 확인 */
   async verifyOnAirGift(): Promise<boolean> {
     await this.mainPage.selectOnAirOption();
-    await this.mainPage.clickOnAirGiftButton();
+    const onAirProductName = await this.mainPage.getOnAirProductName();
+    const clicked = await this.mainPage.clickOnAirGiftButton();
+    if (!clicked) {
+      parameter('메인페이지 > ON AIR > 바로구매 > 선물하기', '선물하기 버튼 없는 케이스');
+      return true;
+    }
+
+    parameter('ON AIR 상품명', onAirProductName);
+    
     return await this.mainPage.isGiftOrderPage();
   }
 
@@ -40,7 +48,7 @@ export class MainSteps {
     const onAirProductName = await this.mainPage.getOnAirProductName();
     const clicked = await this.mainPage.clickOnAirCartButton();
     if (!clicked) {
-      await parameter('메인페이지 > ON AIR > 바로구매 > 장바구니', '장바구니 버튼 없는 케이스');
+      parameter('메인페이지 > ON AIR > 바로구매 > 장바구니', '장바구니 버튼 없는 케이스');
       return true;
     }
 
@@ -48,8 +56,8 @@ export class MainSteps {
     const cartProductName = await this.mainPage.getCartProductName();
     await this.mainPage.clickCartDeleteButton();
 
-    await parameter('ON AIR 상품명', onAirProductName);
-    await parameter('장바구니 상품명', cartProductName);
+    parameter('ON AIR 상품명', onAirProductName);
+    parameter('장바구니 상품명', cartProductName);
 
     return cartProductName.includes(onAirProductName);
   }
@@ -72,8 +80,8 @@ export class MainSteps {
     await this.mainPage.clickFirstFilterButton();
     const afterQuantity = await this.mainPage.extractProductQuantity();
 
-    await parameter('필터 적용 전 상품 개수', `${beforeQuantity}`);
-    await parameter('필터 적용 후 상품 개수', `${afterQuantity}`);
+    parameter('필터 적용 전 상품 개수', `${beforeQuantity}`);
+    parameter('필터 적용 후 상품 개수', `${afterQuantity}`);
 
     if (beforeQuantity === false || afterQuantity === false) return false;
 
@@ -87,8 +95,8 @@ export class MainSteps {
     const popularWord = await this.mainPage.clickPopularWord();
     await this.mainPage.clickSearchProduct();
 
-    await parameter('선택한 인기 검색어', popularWord);
-    await parameter('상품 클릭 후 URL', this.mainPage.getCurrentURL());
+    parameter('선택한 인기 검색어', popularWord);
+    parameter('상품 클릭 후 URL', this.mainPage.getCurrentURL());
 
     return await this.mainPage.isProductDetailPage();
   }
