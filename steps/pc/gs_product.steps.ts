@@ -72,6 +72,7 @@ export class GsProductSteps {
     const afterRecipients = await this.gsProductPage.extractTotalRecipients();
     parameter('받는 사람 입력 전', `${beforeRecipients}`);
     parameter('받는 사람 입력 후', `${afterRecipients}`);
+    if (beforeRecipients === false || afterRecipients === false) return false;
     return beforeRecipients < afterRecipients;
   }
 
